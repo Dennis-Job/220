@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Создать товар — Общий каталог</title>
+
+    <!-- Bootstrap (локально) -->
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" />
+    <!-- Стили проекта -->
+    <link rel="stylesheet" href="../css/styles.css" />
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom sticky-top">
+      <div class="container-fluid">
+        <a class="navbar-brand fw-semibold" href="../index.html">Admin Panel</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNav" aria-controls="topNav" aria-expanded="false" aria-label="Переключить навигацию">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="topNav">
+          <form class="d-flex ms-auto me-3" role="search">
+            <input class="form-control" type="search" placeholder="Быстрый поиск…" aria-label="Поиск" />
+          </form>
+          <div class="dropdown">
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Администратор
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="#">Профиль (прототип)</a></li>
+              <li><a class="dropdown-item" href="#">Настройки (прототип)</a></li>
+              <li><hr class="dropdown-divider" /></li>
+              <li><a class="dropdown-item" href="#">Выход (прототип)</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="admin-layout d-flex flex-column flex-lg-row">
+      <!-- Sidebar navigation -->
+      <aside class="admin-sidebar p-3">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+          <a class="sidebar-brand" href="../index.html">Панель управления</a>
+          <span class="badge text-bg-primary">Prototype</span>
+        </div>
+
+        <div class="sidebar-section-title mb-2">Разделы</div>
+        <div class="accordion" id="sidebarAccordion">
+          <!-- 1) Общий каталог товаров -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingCatalog">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCatalog" aria-expanded="false" aria-controls="collapseCatalog">
+                Общий каталог товаров
+              </button>
+            </h2>
+            <div id="collapseCatalog" class="accordion-collapse collapse" aria-labelledby="headingCatalog" data-bs-parent="#sidebarAccordion">
+              <div class="accordion-body">
+                <nav class="nav flex-column gap-1">
+                  <a class="nav-link" data-nav-link data-collapse-target="#collapseCatalog" href="products-list.html">Товары</a>
+                  <a class="nav-link" data-nav-link data-collapse-target="#collapseCatalog" href="../catalog/categories.html">Категории</a>
+                  <a class="nav-link" data-nav-link data-collapse-target="#collapseCatalog" href="../catalog/attributes.html">Характеристики</a>
+                </nav>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2) Расчётный центр -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingPricing">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePricing" aria-expanded="false" aria-controls="collapsePricing">
+                Расчётный центр
+              </button>
+            </h2>
+            <div id="collapsePricing" class="accordion-collapse collapse" aria-labelledby="headingPricing" data-bs-parent="#sidebarAccordion">
+              <div class="accordion-body">
+                <nav class="nav flex-column gap-1">
+                  <a class="nav-link" data-nav-link data-collapse-target="#collapsePricing" href="../pricing/pricing-dashboard.html">Обзор</a>
+                  <a class="nav-link" data-nav-link data-collapse-target="#collapsePricing" href="../pricing/suppliers-price-lists.html">Прайс-листы поставщиков</a>
+                  <a class="nav-link" data-nav-link data-collapse-target="#collapsePricing" href="../pricing/price-comparison.html">Сравнение и назначение цены</a>
+                </nav>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3) CMS магазинов -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingCms">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCms" aria-expanded="false" aria-controls="collapseCms">
+                CMS магазинов
+              </button>
+            </h2>
+            <div id="collapseCms" class="accordion-collapse collapse" aria-labelledby="headingCms" data-bs-parent="#sidebarAccordion">
+              <div class="accordion-body">
+                <nav class="nav flex-column gap-1">
+                  <a class="nav-link" data-nav-link data-collapse-target="#collapseCms" href="../cms/cms-list.html">Список CMS</a>
+                  <a class="nav-link" data-nav-link data-collapse-target="#collapseCms" href="../cms/cms-store.html">CMS магазина (пример)</a>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr class="border-secondary border-opacity-25 my-3" />
+        <div class="sidebar-section-title mb-2">Быстрые ссылки</div>
+        <nav class="nav flex-column gap-1">
+          <a class="nav-link" data-nav-link href="product-create.html">Добавить товар</a>
+          <a class="nav-link" data-nav-link href="../pricing/price-comparison.html">Назначить лучшую цену</a>
+        </nav>
+      </aside>
+
+      <!-- Main content area -->
+      <main class="admin-content">
+        <!-- Page header -->
+        <div class="content-header">
+          <div class="d-flex align-items-start align-items-md-center justify-content-between flex-column flex-md-row gap-2">
+            <div>
+              <h1 class="h4 mb-1">Создать товар</h1>
+              <div class="text-muted-2">Добавление нового товара в общий каталог.</div>
+            </div>
+            <div class="d-flex gap-2">
+              <a class="btn btn-outline-secondary" href="products-list.html">Назад к списку</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="content-body">
+          <!-- Product form -->
+          <form class="row g-3">
+            <div class="col-12 col-xl-8">
+              <div class="card card-soft">
+                <div class="card-body">
+                  <div class="fw-semibold mb-3">Основные данные</div>
+
+                  <div class="mb-3">
+                    <label class="form-label">Название товара</label>
+                    <input class="form-control" type="text" placeholder="Например: Смартфон Nova X" />
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label">Описание</label>
+                    <textarea class="form-control" rows="5" placeholder="Короткое описание, преимущества, комплектация…"></textarea>
+                  </div>
+
+                  <div class="row g-3">
+                    <div class="col-12 col-md-4">
+                      <label class="form-label">Цена</label>
+                      <div class="input-group">
+                        <input class="form-control" type="number" min="0" step="1" placeholder="0" />
+                        <span class="input-group-text">₽</span>
+                      </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                      <label class="form-label">Категория</label>
+                      <select class="form-select">
+                        <option selected disabled>Выберите категорию</option>
+                        <option>Смартфоны</option>
+                        <option>Ноутбуки</option>
+                        <option>Аксессуары</option>
+                      </select>
+                    </div>
+                    <div class="col-12 col-md-4">
+                      <label class="form-label">Количество</label>
+                      <input class="form-control" type="number" min="0" step="1" placeholder="0" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-xl-4">
+              <div class="card card-soft mb-3">
+                <div class="card-body">
+                  <div class="fw-semibold mb-3">Медиа</div>
+                  <div class="mb-3">
+                    <label class="form-label">Изображение товара</label>
+                    <input class="form-control" type="file" />
+                    <div class="form-text">В прототипе загрузка не выполняется — поле для визуализации.</div>
+                  </div>
+                  <div class="ratio ratio-1x1 bg-light border rounded d-flex align-items-center justify-content-center">
+                    <div class="text-muted small">Предпросмотр изображения</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card card-soft">
+                <div class="card-body">
+                  <div class="fw-semibold mb-3">Публикация</div>
+                  <div class="mb-3">
+                    <label class="form-label">Статус товара</label>
+                    <select class="form-select">
+                      <option selected>Активен</option>
+                      <option>Черновик</option>
+                      <option>Скрыт</option>
+                    </select>
+                  </div>
+
+                  <div class="d-flex gap-2">
+                    <a class="btn btn-primary flex-grow-1" href="products-list.html">Сохранить</a>
+                    <a class="btn btn-outline-secondary flex-grow-1" href="products-list.html">Отмена</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </main>
+    </div>
+
+    <!-- Bootstrap JS (локально) -->
+    <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Скрипты проекта -->
+    <script src="../js/main.js"></script>
+  </body>
+</html>
+

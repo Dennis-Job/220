@@ -1,0 +1,116 @@
+/* Базовая типографика и фон */
+body {
+  background-color: #f6f7fb;
+}
+
+/* Лэйаут админ-панели */
+.admin-layout {
+  min-height: 100vh;
+}
+
+.admin-sidebar {
+  width: 280px;
+  background: #0f172a; /* slate-900 */
+  color: #cbd5e1; /* slate-300 */
+}
+
+.admin-sidebar .sidebar-brand {
+  color: #e2e8f0; /* slate-200 */
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+.admin-sidebar .nav-link {
+  color: #cbd5e1;
+  border-radius: 0.5rem;
+  padding: 0.55rem 0.75rem;
+}
+
+.admin-sidebar .nav-link:hover,
+.admin-sidebar .nav-link:focus {
+  color: #ffffff;
+  background: rgba(148, 163, 184, 0.12);
+}
+
+.admin-sidebar .nav-link.active {
+  color: #ffffff;
+  background: rgba(59, 130, 246, 0.25);
+  border: 1px solid rgba(59, 130, 246, 0.35);
+}
+
+.admin-sidebar .nav-link .bi {
+  opacity: 0.9;
+}
+
+.admin-sidebar .sidebar-section-title {
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(203, 213, 225, 0.8);
+}
+
+.admin-sidebar .accordion-button {
+  background: transparent;
+  color: #e2e8f0;
+  padding: 0.6rem 0.75rem;
+  border-radius: 0.5rem;
+}
+
+.admin-sidebar .accordion-button:not(.collapsed) {
+  background: rgba(148, 163, 184, 0.10);
+  color: #ffffff;
+  box-shadow: none;
+}
+
+.admin-sidebar .accordion-button::after {
+  filter: invert(1);
+  opacity: 0.85;
+}
+
+.admin-sidebar .accordion-item {
+  background: transparent;
+  border: 0;
+}
+
+.admin-sidebar .accordion-body {
+  padding: 0.5rem 0.5rem 0.75rem;
+}
+
+.admin-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.content-header {
+  padding: 1rem 1rem 0;
+}
+
+.content-body {
+  padding: 1rem;
+}
+
+.card-soft {
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 10px 25px rgba(2, 6, 23, 0.05);
+}
+
+/* Таблица */
+.table thead th {
+  font-size: 0.85rem;
+  color: #475569; /* slate-600 */
+  background: #f8fafc; /* slate-50 */
+}
+
+/* Мелкие утилиты */
+.text-muted-2 {
+  color: #64748b !important; /* slate-500 */
+}
+
+/* Адаптивность: на узких экранах сайдбар сверху */
+@media (max-width: 991.98px) {
+  .admin-sidebar {
+    width: 100%;
+  }
+}
+

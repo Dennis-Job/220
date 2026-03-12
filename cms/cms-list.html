@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CMS магазинов — Список</title>
+
+    <!-- Bootstrap (локально) -->
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" />
+    <!-- Стили проекта -->
+    <link rel="stylesheet" href="../css/styles.css" />
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom sticky-top">
+      <div class="container-fluid">
+        <a class="navbar-brand fw-semibold" href="../index.html">Admin Panel</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNav" aria-controls="topNav" aria-expanded="false" aria-label="Переключить навигацию">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="topNav">
+          <form class="d-flex ms-auto me-3" role="search">
+            <input class="form-control" type="search" placeholder="Поиск…" aria-label="Поиск" />
+          </form>
+          <div class="dropdown">
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Администратор
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="#">Профиль (прототип)</a></li>
+              <li><a class="dropdown-item" href="#">Настройки (прототип)</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="admin-layout d-flex flex-column flex-lg-row">
+      <!-- Sidebar navigation -->
+      <aside class="admin-sidebar p-3">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+          <a class="sidebar-brand" href="../index.html">Панель управления</a>
+          <span class="badge text-bg-primary">Prototype</span>
+        </div>
+
+        <div class="sidebar-section-title mb-2">Разделы</div>
+        <div class="accordion" id="sidebarAccordion">
+          <!-- 1) Общий каталог товаров -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingCatalog">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCatalog" aria-expanded="false" aria-controls="collapseCatalog">
+                Общий каталог товаров
+              </button>
+            </h2>
+            <div id="collapseCatalog" class="accordion-collapse collapse" aria-labelledby="headingCatalog" data-bs-parent="#sidebarAccordion">
+              <div class="accordion-body">
+                <nav class="nav flex-column gap-1">
+                  <a class="nav-link" data-nav-link data-collapse-target="#collapseCatalog" href="../products/products-list.html">Товары</a>
+                  <a class="nav-link" data-nav-link data-collapse-target="#collapseCatalog" href="../catalog/categories.html">Категории</a>
+                  <a class="nav-link" data-nav-link data-collapse-target="#collapseCatalog" href="../catalog/attributes.html">Характеристики</a>
+                </nav>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2) Расчётный центр -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingPricing">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePricing" aria-expanded="false" aria-controls="collapsePricing">
+                Расчётный центр
+              </button>
+            </h2>
+            <div id="collapsePricing" class="accordion-collapse collapse" aria-labelledby="headingPricing" data-bs-parent="#sidebarAccordion">
+              <div class="accordion-body">
+                <nav class="nav flex-column gap-1">
+                  <a class="nav-link" data-nav-link data-collapse-target="#collapsePricing" href="../pricing/pricing-dashboard.html">Обзор</a>
+                  <a class="nav-link" data-nav-link data-collapse-target="#collapsePricing" href="../pricing/suppliers-price-lists.html">Прайс-листы поставщиков</a>
+                  <a class="nav-link" data-nav-link data-collapse-target="#collapsePricing" href="../pricing/price-comparison.html">Сравнение и назначение цены</a>
+                </nav>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3) CMS магазинов -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingCms">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCms" aria-expanded="false" aria-controls="collapseCms">
+                CMS магазинов
+              </button>
+            </h2>
+            <div id="collapseCms" class="accordion-collapse collapse" aria-labelledby="headingCms" data-bs-parent="#sidebarAccordion">
+              <div class="accordion-body">
+                <nav class="nav flex-column gap-1">
+                  <a class="nav-link" data-nav-link data-collapse-target="#collapseCms" href="cms-list.html">Список CMS</a>
+                  <a class="nav-link" data-nav-link data-collapse-target="#collapseCms" href="cms-store.html">CMS магазина (пример)</a>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main content area -->
+      <main class="admin-content">
+        <!-- Page header -->
+        <div class="content-header">
+          <div class="d-flex align-items-start align-items-md-center justify-content-between flex-column flex-md-row gap-2">
+            <div>
+              <h1 class="h4 mb-1">CMS магазинов</h1>
+              <div class="text-muted-2">Создание админ-панели под конкретный магазин и управление его каталогом.</div>
+            </div>
+            <div class="d-flex gap-2">
+              <button class="btn btn-primary" type="button" id="createCmsBtn">Создать CMS</button>
+              <a class="btn btn-outline-secondary" href="../index.html">На Dashboard</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="content-body">
+          <!-- Stores grid -->
+          <div class="row g-3" id="cmsStoresContainer"></div>
+
+          <div class="card card-soft mt-3">
+            <div class="card-body">
+              <div class="fw-semibold mb-2">Логика (как это будет работать)</div>
+              <div class="small text-muted-2">
+                Каждая CMS привязана к магазину. Каталог магазина формируется из общего каталога: администратор выбирает, какие товары
+                публиковать на сайте магазина, и может управлять витриной (цены, остатки, статусы — в рамках правил).
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Модалка подтверждения удаления -->
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Подтверждение удаления</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+          </div>
+          <div class="modal-body">
+            Вы уверены, что хотите удалить: <span class="fw-semibold" data-delete-name>элемент</span>?
+            <div class="small text-muted mt-2">Для прототипа используется localStorage (удаление реально в рамках браузера).</div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Отмена</button>
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" data-delete-action>Удалить</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS (локально) -->
+    <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Скрипты проекта -->
+    <script src="../js/main.js"></script>
+  </body>
+</html>
+

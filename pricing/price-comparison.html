@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Сравнение цен — Расчётный центр</title>
+
+    <!-- Bootstrap (локально) -->
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" />
+    <!-- Стили проекта -->
+    <link rel="stylesheet" href="../css/styles.css" />
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom sticky-top">
+      <div class="container-fluid">
+        <a class="navbar-brand fw-semibold" href="../index.html">Admin Panel</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNav" aria-controls="topNav" aria-expanded="false" aria-label="Переключить навигацию">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="topNav">
+          <form class="d-flex ms-auto me-3" role="search">
+            <input class="form-control" type="search" placeholder="Поиск товара…" aria-label="Поиск" />
+          </form>
+          <div class="dropdown">
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Администратор
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="#">Профиль (прототип)</a></li>
+              <li><a class="dropdown-item" href="#">Настройки (прототип)</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="admin-layout d-flex flex-column flex-lg-row">
+      <!-- Sidebar navigation -->
+      <aside class="admin-sidebar p-3">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+          <a class="sidebar-brand" href="../index.html">Панель управления</a>
+          <span class="badge text-bg-primary">Prototype</span>
+        </div>
+
+        <div class="sidebar-section-title mb-2">Разделы</div>
+        <div class="accordion" id="sidebarAccordion">
+          <!-- 1) Общий каталог товаров -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingCatalog">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCatalog" aria-expanded="false" aria-controls="collapseCatalog">
+                Общий каталог товаров
+              </button>
+            </h2>
+            <div id="collapseCatalog" class="accordion-collapse collapse" aria-labelledby="headingCatalog" data-bs-parent="#sidebarAccordion">
+              <div class="accordion-body">
+                <nav class="nav flex-column gap-1">
+                  <a class="nav-link" data-nav-link data-collapse-target="#collapseCatalog" href="../products/products-list.html">Товары</a>
+                  <a class="nav-link" data-nav-link data-collapse-target="#collapseCatalog" href="../catalog/categories.html">Категории</a>
+                  <a class="nav-link" data-nav-link data-collapse-target="#collapseCatalog" href="../catalog/attributes.html">Характеристики</a>
+                </nav>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2) Расчётный центр -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingPricing">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePricing" aria-expanded="false" aria-controls="collapsePricing">
+                Расчётный центр
+              </button>
+            </h2>
+            <div id="collapsePricing" class="accordion-collapse collapse" aria-labelledby="headingPricing" data-bs-parent="#sidebarAccordion">
+              <div class="accordion-body">
+                <nav class="nav flex-column gap-1">
+                  <a class="nav-link" data-nav-link data-collapse-target="#collapsePricing" href="pricing-dashboard.html">Обзор</a>
+                  <a class="nav-link" data-nav-link data-collapse-target="#collapsePricing" href="suppliers-price-lists.html">Прайс-листы поставщиков</a>
+                  <a class="nav-link" data-nav-link data-collapse-target="#collapsePricing" href="price-comparison.html">Сравнение и назначение цены</a>
+                </nav>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3) CMS магазинов -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingCms">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCms" aria-expanded="false" aria-controls="collapseCms">
+                CMS магазинов
+              </button>
+            </h2>
+            <div id="collapseCms" class="accordion-collapse collapse" aria-labelledby="headingCms" data-bs-parent="#sidebarAccordion">
+              <div class="accordion-body">
+                <nav class="nav flex-column gap-1">
+                  <a class="nav-link" data-nav-link data-collapse-target="#collapseCms" href="../cms/cms-list.html">Список CMS</a>
+                  <a class="nav-link" data-nav-link data-collapse-target="#collapseCms" href="../cms/cms-store.html">CMS магазина (пример)</a>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main content area -->
+      <main class="admin-content">
+        <!-- Page header -->
+        <div class="content-header">
+          <div class="d-flex align-items-start align-items-md-center justify-content-between flex-column flex-md-row gap-2">
+            <div>
+              <h1 class="h4 mb-1">Сравнение и назначение цены</h1>
+              <div class="text-muted-2">Сравните цены поставщиков и назначьте лучшую цену товару из общего каталога.</div>
+            </div>
+            <div class="d-flex gap-2">
+              <a class="btn btn-outline-secondary" href="pricing-dashboard.html">Назад</a>
+              <a class="btn btn-primary" href="../products/product-view.html">Открыть товар</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="content-body">
+          <div class="row g-3">
+            <div class="col-12 col-xl-4">
+              <div class="card card-soft">
+                <div class="card-body">
+                  <!-- Select product -->
+                  <div class="fw-semibold mb-3">Выбор товара</div>
+                  <div class="mb-3">
+                    <label class="form-label">Товар из общего каталога</label>
+                    <select class="form-select">
+                      <option selected>Смартфон Nova X (SKU: NOVA-X-128)</option>
+                      <option>Ноутбук Vertex 14 (SKU: VRTX-14-I5)</option>
+                      <option>Кабель USB‑C 1м (SKU: USBC-1M-BLK)</option>
+                    </select>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Текущая цена в каталоге</label>
+                    <div class="input-group">
+                      <input class="form-control" type="text" value="29 990" disabled />
+                      <span class="input-group-text">₽</span>
+                    </div>
+                  </div>
+                  <div class="small text-muted-2">
+                    В реальной версии здесь появится сопоставление по SKU/брендам и контроль конфликтов.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-xl-8">
+              <div class="card card-soft">
+                <div class="card-body">
+                  <!-- Comparison table -->
+                  <div class="d-flex align-items-start justify-content-between flex-column flex-md-row gap-2 mb-3">
+                    <div>
+                      <div class="fw-semibold">Цены поставщиков</div>
+                      <div class="small text-muted-2">Отметьте лучшую цену и примените её к товару.</div>
+                    </div>
+                    <div class="d-flex gap-2">
+                      <button class="btn btn-outline-secondary" type="button">Пересчитать</button>
+                      <button class="btn btn-primary" type="button">Применить выбранную цену</button>
+                    </div>
+                  </div>
+
+                  <div class="table-responsive">
+                    <table class="table align-middle mb-0">
+                      <thead>
+                        <tr>
+                          <th style="width: 60px;"></th>
+                          <th>Поставщик</th>
+                          <th style="width: 180px;">Цена закупки</th>
+                          <th style="width: 200px;">Наличие/срок</th>
+                          <th style="width: 180px;">Источник</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="table-success">
+                          <td>
+                            <input class="form-check-input" type="radio" name="bestPrice" checked />
+                          </td>
+                          <td class="fw-semibold">Поставщик A</td>
+                          <td>24 600 ₽</td>
+                          <td><span class="badge text-bg-success">В наличии</span> · 2 дня</td>
+                          <td class="text-muted-2">prices_A_03-12.xlsx</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <input class="form-check-input" type="radio" name="bestPrice" />
+                          </td>
+                          <td class="fw-semibold">Поставщик B</td>
+                          <td>25 050 ₽</td>
+                          <td><span class="badge text-bg-warning">Ограничено</span> · 5 дней</td>
+                          <td class="text-muted-2">prices_B_03-11.csv</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <input class="form-check-input" type="radio" name="bestPrice" />
+                          </td>
+                          <td class="fw-semibold">Поставщик C</td>
+                          <td>—</td>
+                          <td><span class="badge text-bg-secondary">Нет данных</span></td>
+                          <td class="text-muted-2">prices_C_03-10.xlsx</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <hr />
+                  <div class="row g-3">
+                    <div class="col-12 col-md-6">
+                      <div class="small text-muted-2">Лучшая цена</div>
+                      <div class="h5 mb-0">24 600 ₽</div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <div class="small text-muted-2">Разница с текущей ценой каталога</div>
+                      <div class="h5 mb-0 text-success">-5 390 ₽</div>
+                    </div>
+                  </div>
+                  <div class="small text-muted-2 mt-3">
+                    Позже можно добавить: маржу, курс валют, лог округления, автоматические правила выбора поставщика.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Bootstrap JS (локально) -->
+    <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Скрипты проекта -->
+    <script src="../js/main.js"></script>
+  </body>
+</html>
+
