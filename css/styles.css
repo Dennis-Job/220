@@ -114,3 +114,6 @@ body {
   }
 }
 
+.table>:not(caption)>*>* {
+    padding: .3rem .3rem;
+}

@@ -1,285 +1,825 @@
 <!doctype html>
 <html lang="ru">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Товары — Общий каталог</title>
 
-    <!-- Bootstrap (локально) -->
-    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" />
-    <!-- Стили проекта -->
-    <link rel="stylesheet" href="../css/styles.css" />
-  </head>
-  <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom sticky-top">
-      <div class="container-fluid">
-        <a class="navbar-brand fw-semibold" href="../index.html">Admin Panel</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNav" aria-controls="topNav" aria-expanded="false" aria-label="Переключить навигацию">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="topNav">
-          <form class="d-flex ms-auto me-3" role="search">
-            <input class="form-control" type="search" placeholder="Поиск по товарам…" aria-label="Поиск" />
-          </form>
-          <div class="dropdown">
-            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Администратор
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Товары — Общий каталог</title>
+
+  <!-- Bootstrap (локально) -->
+  <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" />
+  <!-- Стили проекта -->
+  <link rel="stylesheet" href="../css/styles.css" />
+</head>
+
+<body>
+  <div class="admin-layout d-flex flex-column flex-lg-row">
+    <!-- Sidebar navigation -->
+    <aside class="admin-sidebar p-3">
+      <a class="sidebar-brand" href="../index.html">
+        <div class="d-flex align-items-center justify-content-center my-5">
+          <svg xmlns="http://www.w3.org/2000/svg" width="116" height="40" fill="none" viewBox="0 0 68 16">
+            <path fill="#fff" d="M0 1h3.836v4l-1.7 3 1.7 3v4H0zM30.836 3.5h-7.5V1h5.5a2 2 0 0 1 2 2z"></path>
+            <path fill="#fff" d="M30.836 4.5h-2.5V3h2.5zM10.836 1h3l8 14h-3.32z"></path>
+            <path fill="#71A6CD"
+              d="M6.836 1h4l-4 7 4 7h-4l-4-7zM10.836 1.5l3 5.605V15h-3V1.5M20.836 12.71l-3-5.241V1h3v11.71"></path>
+            <path fill="#fff"
+              d="M19.836 13h9v2h-9zM21.336 7h7.5v2.5h-5.5a2 2 0 0 1-2-2zM23.836 1v6h-2.5V3a2 2 0 0 1 2-2z"></path>
+            <path fill="#fff"
+              d="M28.336 7h.5a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-.5zM36.063 6.125V1h.945v6h-.856zm-2.75-1.191v-.082q0-.48.113-.875a2.1 2.1 0 0 1 .328-.684q.215-.29.523-.441.309-.157.696-.157.383 0 .672.149.288.148.492.426.203.272.324.656.12.379.172.844v.261a4.2 4.2 0 0 1-.172.828q-.12.375-.324.649-.204.273-.496.422a1.46 1.46 0 0 1-.676.148q-.383 0-.692-.16a1.5 1.5 0 0 1-.52-.45 2.1 2.1 0 0 1-.327-.679 3 3 0 0 1-.114-.855m.94-.082v.082q0 .288.052.539.054.249.168.441a.86.86 0 0 0 .293.297q.183.105.437.105a.9.9 0 0 0 .527-.14.96.96 0 0 0 .325-.38q.12-.24.164-.538V4.55a1.7 1.7 0 0 0-.098-.43 1.2 1.2 0 0 0-.191-.348.8.8 0 0 0-.301-.234.94.94 0 0 0-.418-.086.83.83 0 0 0-.438.11.9.9 0 0 0-.296.3 1.5 1.5 0 0 0-.168.446q-.055.253-.055.543m4.897-2.079V7h-.945V2.773zm-1.008-1.109q0-.215.14-.355a.54.54 0 0 1 .4-.145q.249 0 .394.145a.48.48 0 0 1 .144.355.47.47 0 0 1-.144.352.54.54 0 0 1-.395.14.55.55 0 0 1-.398-.14.48.48 0 0 1-.14-.352m4.896 1.11h.856v4.109q0 .57-.242.969a1.56 1.56 0 0 1-.676.605q-.434.21-1.004.211a2.36 2.36 0 0 1-1.11-.297 1.4 1.4 0 0 1-.456-.402l.44-.555q.228.27.5.395.275.125.575.125.325 0 .55-.122a.8.8 0 0 0 .356-.347q.125-.23.125-.563V3.73zm-2.87 2.16v-.082q0-.48.116-.875a2.1 2.1 0 0 1 .336-.684q.219-.29.532-.441a1.56 1.56 0 0 1 .707-.157q.41 0 .699.149.293.148.488.426.195.272.305.656.113.379.168.844v.261a4.2 4.2 0 0 1-.172.828q-.121.375-.32.649a1.4 1.4 0 0 1-.493.422q-.288.148-.683.148a1.5 1.5 0 0 1-.7-.16 1.6 1.6 0 0 1-.53-.45 2.1 2.1 0 0 1-.337-.679 3 3 0 0 1-.117-.855m.94-.082v.082q0 .288.055.539.06.249.176.441a.9.9 0 0 0 .305.297q.188.105.441.105a.96.96 0 0 0 .543-.14.9.9 0 0 0 .328-.38q.117-.24.164-.538V4.55a1.7 1.7 0 0 0-.097-.43 1.2 1.2 0 0 0-.192-.348.8.8 0 0 0-.304-.234 1 1 0 0 0-.434-.086.86.86 0 0 0-.441.11.9.9 0 0 0-.309.3 1.5 1.5 0 0 0-.176.446q-.058.253-.058.543m4.92-2.079V7h-.945V2.773zM45.02 1.664q0-.215.14-.355a.54.54 0 0 1 .4-.145q.25 0 .394.145a.48.48 0 0 1 .144.355.47.47 0 0 1-.144.352.54.54 0 0 1-.395.14.55.55 0 0 1-.398-.14.48.48 0 0 1-.14-.352m4.127 1.11v.687h-2.383v-.688zm-1.695-1.036h.941v4.094q0 .195.055.3a.3.3 0 0 0 .16.138.7.7 0 0 0 .238.035 1.5 1.5 0 0 0 .332-.035l.004.718q-.118.036-.273.063a2 2 0 0 1-.352.027q-.324 0-.574-.113a.85.85 0 0 1-.39-.38q-.142-.26-.141-.694zm4.954 4.414V4.137a.9.9 0 0 0-.082-.39.57.57 0 0 0-.25-.255.86.86 0 0 0-.414-.09.9.9 0 0 0-.398.078.64.64 0 0 0-.262.211.5.5 0 0 0-.094.301h-.937q0-.25.12-.484.123-.234.352-.418.231-.184.551-.29a2.3 2.3 0 0 1 .719-.105q.477 0 .844.16.37.16.582.485.215.32.215.805v1.878q0 .29.039.52.043.227.12.394V7h-.964a1.7 1.7 0 0 1-.106-.387 3 3 0 0 1-.035-.46m.137-1.722.008.582h-.676q-.262 0-.46.05a1 1 0 0 0-.333.141.61.61 0 0 0-.266.527q0 .168.078.31a.55.55 0 0 0 .227.214.8.8 0 0 0 .367.078 1.04 1.04 0 0 0 .848-.41.64.64 0 0 0 .133-.332l.304.418a1.4 1.4 0 0 1-.16.344q-.113.184-.297.351a1.48 1.48 0 0 1-1.011.375q-.414 0-.739-.164a1.3 1.3 0 0 1-.507-.45 1.17 1.17 0 0 1-.184-.644q0-.336.125-.593.128-.262.375-.438.25-.176.61-.266a3.3 3.3 0 0 1 .82-.093zM55.493 1v6h-.945V1zM35.856 13.856a.47.47 0 0 0-.07-.254.6.6 0 0 0-.27-.211 2.6 2.6 0 0 0-.578-.172 5 5 0 0 1-.617-.176 2 2 0 0 1-.476-.254.972.972 0 0 1-.418-.82q0-.258.113-.489.114-.23.324-.406t.512-.277q.305-.102.68-.102.53 0 .91.18.382.175.586.48.203.302.203.68h-.941a.6.6 0 0 0-.086-.312.6.6 0 0 0-.25-.239.86.86 0 0 0-.422-.093.9.9 0 0 0-.403.078.55.55 0 0 0-.234.195.5.5 0 0 0-.035.457.45.45 0 0 0 .14.152q.099.067.266.125.172.06.43.114.484.101.832.261.351.157.539.407.187.246.187.625 0 .281-.12.515a1.2 1.2 0 0 1-.344.403q-.228.168-.544.261a2.4 2.4 0 0 1-.703.094q-.574 0-.972-.203a1.55 1.55 0 0 1-.606-.527 1.25 1.25 0 0 1-.203-.672h.91q.015.261.145.418a.8.8 0 0 0 .328.222q.2.067.41.067.254 0 .426-.067a.6.6 0 0 0 .262-.187q.09-.12.09-.274m1.717-.922v-.09q0-.457.133-.848.132-.394.383-.684.253-.293.617-.453.367-.164.828-.164.465 0 .828.164.367.16.621.454.254.288.387.683.133.39.133.848v.09q0 .457-.133.847t-.387.684a1.8 1.8 0 0 1-.617.453q-.363.16-.824.16-.465 0-.832-.16a1.8 1.8 0 0 1-.618-.453 2 2 0 0 1-.386-.684 2.6 2.6 0 0 1-.133-.847m.941-.09v.09q0 .285.059.539.059.253.183.445.126.192.32.3.196.11.466.11a.9.9 0 0 0 .453-.11.9.9 0 0 0 .32-.3q.125-.192.184-.445.062-.255.062-.54v-.09q0-.28-.062-.53a1.4 1.4 0 0 0-.188-.45.9.9 0 0 0-.777-.418.9.9 0 0 0-.461.114.9.9 0 0 0-.317.304q-.124.195-.183.45a2.3 2.3 0 0 0-.059.53M43.448 9v6h-.945V9zm3.725 5.004v-3.23h.945V15h-.89zm.133-.879.316-.008q0 .426-.094.785a1.8 1.8 0 0 1-.289.621q-.195.263-.5.41a1.7 1.7 0 0 1-.73.145q-.309 0-.567-.09a1.2 1.2 0 0 1-.445-.277 1.3 1.3 0 0 1-.285-.488q-.102-.3-.102-.72v-2.73h.942v2.739q0 .23.054.386a.66.66 0 0 0 .149.247.5.5 0 0 0 .218.132q.126.04.266.04.403 0 .633-.157a.86.86 0 0 0 .332-.43q.102-.27.102-.605m3.864-2.352v.688h-2.383v-.688zm-1.695-1.035h.941v4.094q0 .195.055.3.06.103.16.138a.7.7 0 0 0 .239.035 1.5 1.5 0 0 0 .332-.035l.004.718q-.118.036-.274.063a2 2 0 0 1-.352.027q-.324 0-.574-.113a.85.85 0 0 1-.39-.38q-.141-.26-.141-.694zm3.58 1.035V15h-.946v-4.227zm-1.008-1.109q0-.215.14-.355a.54.54 0 0 1 .399-.145q.25 0 .395.145a.48.48 0 0 1 .144.355.47.47 0 0 1-.145.352.54.54 0 0 1-.394.14.55.55 0 0 1-.398-.14.48.48 0 0 1-.141-.352m2.01 3.27v-.09q0-.457.132-.848.133-.394.383-.684.255-.293.617-.453.367-.164.828-.164.465 0 .828.164.367.16.621.454.255.288.387.683.133.39.133.848v.09q0 .457-.133.847-.132.39-.387.684-.254.29-.617.453-.363.16-.824.16-.465 0-.832-.16a1.8 1.8 0 0 1-.617-.453 2 2 0 0 1-.387-.684 2.6 2.6 0 0 1-.133-.847m.94-.09v.09q0 .285.06.539.058.253.183.445t.32.3q.195.11.465.11a.9.9 0 0 0 .453-.11.9.9 0 0 0 .32-.3q.126-.192.184-.445.063-.255.063-.54v-.09q0-.28-.063-.53a1.4 1.4 0 0 0-.187-.45.9.9 0 0 0-.778-.418.9.9 0 0 0-.46.114.9.9 0 0 0-.317.304q-.126.195-.184.45a2.3 2.3 0 0 0-.058.53m4.862-1.168V15h-.942v-4.227h.887zm-.168 1.054-.305-.003q.003-.45.125-.825.125-.374.344-.644.222-.27.53-.414.31-.15.688-.149.306 0 .551.086.25.082.426.27.18.187.273.488.094.297.094.73V15h-.945v-2.734q0-.305-.09-.48a.5.5 0 0 0-.254-.255.95.95 0 0 0-.41-.078.91.91 0 0 0-.758.379 1.3 1.3 0 0 0-.2.406 1.7 1.7 0 0 0-.07.492m6.208 1.125a.47.47 0 0 0-.07-.253.6.6 0 0 0-.27-.211 2.6 2.6 0 0 0-.578-.172 5 5 0 0 1-.617-.176 2 2 0 0 1-.477-.254.974.974 0 0 1-.418-.82q0-.258.114-.489.112-.23.324-.406.21-.176.512-.277a2.1 2.1 0 0 1 .68-.102q.53 0 .91.18.383.175.585.48.204.302.204.68h-.942a.6.6 0 0 0-.086-.312.6.6 0 0 0-.25-.239.86.86 0 0 0-.422-.093.9.9 0 0 0-.402.078.55.55 0 0 0-.234.195.5.5 0 0 0-.035.457.45.45 0 0 0 .14.152q.098.067.266.125.171.06.43.114.484.101.831.261.353.157.54.407.187.246.187.625 0 .281-.121.515a1.2 1.2 0 0 1-.344.403 1.7 1.7 0 0 1-.543.261 2.4 2.4 0 0 1-.703.094q-.574 0-.972-.203a1.55 1.55 0 0 1-.606-.527 1.25 1.25 0 0 1-.203-.672h.91q.016.261.145.418a.8.8 0 0 0 .328.222q.199.067.41.067.254 0 .426-.067a.6.6 0 0 0 .261-.187q.09-.12.09-.274">
+            </path>
+          </svg>
+        </div>
+      </a>
+
+      <nav class="nav flex-column gap-1">
+        <a class="nav-link" data-nav-link href="../index.html">Панель управления</a>
+      </nav>
+
+      <div class="accordion" id="sidebarAccordion">
+        <!-- 1) Общий каталог товаров -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingCatalog">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseCatalog" aria-expanded="false" aria-controls="collapseCatalog">
+              Общий каталог товаров
             </button>
-            <ul class="dropdown-menu dropdown-menu-end">
-              <li><a class="dropdown-item" href="#">Профиль (прототип)</a></li>
-              <li><a class="dropdown-item" href="#">Настройки (прототип)</a></li>
-              <li><hr class="dropdown-divider" /></li>
-              <li><a class="dropdown-item" href="#">Выход (прототип)</a></li>
-            </ul>
+          </h2>
+          <div id="collapseCatalog" class="accordion-collapse collapse" aria-labelledby="headingCatalog"
+            data-bs-parent="#sidebarAccordion">
+            <div class="accordion-body">
+              <nav class="nav flex-column gap-1">
+                <a class="nav-link" data-nav-link data-collapse-target="#collapseCatalog"
+                  href="../products/products-list.html">Товары</a>
+                <a class="nav-link" data-nav-link data-collapse-target="#collapseCatalog"
+                  href="../catalog/categories.html">Категории</a>
+                <a class="nav-link" data-nav-link data-collapse-target="#collapseCatalog"
+                  href="../catalog/attributes.html">Характеристики</a>
+              </nav>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2) Расчётный центр -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingPricing">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapsePricing" aria-expanded="false" aria-controls="collapsePricing">
+              Расчётный центр
+            </button>
+          </h2>
+          <div id="collapsePricing" class="accordion-collapse collapse" aria-labelledby="headingPricing"
+            data-bs-parent="#sidebarAccordion">
+            <div class="accordion-body">
+              <nav class="nav flex-column gap-1">
+                <a class="nav-link" data-nav-link data-collapse-target="#collapsePricing"
+                  href="../pricing/pricing-dashboard.html">Обзор</a>
+                <a class="nav-link" data-nav-link data-collapse-target="#collapsePricing"
+                  href="../pricing/suppliers-price-lists.html">Прайс-листы поставщиков</a>
+                <a class="nav-link" data-nav-link data-collapse-target="#collapsePricing"
+                  href="../pricing/price-comparison.html">Сравнение и назначение цены</a>
+              </nav>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3) CMS магазинов -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingCms">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseCms" aria-expanded="false" aria-controls="collapseCms">
+              CMS магазинов
+            </button>
+          </h2>
+          <div id="collapseCms" class="accordion-collapse collapse" aria-labelledby="headingCms"
+            data-bs-parent="#sidebarAccordion">
+            <div class="accordion-body">
+              <nav class="nav flex-column gap-1">
+                <a class="nav-link" data-nav-link data-collapse-target="#collapseCms" href="../cms/cms-list.html">Список
+                  CMS</a>
+                <a class="nav-link" data-nav-link data-collapse-target="#collapseCms" href="../cms/cms-store.html">CMS
+                  магазина (пример)</a>
+              </nav>
+            </div>
           </div>
         </div>
       </div>
-    </nav>
 
-    <div class="admin-layout d-flex flex-column flex-lg-row">
-      <!-- Sidebar navigation -->
-      <aside class="admin-sidebar p-3">
-        <div class="d-flex align-items-center justify-content-between mb-3">
-          <a class="sidebar-brand" href="../index.html">Панель управления</a>
-          <span class="badge text-bg-primary">Prototype</span>
-        </div>
+      <hr class="border-outline-secondary border-opacity-25 my-3" />
 
-        <div class="accordion" id="sidebarAccordion">
-          <!-- 1) Общий каталог товаров -->
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="headingCatalog">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCatalog" aria-expanded="false" aria-controls="collapseCatalog">
-                Общий каталог товаров
-              </button>
-            </h2>
-            <div id="collapseCatalog" class="accordion-collapse collapse" aria-labelledby="headingCatalog" data-bs-parent="#sidebarAccordion">
-              <div class="accordion-body">
-                <nav class="nav flex-column gap-1">
-                  <a class="nav-link" data-nav-link data-collapse-target="#collapseCatalog" href="products-list.html">Товары</a>
-                  <a class="nav-link" data-nav-link data-collapse-target="#collapseCatalog" href="../catalog/categories.html">Категории</a>
-                  <a class="nav-link" data-nav-link data-collapse-target="#collapseCatalog" href="../catalog/attributes.html">Характеристики</a>
-                </nav>
-              </div>
-            </div>
-          </div>
+      <!-- Блок управления пользователем (перенесён из верхнего меню) -->
+      <div class="dropdown mt-3">
+        <button class="btn btn-outline-secondary dropdown-toggle w-100" type="button" data-bs-toggle="dropdown"
+          aria-expanded="false">
+          Администратор
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end w-100">
+          <li><a class="dropdown-item" href="#">Профиль</a></li>
+          <li><a class="dropdown-item" href="#">Настройки</a></li>
+          <li>
+            <hr class="dropdown-divider" />
+          </li>
+          <li><a class="dropdown-item" href="#">Выход</a></li>
+        </ul>
+      </div>
+    </aside>
 
-          <!-- 2) Расчётный центр -->
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="headingPricing">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePricing" aria-expanded="false" aria-controls="collapsePricing">
-                Расчётный центр
-              </button>
-            </h2>
-            <div id="collapsePricing" class="accordion-collapse collapse" aria-labelledby="headingPricing" data-bs-parent="#sidebarAccordion">
-              <div class="accordion-body">
-                <nav class="nav flex-column gap-1">
-                  <a class="nav-link" data-nav-link data-collapse-target="#collapsePricing" href="../pricing/pricing-dashboard.html">Обзор</a>
-                  <a class="nav-link" data-nav-link data-collapse-target="#collapsePricing" href="../pricing/suppliers-price-lists.html">Прайс-листы поставщиков</a>
-                  <a class="nav-link" data-nav-link data-collapse-target="#collapsePricing" href="../pricing/price-comparison.html">Сравнение и назначение цены</a>
-                </nav>
-              </div>
-            </div>
-          </div>
-
-          <!-- 3) CMS магазинов -->
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="headingCms">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCms" aria-expanded="false" aria-controls="collapseCms">
-                CMS магазинов
-              </button>
-            </h2>
-            <div id="collapseCms" class="accordion-collapse collapse" aria-labelledby="headingCms" data-bs-parent="#sidebarAccordion">
-              <div class="accordion-body">
-                <nav class="nav flex-column gap-1">
-                  <a class="nav-link" data-nav-link data-collapse-target="#collapseCms" href="../cms/cms-list.html">Список CMS</a>
-                  <a class="nav-link" data-nav-link data-collapse-target="#collapseCms" href="../cms/cms-store.html">CMS магазина (пример)</a>
-                </nav>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <hr class="border-secondary border-opacity-25 my-3" />
-        <div class="sidebar-section-title mb-2">Быстрые ссылки</div>
-        <nav class="nav flex-column gap-1">
-          <a class="nav-link" data-nav-link href="product-create.html">Добавить товар</a>
-          <a class="nav-link" data-nav-link href="../pricing/price-comparison.html">Назначить лучшую цену</a>
-        </nav>
-      </aside>
-
-      <!-- Main content area -->
-      <main class="admin-content">
-        <!-- Page header -->
-        <div class="content-header">
-          <div class="d-flex align-items-start align-items-md-center justify-content-between flex-column flex-md-row gap-2">
-            <div>
-              <h1 class="h4 mb-1">Товары</h1>
-              <div class="text-muted-2">Общий каталог товаров — управление ассортиментом.</div>
-            </div>
-            <div class="d-flex gap-2">
-              <a class="btn btn-primary" href="product-create.html">Добавить товар</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="content-body">
-          <div class="card card-soft">
-            <div class="card-body">
-              <!-- Search and filters -->
-              <div class="row g-2 align-items-end mb-3">
-                <div class="col-12 col-lg-5">
-                  <label class="form-label small text-muted-2">Поиск</label>
-                  <input class="form-control" type="text" placeholder="Название, SKU, категория…" />
-                </div>
-                <div class="col-12 col-lg-3">
-                  <label class="form-label small text-muted-2">Категория</label>
-                  <select class="form-select">
-                    <option selected>Все категории</option>
-                    <option>Смартфоны</option>
-                    <option>Ноутбуки</option>
-                    <option>Аксессуары</option>
-                  </select>
-                </div>
-                <div class="col-12 col-lg-2">
-                  <label class="form-label small text-muted-2">Статус</label>
-                  <select class="form-select">
-                    <option selected>Любой</option>
-                    <option>Активен</option>
-                    <option>Черновик</option>
-                    <option>Скрыт</option>
-                  </select>
-                </div>
-                <div class="col-12 col-lg-2 d-flex gap-2">
-                  <button class="btn btn-outline-secondary w-100" type="button">Фильтр</button>
-                  <button class="btn btn-outline-light w-100 border" type="button">Сброс</button>
-                </div>
-              </div>
-
-              <!-- Product table -->
-              <div class="table-responsive">
-                <table class="table align-middle mb-0">
-                  <thead>
-                    <tr>
-                      <th style="width: 70px;">ID</th>
-                      <th>Товар</th>
-                      <th style="width: 160px;">Категория</th>
-                      <th style="width: 140px;">Цена</th>
-                      <th style="width: 120px;">Остаток</th>
-                      <th style="width: 120px;">Статус</th>
-                      <th class="text-end" style="width: 220px;">Действия</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td class="text-muted-2">#1024</td>
-                      <td>
-                        <div class="fw-semibold">Смартфон Nova X</div>
-                        <div class="small text-muted-2">SKU: NOVA-X-128</div>
-                      </td>
-                      <td>Смартфоны</td>
-                      <td>29 990 ₽</td>
-                      <td>43</td>
-                      <td><span class="badge text-bg-success">Активен</span></td>
-                      <td class="text-end">
-                        <div class="btn-group" role="group" aria-label="Действия">
-                          <a class="btn btn-sm btn-outline-secondary" href="product-view.html">Просмотр</a>
-                          <a class="btn btn-sm btn-outline-primary" href="product-edit.html">Редакт.</a>
-                          <button class="btn btn-sm btn-outline-danger" type="button" data-action="delete" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-item-name="Смартфон Nova X">
-                            Удалить
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td class="text-muted-2">#1031</td>
-                      <td>
-                        <div class="fw-semibold">Ноутбук Vertex 14</div>
-                        <div class="small text-muted-2">SKU: VRTX-14-I5</div>
-                      </td>
-                      <td>Ноутбуки</td>
-                      <td>74 500 ₽</td>
-                      <td>12</td>
-                      <td><span class="badge text-bg-warning">Черновик</span></td>
-                      <td class="text-end">
-                        <div class="btn-group" role="group" aria-label="Действия">
-                          <a class="btn btn-sm btn-outline-secondary" href="product-view.html">Просмотр</a>
-                          <a class="btn btn-sm btn-outline-primary" href="product-edit.html">Редакт.</a>
-                          <button class="btn btn-sm btn-outline-danger" type="button" data-action="delete" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-item-name="Ноутбук Vertex 14">
-                            Удалить
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td class="text-muted-2">#1042</td>
-                      <td>
-                        <div class="fw-semibold">Кабель USB‑C 1м</div>
-                        <div class="small text-muted-2">SKU: USBC-1M-BLK</div>
-                      </td>
-                      <td>Аксессуары</td>
-                      <td>390 ₽</td>
-                      <td>215</td>
-                      <td><span class="badge text-bg-secondary">Скрыт</span></td>
-                      <td class="text-end">
-                        <div class="btn-group" role="group" aria-label="Действия">
-                          <a class="btn btn-sm btn-outline-secondary" href="product-view.html">Просмотр</a>
-                          <a class="btn btn-sm btn-outline-primary" href="product-edit.html">Редакт.</a>
-                          <button class="btn btn-sm btn-outline-danger" type="button" data-action="delete" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-item-name="Кабель USB‑C 1м">
-                            Удалить
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-
-              <!-- Pagination -->
-              <div class="d-flex align-items-center justify-content-between mt-3">
-                <div class="small text-muted-2">Показано 1–3 из 120</div>
-                <nav aria-label="Пагинация">
-                  <ul class="pagination pagination-sm mb-0">
-                    <li class="page-item disabled"><a class="page-link" href="#">Назад</a></li>
-                    <li class="page-item active" aria-current="page"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">Далее</a></li>
-                  </ul>
-                </nav>
-              </div>
-            </div>
-          </div>
-        </div>
-      </main>
-    </div>
-
-    <!-- Модалка подтверждения удаления -->
-    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Подтверждение удаления</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
-          </div>
-          <div class="modal-body">
-            Вы уверены, что хотите удалить: <span class="fw-semibold" data-delete-name>элемент</span>?
-            <div class="small text-muted mt-2">Это прототип — удаление только визуальное.</div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Отмена</button>
-            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" data-delete-action>Удалить</button>
+    <!-- Main content area -->
+    <main class="admin-content">
+      <!-- Page header -->
+      <div class="content-header">
+        <div
+          class="d-flex align-items-start align-items-md-center justify-content-between flex-column flex-md-row gap-2">
+          <div>
+            <h1 class="h4 mb-1">Товары</h1>
+            <div class="text-muted-2">Общий каталог товаров — управление ассортиментом.</div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Bootstrap JS (локально) -->
-    <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- Скрипты проекта -->
-    <script src="../js/main.js"></script>
-  </body>
+      <div class="content-body">
+        <div class="card card-soft">
+          <div class="card-body">
+            <!-- Search and filters -->
+            <div class="row g-2 align-items-end mb-3">
+              <div class="col-12 col-lg-11">
+                <label class="form-label small text-muted-2">Поиск</label>
+                <input class="form-control" type="text" placeholder="Название, SKU, категория…" />
+              </div>
+              <div class="col-12 col-lg-1">
+                <a class="btn btn-primary w-100" href="product-create.html">Добавить товар</a>
+              </div>
+            </div>
+            <div class="row g-2 align-items-end mb-3">
+              <div class="col-12 col-lg-2">
+                <label class="form-label small text-muted-2">Категория</label>
+                <select class="form-select">
+                  <option selected></option>
+                  <option>Смартфоны</option>
+                  <option>Ноутбуки</option>
+                  <option>Кабели, шлейфы, переходники</option>
+                </select>
+              </div>
+              <div class="col-12 col-lg-2">
+                <label class="form-label small text-muted-2">Бренд</label>
+                <select class="form-select">
+                  <option selected></option>
+                  <option>Acer</option>
+                  <option>Apple</option>
+                  <option>Huawei</option>
+                  <option>Lenovo</option>
+                  <option>Xiaomi</option>
+                </select>
+              </div>
+              <div class="col-12 col-lg-2">
+                <label class="form-label small text-muted-2">Серия</label>
+                <select class="form-select">
+                  <option selected></option>
+                  <option>Acer</option>
+                  <option>Apple</option>
+                  <option>Huawei</option>
+                  <option>Lenovo</option>
+                  <option>Xiaomi</option>
+                </select>
+              </div>
+              <div class="col-12 col-lg-2">
+                <label class="form-label small text-muted-2">Модель</label>
+                <select class="form-select">
+                  <option selected></option>
+                  <option>Acer</option>
+                  <option>Apple</option>
+                  <option>Huawei</option>
+                  <option>Lenovo</option>
+                  <option>Xiaomi</option>
+                </select>
+              </div>
+              <div class="col-12 col-lg-2">
+                <label class="form-label small text-muted-2">Статус</label>
+                <select class="form-select">
+                  <option selected></option>
+                  <option>Активен</option>
+                  <option>Удалён</option>
+                  <option>Новинка</option>
+                </select>
+              </div>
+              <div class="col-12 col-lg-2 d-flex gap-2">
+                <button class="btn btn-outline-secondary w-100" type="button">Фильтр</button>
+                <button class="btn btn-outline-secondary w-100" type="button">Сброс</button>
+              </div>
+            </div>
+
+            <!-- Product table -->
+            <div class="table-responsive">
+              <table class="table align-middle mb-0">
+                <thead>
+                  <tr>
+                    <th style="width: 70px;">Артикул</th>
+                    <th>Наименование</th>
+                    <th style="width: 250px;">Категория</th>
+                    <th style="width: 140px;">Бренд</th>
+                    <th style="width: 140px;">Серия</th>
+                    <th style="width: 140px;">Модель</th>
+                    <th class="text-center" style="width: 100px;">Расчётная цена</th>
+                    <th class="text-center" style="width: 120px;">Статус</th>
+                    <th class="text-center" style="width: 70px;">Действия</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="text-muted-2">772676</td>
+                    <td>
+                      <div class="fw-semibold"><a href="../products/product-edit.html"
+                          class="text-decoration-none">Ноутбук Acer Aspire Lite AL16-54P-59ZA</a></div>
+                    </td>
+                    <td>Ноутбуки</td>
+                    <td>Acer</td>
+                    <td>Aspire</td>
+                    <td>Lite</td>
+                    <td class="text-end">65 500 ₽</td>
+                    <td class="text-center"><span class="badge text-bg-success">Активен</span></td>
+                    <td class="text-center">
+                      <div class="btn-group" role="group" aria-label="Действия">
+                        <button class="btn btn-sm btn-outline-danger" type="button" data-action="delete"
+                          data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
+                          data-item-name="Ноутбук Acer Aspire Lite AL16-54P-59ZA">
+                          Удалить
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr class="table-danger">
+                    <td class="text-muted-2">770544</td>
+                    <td>
+                      <div class="fw-semibold"><a href="../products/product-edit.html"
+                          class="text-danger text-decoration-none">Смартфон Apple iPhone 17 Pro 256GB Orange
+                          MG8H4KH/A</a></div>
+                    </td>
+                    <td>Смартфоны</td>
+                    <td>Apple</td>
+                    <td>Pro</td>
+                    <td>17</td>
+                    <td class="text-end">110 990 ₽</td>
+                    <td class="text-center"><span class="badge text-bg-danger">Удалён</span></td>
+                    <td class="text-center">
+                      <div class="btn-group" role="group" aria-label="Действия">
+                        <button class="btn btn-sm btn-outline-primary" type="button" data-action="restore"
+                          data-bs-toggle="modal" data-bs-target="#confirmRestoreModal"
+                          data-item-name="Смартфон Apple iPhone 17 Pro 256Gb">
+                          Вернуть
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr class="table-danger">
+                    <td class="text-muted-2">772676</td>
+                    <td>
+                      <div class="fw-semibold text-danger"><a href="../products/product-edit.html"
+                          class="text-danger text-decoration-none">Ноутбук Huawei MateBook 14 FLMH-X FlemingH-W7211T
+                          53014MTW</a></div>
+                    </td>
+                    <td>Ноутбуки</td>
+                    <td>Huawei</td>
+                    <td>MateBook 14</td>
+                    <td></td>
+                    <td class="text-end">106 120 ₽</td>
+                    <td class="text-center"><span class="badge text-bg-danger">Удалён</span></td>
+                    <td class="text-center">
+                      <div class="btn-group" role="group" aria-label="Действия">
+                        <button class="btn btn-sm btn-outline-primary" type="button" data-action="restore"
+                          data-bs-toggle="modal" data-bs-target="#confirmRestoreModal"
+                          data-item-name="Ноутбук Huawei MateBook 14 FLMH-X FlemingH-W7211T 53014MTW">
+                          Вернуть
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td class="text-muted-2">778625</td>
+                    <td>
+                      <div class="fw-semibold"><a href="../products/product-edit.html"
+                          class="text-decoration-none">Ноутбук Lenovo Legion Pro 5 16IAX10 83F3000PUS</a></div>
+                    </td>
+                    <td>Ноутбуки</td>
+                    <td>Lenovo</td>
+                    <td>Legion</td>
+                    <td>Pro 5</td>
+                    <td class="text-end">176 000 ₽</td>
+                    <td class="text-center"><span class="badge text-bg-success">Активен</span></td>
+                    <td class="text-center">
+                      <div class="btn-group" role="group" aria-label="Действия">
+                        <button class="btn btn-sm btn-outline-danger" type="button" data-action="delete"
+                          data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
+                          data-item-name="Ноутбук Lenovo Legion Pro 5 16IAX10 83F3000PUS">
+                          Удалить
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td class="text-muted-2">719830</td>
+                    <td>
+                      <div class="fw-semibold"><a href="../products/product-edit.html"
+                          class="text-decoration-none">Кабель Xiaomi SJV4109GL</a></div>
+                    </td>
+                    <td>Кабели, шлейфы, переходники</td>
+                    <td>Xiaomi</td>
+                    <td></td>
+                    <td></td>
+                    <td class="text-end">469 ₽</td>
+                    <td class="text-center"><span class="badge text-bg-warning">Новинка</span></td>
+                    <td class="text-center">
+                      <div class="btn-group" role="group" aria-label="Действия">
+                        <button class="btn btn-sm btn-outline-danger" type="button" data-action="delete"
+                          data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
+                          data-item-name="Кабель Xiaomi SJV4109GL">
+                          Удалить
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td class="text-muted-2">778625</td>
+                    <td>
+                      <div class="fw-semibold"><a href="../products/product-edit.html"
+                          class="text-decoration-none">Ноутбук Lenovo Legion Pro 5 16IAX10 83F3000PUS</a></div>
+                    </td>
+                    <td>Ноутбуки</td>
+                    <td>Lenovo</td>
+                    <td>Legion</td>
+                    <td>Pro 5</td>
+                    <td class="text-end">176 000 ₽</td>
+                    <td class="text-center"><span class="badge text-bg-success">Активен</span></td>
+                    <td class="text-center">
+                      <div class="btn-group" role="group" aria-label="Действия">
+                        <button class="btn btn-sm btn-outline-danger" type="button" data-action="delete"
+                          data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
+                          data-item-name="Ноутбук Lenovo Legion Pro 5 16IAX10 83F3000PUS">
+                          Удалить
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td class="text-muted-2">778625</td>
+                    <td>
+                      <div class="fw-semibold"><a href="../products/product-edit.html"
+                          class="text-decoration-none">Ноутбук Lenovo Legion Pro 5 16IAX10 83F3000PUS</a></div>
+                    </td>
+                    <td>Ноутбуки</td>
+                    <td>Lenovo</td>
+                    <td>Legion</td>
+                    <td>Pro 5</td>
+                    <td class="text-end">176 000 ₽</td>
+                    <td class="text-center"><span class="badge text-bg-success">Активен</span></td>
+                    <td class="text-center">
+                      <div class="btn-group" role="group" aria-label="Действия">
+                        <button class="btn btn-sm btn-outline-danger" type="button" data-action="delete"
+                          data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
+                          data-item-name="Ноутбук Lenovo Legion Pro 5 16IAX10 83F3000PUS">
+                          Удалить
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td class="text-muted-2">778625</td>
+                    <td>
+                      <div class="fw-semibold"><a href="../products/product-edit.html"
+                          class="text-decoration-none">Ноутбук Lenovo Legion Pro 5 16IAX10 83F3000PUS</a></div>
+                    </td>
+                    <td>Ноутбуки</td>
+                    <td>Lenovo</td>
+                    <td>Legion</td>
+                    <td>Pro 5</td>
+                    <td class="text-end">176 000 ₽</td>
+                    <td class="text-center"><span class="badge text-bg-success">Активен</span></td>
+                    <td class="text-center">
+                      <div class="btn-group" role="group" aria-label="Действия">
+                        <button class="btn btn-sm btn-outline-danger" type="button" data-action="delete"
+                          data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
+                          data-item-name="Ноутбук Lenovo Legion Pro 5 16IAX10 83F3000PUS">
+                          Удалить
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td class="text-muted-2">778625</td>
+                    <td>
+                      <div class="fw-semibold"><a href="../products/product-edit.html"
+                          class="text-decoration-none">Ноутбук Lenovo Legion Pro 5 16IAX10 83F3000PUS</a></div>
+                    </td>
+                    <td>Ноутбуки</td>
+                    <td>Lenovo</td>
+                    <td>Legion</td>
+                    <td>Pro 5</td>
+                    <td class="text-end">176 000 ₽</td>
+                    <td class="text-center"><span class="badge text-bg-success">Активен</span></td>
+                    <td class="text-center">
+                      <div class="btn-group" role="group" aria-label="Действия">
+                        <button class="btn btn-sm btn-outline-danger" type="button" data-action="delete"
+                          data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
+                          data-item-name="Ноутбук Lenovo Legion Pro 5 16IAX10 83F3000PUS">
+                          Удалить
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td class="text-muted-2">778625</td>
+                    <td>
+                      <div class="fw-semibold"><a href="../products/product-edit.html"
+                          class="text-decoration-none">Ноутбук Lenovo Legion Pro 5 16IAX10 83F3000PUS</a></div>
+                    </td>
+                    <td>Ноутбуки</td>
+                    <td>Lenovo</td>
+                    <td>Legion</td>
+                    <td>Pro 5</td>
+                    <td class="text-end">176 000 ₽</td>
+                    <td class="text-center"><span class="badge text-bg-success">Активен</span></td>
+                    <td class="text-center">
+                      <div class="btn-group" role="group" aria-label="Действия">
+                        <button class="btn btn-sm btn-outline-danger" type="button" data-action="delete"
+                          data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
+                          data-item-name="Ноутбук Lenovo Legion Pro 5 16IAX10 83F3000PUS">
+                          Удалить
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td class="text-muted-2">778625</td>
+                    <td>
+                      <div class="fw-semibold"><a href="../products/product-edit.html"
+                          class="text-decoration-none">Ноутбук Lenovo Legion Pro 5 16IAX10 83F3000PUS</a></div>
+                    </td>
+                    <td>Ноутбуки</td>
+                    <td>Lenovo</td>
+                    <td>Legion</td>
+                    <td>Pro 5</td>
+                    <td class="text-end">176 000 ₽</td>
+                    <td class="text-center"><span class="badge text-bg-success">Активен</span></td>
+                    <td class="text-center">
+                      <div class="btn-group" role="group" aria-label="Действия">
+                        <button class="btn btn-sm btn-outline-danger" type="button" data-action="delete"
+                          data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
+                          data-item-name="Ноутбук Lenovo Legion Pro 5 16IAX10 83F3000PUS">
+                          Удалить
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td class="text-muted-2">778625</td>
+                    <td>
+                      <div class="fw-semibold"><a href="../products/product-edit.html"
+                          class="text-decoration-none">Ноутбук Lenovo Legion Pro 5 16IAX10 83F3000PUS</a></div>
+                    </td>
+                    <td>Ноутбуки</td>
+                    <td>Lenovo</td>
+                    <td>Legion</td>
+                    <td>Pro 5</td>
+                    <td class="text-end">176 000 ₽</td>
+                    <td class="text-center"><span class="badge text-bg-success">Активен</span></td>
+                    <td class="text-center">
+                      <div class="btn-group" role="group" aria-label="Действия">
+                        <button class="btn btn-sm btn-outline-danger" type="button" data-action="delete"
+                          data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
+                          data-item-name="Ноутбук Lenovo Legion Pro 5 16IAX10 83F3000PUS">
+                          Удалить
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td class="text-muted-2">778625</td>
+                    <td>
+                      <div class="fw-semibold"><a href="../products/product-edit.html"
+                          class="text-decoration-none">Ноутбук Lenovo Legion Pro 5 16IAX10 83F3000PUS</a></div>
+                    </td>
+                    <td>Ноутбуки</td>
+                    <td>Lenovo</td>
+                    <td>Legion</td>
+                    <td>Pro 5</td>
+                    <td class="text-end">176 000 ₽</td>
+                    <td class="text-center"><span class="badge text-bg-success">Активен</span></td>
+                    <td class="text-center">
+                      <div class="btn-group" role="group" aria-label="Действия">
+                        <button class="btn btn-sm btn-outline-danger" type="button" data-action="delete"
+                          data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
+                          data-item-name="Ноутбук Lenovo Legion Pro 5 16IAX10 83F3000PUS">
+                          Удалить
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td class="text-muted-2">778625</td>
+                    <td>
+                      <div class="fw-semibold"><a href="../products/product-edit.html"
+                          class="text-decoration-none">Ноутбук Lenovo Legion Pro 5 16IAX10 83F3000PUS</a></div>
+                    </td>
+                    <td>Ноутбуки</td>
+                    <td>Lenovo</td>
+                    <td>Legion</td>
+                    <td>Pro 5</td>
+                    <td class="text-end">176 000 ₽</td>
+                    <td class="text-center"><span class="badge text-bg-success">Активен</span></td>
+                    <td class="text-center">
+                      <div class="btn-group" role="group" aria-label="Действия">
+                        <button class="btn btn-sm btn-outline-danger" type="button" data-action="delete"
+                          data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
+                          data-item-name="Ноутбук Lenovo Legion Pro 5 16IAX10 83F3000PUS">
+                          Удалить
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td class="text-muted-2">778625</td>
+                    <td>
+                      <div class="fw-semibold"><a href="../products/product-edit.html"
+                          class="text-decoration-none">Ноутбук Lenovo Legion Pro 5 16IAX10 83F3000PUS</a></div>
+                    </td>
+                    <td>Ноутбуки</td>
+                    <td>Lenovo</td>
+                    <td>Legion</td>
+                    <td>Pro 5</td>
+                    <td class="text-end">176 000 ₽</td>
+                    <td class="text-center"><span class="badge text-bg-success">Активен</span></td>
+                    <td class="text-center">
+                      <div class="btn-group" role="group" aria-label="Действия">
+                        <button class="btn btn-sm btn-outline-danger" type="button" data-action="delete"
+                          data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
+                          data-item-name="Ноутбук Lenovo Legion Pro 5 16IAX10 83F3000PUS">
+                          Удалить
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td class="text-muted-2">778625</td>
+                    <td>
+                      <div class="fw-semibold"><a href="../products/product-edit.html"
+                          class="text-decoration-none">Ноутбук Lenovo Legion Pro 5 16IAX10 83F3000PUS</a></div>
+                    </td>
+                    <td>Ноутбуки</td>
+                    <td>Lenovo</td>
+                    <td>Legion</td>
+                    <td>Pro 5</td>
+                    <td class="text-end">176 000 ₽</td>
+                    <td class="text-center"><span class="badge text-bg-success">Активен</span></td>
+                    <td class="text-center">
+                      <div class="btn-group" role="group" aria-label="Действия">
+                        <button class="btn btn-sm btn-outline-danger" type="button" data-action="delete"
+                          data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
+                          data-item-name="Ноутбук Lenovo Legion Pro 5 16IAX10 83F3000PUS">
+                          Удалить
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td class="text-muted-2">778625</td>
+                    <td>
+                      <div class="fw-semibold"><a href="../products/product-edit.html"
+                          class="text-decoration-none">Ноутбук Lenovo Legion Pro 5 16IAX10 83F3000PUS</a></div>
+                    </td>
+                    <td>Ноутбуки</td>
+                    <td>Lenovo</td>
+                    <td>Legion</td>
+                    <td>Pro 5</td>
+                    <td class="text-end">176 000 ₽</td>
+                    <td class="text-center"><span class="badge text-bg-success">Активен</span></td>
+                    <td class="text-center">
+                      <div class="btn-group" role="group" aria-label="Действия">
+                        <button class="btn btn-sm btn-outline-danger" type="button" data-action="delete"
+                          data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
+                          data-item-name="Ноутбук Lenovo Legion Pro 5 16IAX10 83F3000PUS">
+                          Удалить
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td class="text-muted-2">778625</td>
+                    <td>
+                      <div class="fw-semibold"><a href="../products/product-edit.html"
+                          class="text-decoration-none">Ноутбук Lenovo Legion Pro 5 16IAX10 83F3000PUS</a></div>
+                    </td>
+                    <td>Ноутбуки</td>
+                    <td>Lenovo</td>
+                    <td>Legion</td>
+                    <td>Pro 5</td>
+                    <td class="text-end">176 000 ₽</td>
+                    <td class="text-center"><span class="badge text-bg-success">Активен</span></td>
+                    <td class="text-center">
+                      <div class="btn-group" role="group" aria-label="Действия">
+                        <button class="btn btn-sm btn-outline-danger" type="button" data-action="delete"
+                          data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
+                          data-item-name="Ноутбук Lenovo Legion Pro 5 16IAX10 83F3000PUS">
+                          Удалить
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td class="text-muted-2">778625</td>
+                    <td>
+                      <div class="fw-semibold"><a href="../products/product-edit.html"
+                          class="text-decoration-none">Ноутбук Lenovo Legion Pro 5 16IAX10 83F3000PUS</a></div>
+                    </td>
+                    <td>Ноутбуки</td>
+                    <td>Lenovo</td>
+                    <td>Legion</td>
+                    <td>Pro 5</td>
+                    <td class="text-end">176 000 ₽</td>
+                    <td class="text-center"><span class="badge text-bg-success">Активен</span></td>
+                    <td class="text-center">
+                      <div class="btn-group" role="group" aria-label="Действия">
+                        <button class="btn btn-sm btn-outline-danger" type="button" data-action="delete"
+                          data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
+                          data-item-name="Ноутбук Lenovo Legion Pro 5 16IAX10 83F3000PUS">
+                          Удалить
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td class="text-muted-2">778625</td>
+                    <td>
+                      <div class="fw-semibold"><a href="../products/product-edit.html"
+                          class="text-decoration-none">Ноутбук Lenovo Legion Pro 5 16IAX10 83F3000PUS</a></div>
+                    </td>
+                    <td>Ноутбуки</td>
+                    <td>Lenovo</td>
+                    <td>Legion</td>
+                    <td>Pro 5</td>
+                    <td class="text-end">176 000 ₽</td>
+                    <td class="text-center"><span class="badge text-bg-success">Активен</span></td>
+                    <td class="text-center">
+                      <div class="btn-group" role="group" aria-label="Действия">
+                        <button class="btn btn-sm btn-outline-danger" type="button" data-action="delete"
+                          data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
+                          data-item-name="Ноутбук Lenovo Legion Pro 5 16IAX10 83F3000PUS">
+                          Удалить
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td class="text-muted-2">778625</td>
+                    <td>
+                      <div class="fw-semibold"><a href="../products/product-edit.html"
+                          class="text-decoration-none">Ноутбук Lenovo Legion Pro 5 16IAX10 83F3000PUS</a></div>
+                    </td>
+                    <td>Ноутбуки</td>
+                    <td>Lenovo</td>
+                    <td>Legion</td>
+                    <td>Pro 5</td>
+                    <td class="text-end">176 000 ₽</td>
+                    <td class="text-center"><span class="badge text-bg-success">Активен</span></td>
+                    <td class="text-center">
+                      <div class="btn-group" role="group" aria-label="Действия">
+                        <button class="btn btn-sm btn-outline-danger" type="button" data-action="delete"
+                          data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
+                          data-item-name="Ноутбук Lenovo Legion Pro 5 16IAX10 83F3000PUS">
+                          Удалить
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td class="text-muted-2">778625</td>
+                    <td>
+                      <div class="fw-semibold"><a href="../products/product-edit.html"
+                          class="text-decoration-none">Ноутбук Lenovo Legion Pro 5 16IAX10 83F3000PUS</a></div>
+                    </td>
+                    <td>Ноутбуки</td>
+                    <td>Lenovo</td>
+                    <td>Legion</td>
+                    <td>Pro 5</td>
+                    <td class="text-end">176 000 ₽</td>
+                    <td class="text-center"><span class="badge text-bg-success">Активен</span></td>
+                    <td class="text-center">
+                      <div class="btn-group" role="group" aria-label="Действия">
+                        <button class="btn btn-sm btn-outline-danger" type="button" data-action="delete"
+                          data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
+                          data-item-name="Ноутбук Lenovo Legion Pro 5 16IAX10 83F3000PUS">
+                          Удалить
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td class="text-muted-2">778625</td>
+                    <td>
+                      <div class="fw-semibold"><a href="../products/product-edit.html"
+                          class="text-decoration-none">Ноутбук Lenovo Legion Pro 5 16IAX10 83F3000PUS</a></div>
+                    </td>
+                    <td>Ноутбуки</td>
+                    <td>Lenovo</td>
+                    <td>Legion</td>
+                    <td>Pro 5</td>
+                    <td class="text-end">176 000 ₽</td>
+                    <td class="text-center"><span class="badge text-bg-success">Активен</span></td>
+                    <td class="text-center">
+                      <div class="btn-group" role="group" aria-label="Действия">
+                        <button class="btn btn-sm btn-outline-danger" type="button" data-action="delete"
+                          data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
+                          data-item-name="Ноутбук Lenovo Legion Pro 5 16IAX10 83F3000PUS">
+                          Удалить
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="d-flex align-items-center justify-content-between mt-3">
+              <div class="small text-muted-2">Показано 1–3 из 120</div>
+              <nav aria-label="Пагинация">
+                <ul class="pagination pagination-sm mb-0">
+                  <li class="page-item disabled"><a class="page-link" href="#">Назад</a></li>
+                  <li class="page-item active" aria-current="page"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item"><a class="page-link" href="#">Далее</a></li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Модалка подтверждения удаления -->
+  <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Подтверждение удаления</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
+        <div class="modal-body">
+          Вы уверены, что хотите удалить: <span class="fw-semibold" data-delete-name>элемент</span>?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Отмена</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" data-delete-action>Удалить</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Модалка подтверждения восстановления -->
+  <div class="modal fade" id="confirmRestoreModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Подтверждение восстановления</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
+        <div class="modal-body">
+          Вы уверены, что хотите вернуть: <span class="fw-semibold" data-delete-name>элемент</span>?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Отмена</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" data-delete-action>Вернуть</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS (локально) -->
+  <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- Скрипты проекта -->
+  <script src="../js/main.js"></script>
+</body>
+
 </html>
-
