@@ -33,7 +33,7 @@
       </a>
 
       <nav class="nav flex-column gap-1">
-        <a class="nav-link" data-nav-link href="../index.html">Панель управления</a>
+        <a class="nav-link" data-nav-link href="../index.html">Главная</a>
       </nav>
 
       <div class="accordion" id="sidebarAccordion">
@@ -129,14 +129,10 @@
       <!-- Page header -->
       <div class="content-header">
         <div
-          class="d-flex align-items-start align-items-md-center justify-content-between flex-column flex-md-row gap-2">
+          class="d-flex align-items-start align-items-md-center flex-column flex-md-row gap-2">
+          <a class="btn btn-outline-secondary" href="products-list.html">Назад</a>
           <div>
             <h1 class="h4 mb-1">Редактировать товар</h1>
-            <div class="text-muted-2">Изменение данных товара в общем каталоге.</div>
-          </div>
-          <div class="d-flex gap-2">
-            <a class="btn btn-outline-secondary" href="products-list.html">Назад к списку</a>
-            <a class="btn btn-outline-primary" href="product-view.html">Просмотр</a>
           </div>
         </div>
       </div>
@@ -150,35 +146,65 @@
                 <div class="fw-semibold mb-3">Основные данные</div>
 
                 <div class="mb-3">
-                  <label class="form-label">Название товара</label>
-                  <input class="form-control" type="text" value="Смартфон Nova X" />
+                  <label class="form-label">Наименование</label>
+                  <input class="form-control" type="text" value="Ноутбук Lenovo Legion Pro 5 16IAX10 83F3000PUS" />
                 </div>
 
                 <div class="mb-3">
-                  <label class="form-label">Описание</label>
-                  <textarea class="form-control"
-                    rows="5">Смартфон с AMOLED-дисплеем, 128 ГБ памяти, NFC. Пример заполненных данных для демонстрации.</textarea>
+                  <label class="form-label">Краткое описание</label>
+                  <textarea class="form-control" rows="2">Intel Core Ultra 7 255HX, 2.4 GHz - 5.2 GHz, 16384 Mb, 16" WQXGA 2560x1600, 1000 Gb SSD, nVidia GeForce RTX 5070 8192 Mb, Windows 11 Home ENG, черный, 2.43 кг, 83F3000PUS
+                  </textarea>
                 </div>
 
-                <div class="row g-3">
-                  <div class="col-12 col-md-4">
-                    <label class="form-label">Цена</label>
-                    <div class="input-group">
-                      <input class="form-control" type="number" min="0" step="1" value="29990" />
-                      <span class="input-group-text">₽</span>
-                    </div>
-                  </div>
-                  <div class="col-12 col-md-4">
+                <div class="row g-3 mb-3">
+                  <div class="col-12 col-md-3">
                     <label class="form-label">Категория</label>
                     <select class="form-select">
                       <option>Смартфоны</option>
-                      <option>Ноутбуки</option>
-                      <option>Аксессуары</option>
+                      <option selected>Ноутбуки</option>
+                      <option>Кабели, шлейфы, переходники</option>
                     </select>
                   </div>
-                  <div class="col-12 col-md-4">
-                    <label class="form-label">Количество</label>
-                    <input class="form-control" type="number" min="0" step="1" value="43" />
+                  <div class="col-12 col-md-3">
+                    <label class="form-label">Бренд</label>
+                    <select class="form-select">
+                      <option>Acer</option>
+                      <option>Apple</option>
+                      <option>Huawei</option>
+                      <option selected>Lenovo</option>
+                      <option>Xiaomi</option>
+                    </select>
+                  </div>
+                  <div class="col-12 col-md-3">
+                    <label class="form-label">Серия</label>
+                    <select class="form-select">
+                      <option selected>Legion</option>
+                      <option>ThinkPad</option>
+                      <option>IdeaPad</option>
+                    </select>
+                  </div>
+                  <div class="col-12 col-md-3">
+                    <label class="form-label">Модель</label>
+                    <select class="form-select">
+                      <option>5</option>
+                      <option selected>Pro 5</option>
+                      <option>Pro 7</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="row g-3">
+                  <div class="col-12 col-md-3">
+                    <label class="form-label">Артикул 1С</label>
+                    <input class="form-control" type="number" min="0" step="1" value="778625" />
+                  </div>
+                  <div class="col-12 col-md-3">
+                    <label class="form-label">ID товара</label>
+                    <input class="form-control" type="number" min="0" step="1" value="20262479" />
+                  </div>
+                  <div class="col-12 col-md-3">
+                    <label class="form-label">Партномер</label>
+                    <input class="form-control" type="text" min="0" step="1" value="83F3000PUS" />
                   </div>
                 </div>
               </div>
