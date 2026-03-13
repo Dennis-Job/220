@@ -140,85 +140,174 @@
       <div class="content-body">
         <!-- Product form -->
         <form class="row g-3">
+          <!-- Левая колонка с вкладками -->
           <div class="col-12 col-xl-8">
             <div class="card card-soft">
               <div class="card-body">
-                <div class="fw-semibold mb-3">Основные данные</div>
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" id="productTabs" role="tablist">
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="main-tab" data-bs-toggle="tab" data-bs-target="#main" type="button" role="tab" aria-controls="main" aria-selected="true">Основные данные</button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="attributes-tab" data-bs-toggle="tab" data-bs-target="#attributes" type="button" role="tab" aria-controls="attributes" aria-selected="false">Характеристики</button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="price-history-tab" data-bs-toggle="tab" data-bs-target="#price-history" type="button" role="tab" aria-controls="price-history" aria-selected="false">История цен</button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="barcodes-tab" data-bs-toggle="tab" data-bs-target="#barcodes" type="button" role="tab" aria-controls="barcodes" aria-selected="false">Штрихкоды</button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="suppliers-tab" data-bs-toggle="tab" data-bs-target="#suppliers" type="button" role="tab" aria-controls="suppliers" aria-selected="false">Привязка к поставщикам</button>
+                  </li>
+                </ul>
 
-                <div class="mb-3">
-                  <label class="form-label">Наименование</label>
-                  <input class="form-control" type="text" value="Ноутбук Lenovo Legion Pro 5 16IAX10 83F3000PUS" />
-                </div>
+                <!-- Tab panes -->
+                <div class="tab-content pt-3" id="productTabsContent">
+                  <!-- Основные данные -->
+                  <div class="tab-pane fade show active" id="main" role="tabpanel" aria-labelledby="main-tab">
+                    <div class="mb-3">
+                      <label class="form-label">Наименование</label>
+                      <input class="form-control" type="text" value="Ноутбук Lenovo Legion Pro 5 16IAX10 83F3000PUS" />
+                    </div>
 
-                <div class="mb-3">
-                  <label class="form-label">Краткое описание</label>
-                  <textarea class="form-control" rows="2">Intel Core Ultra 7 255HX, 2.4 GHz - 5.2 GHz, 16384 Mb, 16" WQXGA 2560x1600, 1000 Gb SSD, nVidia GeForce RTX 5070 8192 Mb, Windows 11 Home ENG, черный, 2.43 кг, 83F3000PUS
-                  </textarea>
-                </div>
+                    <div class="mb-3">
+                      <label class="form-label">Краткое описание</label>
+                      <textarea class="form-control" rows="2">Intel Core Ultra 7 255HX, 2.4 GHz - 5.2 GHz, 16384 Mb, 16" WQXGA 2560x1600, 1000 Gb SSD, nVidia GeForce RTX 5070 8192 Mb, Windows 11 Home ENG, черный, 2.43 кг, 83F3000PUS
+                      </textarea>
+                    </div>
 
-                <div class="row g-3 mb-3">
-                  <div class="col-12 col-md-3">
-                    <label class="form-label">Категория</label>
-                    <select class="form-select">
-                      <option>Смартфоны</option>
-                      <option selected>Ноутбуки</option>
-                      <option>Кабели, шлейфы, переходники</option>
-                    </select>
-                  </div>
-                  <div class="col-12 col-md-3">
-                    <label class="form-label">Бренд</label>
-                    <select class="form-select">
-                      <option>Acer</option>
-                      <option>Apple</option>
-                      <option>Huawei</option>
-                      <option selected>Lenovo</option>
-                      <option>Xiaomi</option>
-                    </select>
-                  </div>
-                  <div class="col-12 col-md-3">
-                    <label class="form-label">Серия</label>
-                    <select class="form-select">
-                      <option selected>Legion</option>
-                      <option>ThinkPad</option>
-                      <option>IdeaPad</option>
-                    </select>
-                  </div>
-                  <div class="col-12 col-md-3">
-                    <label class="form-label">Модель</label>
-                    <select class="form-select">
-                      <option>5</option>
-                      <option selected>Pro 5</option>
-                      <option>Pro 7</option>
-                    </select>
-                  </div>
-                </div>
+                    <div class="row g-3 mb-3">
+                      <div class="col-12 col-md-3">
+                        <label class="form-label">Категория</label>
+                        <select class="form-select">
+                          <option>Смартфоны</option>
+                          <option selected>Ноутбуки</option>
+                          <option>Кабели, шлейфы, переходники</option>
+                        </select>
+                      </div>
+                      <div class="col-12 col-md-3">
+                        <label class="form-label">Бренд</label>
+                        <select class="form-select">
+                          <option>Acer</option>
+                          <option>Apple</option>
+                          <option>Huawei</option>
+                          <option selected>Lenovo</option>
+                          <option>Xiaomi</option>
+                        </select>
+                      </div>
+                      <div class="col-12 col-md-3">
+                        <label class="form-label">Серия</label>
+                        <select class="form-select">
+                          <option selected>Legion</option>
+                          <option>ThinkPad</option>
+                          <option>IdeaPad</option>
+                        </select>
+                      </div>
+                      <div class="col-12 col-md-3">
+                        <label class="form-label">Модель</label>
+                        <select class="form-select">
+                          <option>5</option>
+                          <option selected>Pro 5</option>
+                          <option>Pro 7</option>
+                        </select>
+                      </div>
+                    </div>
 
-                <div class="row g-3">
-                  <div class="col-12 col-md-3">
-                    <label class="form-label">Артикул 1С</label>
-                    <input class="form-control" type="number" min="0" step="1" value="778625" />
+                    <div class="row g-3">
+                      <div class="col-12 col-md-3">
+                        <label class="form-label">Артикул 1С</label>
+                        <input class="form-control" type="number" min="0" step="1" value="778625" />
+                      </div>
+                      <div class="col-12 col-md-3">
+                        <label class="form-label">ID товара</label>
+                        <input class="form-control" type="number" min="0" step="1" value="20262479" />
+                      </div>
+                      <div class="col-12 col-md-3">
+                        <label class="form-label">Партномер</label>
+                        <input class="form-control" type="text" value="83F3000PUS" />
+                      </div>
+                      <div class="col-12 col-md-3">
+                        <label class="form-label">Статус товара</label>
+                        <select class="form-select">
+                          <option selected>Активен</option>
+                          <option>Удалён</option>
+                          <option>Новинка</option>
+                        </select>
+                      </div>
+                    </div>
                   </div>
-                  <div class="col-12 col-md-3">
-                    <label class="form-label">ID товара</label>
-                    <input class="form-control" type="number" min="0" step="1" value="20262479" />
+
+                  <!-- Характеристики -->
+                  <div class="tab-pane fade" id="attributes" role="tabpanel" aria-labelledby="attributes-tab">
+                    <p class="text-muted">Здесь будет форма для редактирования характеристик товара.</p>
+                    <div class="mb-3">
+                      <label class="form-label">Процессор</label>
+                      <input class="form-control" type="text" value="Intel Core Ultra 7 255HX" />
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label">Оперативная память</label>
+                      <input class="form-control" type="text" value="16 ГБ" />
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label">Накопитель</label>
+                      <input class="form-control" type="text" value="1000 ГБ SSD" />
+                    </div>
                   </div>
-                  <div class="col-12 col-md-3">
-                    <label class="form-label">Партномер</label>
-                    <input class="form-control" type="text" min="0" step="1" value="83F3000PUS" />
+
+                  <!-- История цен -->
+                  <div class="tab-pane fade" id="price-history" role="tabpanel" aria-labelledby="price-history-tab">
+                    <p class="text-muted">Таблица истории изменения цен.</p>
+                    <table class="table table-sm">
+                      <thead>
+                        <tr>
+                          <th>Дата</th>
+                          <th>Цена</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr><td>2025-01-01</td><td>120 000 ₽</td></tr>
+                        <tr><td>2025-02-01</td><td>115 000 ₽</td></tr>
+                        <tr><td>2025-03-01</td><td>118 000 ₽</td></tr>
+                      </tbody>
+                    </table>
                   </div>
-                  <div class="col-12 col-md-3">
-                    <label class="form-label">Статус товара</label>
-                    <select class="form-select">
-                      <option selected>Активен</option>
-                      <option>Удалён</option>
-                      <option>Новинка</option>
-                    </select>
+
+                  <!-- Штрихкоды -->
+                  <div class="tab-pane fade" id="barcodes" role="tabpanel" aria-labelledby="barcodes-tab">
+                    <p class="text-muted">Управление штрихкодами товара.</p>
+                    <div class="mb-3">
+                      <label class="form-label">EAN-13</label>
+                      <input class="form-control" type="text" value="5901234123457" />
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label">UPC</label>
+                      <input class="form-control" type="text" value="123456789012" />
+                    </div>
+                  </div>
+
+                  <!-- Привязка к поставщикам -->
+                  <div class="tab-pane fade" id="suppliers" role="tabpanel" aria-labelledby="suppliers-tab">
+                    <p class="text-muted">Список поставщиков и их артикулы.</p>
+                    <div class="mb-3">
+                      <label class="form-label">Поставщик</label>
+                      <select class="form-select">
+                        <option>ООО "Техноснаб"</option>
+                        <option>ИП Петров</option>
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label">Артикул поставщика</label>
+                      <input class="form-control" type="text" value="LNVP5-83F3" />
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
 
+          <!-- Правая колонка с медиа (без изменений) -->
           <div class="col-12 col-xl-4">
             <div class="card card-soft mb-3">
               <div class="card-body">
