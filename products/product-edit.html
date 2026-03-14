@@ -137,46 +137,45 @@
         <!-- Product form -->
         <form class="row g-3">
           <!-- Левая колонка с вкладками -->
-          <div class="col-12 col-xl-8">
-            <div class="card card-soft mb-3">
-              <div class="card-body">
-                <!-- Nav tabs -->
-                <ul class="nav nav-tabs" id="productTabs" role="tablist">
-                  <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="main-tab" data-bs-toggle="tab" data-bs-target="#main"
-                      type="button" role="tab" aria-controls="main" aria-selected="true">Основные данные</button>
-                  </li>
-                  <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="attributes-tab" data-bs-toggle="tab" data-bs-target="#attributes"
-                      type="button" role="tab" aria-controls="attributes" aria-selected="false">Характеристики</button>
-                  </li>
-                  <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="price-history-tab" data-bs-toggle="tab" data-bs-target="#price-history"
-                      type="button" role="tab" aria-controls="price-history" aria-selected="false">История цен</button>
-                  </li>
-                  <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="barcodes-tab" data-bs-toggle="tab" data-bs-target="#barcodes"
-                      type="button" role="tab" aria-controls="barcodes" aria-selected="false">Штрихкоды</button>
-                  </li>
-                  <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="suppliers-tab" data-bs-toggle="tab" data-bs-target="#suppliers"
-                      type="button" role="tab" aria-controls="suppliers" aria-selected="false">Привязка к
-                      поставщикам</button>
-                  </li>
-                </ul>
+          <ul class="nav nav-tabs" id="productTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="main-tab" data-bs-toggle="tab" data-bs-target="#main" type="button"
+                role="tab" aria-controls="main" aria-selected="true">Основные данные</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="attributes-tab" data-bs-toggle="tab" data-bs-target="#attributes"
+                type="button" role="tab" aria-controls="attributes" aria-selected="false">Характеристики</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="price-history-tab" data-bs-toggle="tab" data-bs-target="#price-history"
+                type="button" role="tab" aria-controls="price-history" aria-selected="false">История цен</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="barcodes-tab" data-bs-toggle="tab" data-bs-target="#barcodes" type="button"
+                role="tab" aria-controls="barcodes" aria-selected="false">Штрихкоды</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="suppliers-tab" data-bs-toggle="tab" data-bs-target="#suppliers" type="button"
+                role="tab" aria-controls="suppliers" aria-selected="false">Привязка к
+                поставщикам</button>
+            </li>
+          </ul>
 
-                <!-- Tab panes -->
-                <div class="tab-content pt-3" id="productTabsContent">
-                  <!-- Основные данные -->
-                  <div class="tab-pane fade show active" id="main" role="tabpanel" aria-labelledby="main-tab">
+          <div class="col-12 col-xl-8 p-0">
+            <!-- Tab panes -->
+            <div class="tab-content" id="productTabsContent">
+              <!-- Основные данные -->
+              <div class="tab-pane fade show active" id="main" role="tabpanel" aria-labelledby="main-tab">
+                <div class="card card-soft mb-3">
+                  <div class="card-body">
                     <div class="mb-3">
-                      <label class="form-label">Наименование</label>
+                      <label class="form-label"><small>Наименование</small></label>
                       <input class="form-control" type="text" value="Ноутбук Lenovo Legion Pro 5 16IAX10 83F3000PUS" />
                     </div>
 
                     <div class="row g-3 mb-3">
                       <div class="col-12 col-md-3">
-                        <label class="form-label">Категория</label>
+                        <label class="form-label"><small>Категория</small></label>
                         <select class="form-select">
                           <option>Смартфоны</option>
                           <option selected>Ноутбуки</option>
@@ -184,7 +183,7 @@
                         </select>
                       </div>
                       <div class="col-12 col-md-3">
-                        <label class="form-label">Бренд</label>
+                        <label class="form-label"><small>Бренд</small></label>
                         <select class="form-select">
                           <option>Acer</option>
                           <option>Apple</option>
@@ -194,7 +193,7 @@
                         </select>
                       </div>
                       <div class="col-12 col-md-3">
-                        <label class="form-label">Серия</label>
+                        <label class="form-label"><small>Серия</small></label>
                         <select class="form-select">
                           <option selected>Legion</option>
                           <option>ThinkPad</option>
@@ -202,7 +201,7 @@
                         </select>
                       </div>
                       <div class="col-12 col-md-3">
-                        <label class="form-label">Модель</label>
+                        <label class="form-label"><small>Модель</small></label>
                         <select class="form-select">
                           <option>5</option>
                           <option selected>Pro 5</option>
@@ -213,19 +212,19 @@
 
                     <div class="row g-3 mb-3">
                       <div class="col-12 col-md-3">
-                        <label class="form-label">Артикул 1С</label>
+                        <label class="form-label"><small>Артикул 1С</small></label>
                         <input class="form-control" type="number" min="0" step="1" value="778625" />
                       </div>
                       <div class="col-12 col-md-3">
-                        <label class="form-label">ID товара</label>
+                        <label class="form-label"><small>ID товара</small></label>
                         <input class="form-control" type="number" min="0" step="1" value="20262479" />
                       </div>
                       <div class="col-12 col-md-3">
-                        <label class="form-label">Партномер</label>
+                        <label class="form-label"><small>Партномер</small></label>
                         <input class="form-control" type="text" value="83F3000PUS" />
                       </div>
                       <div class="col-12 col-md-3">
-                        <label class="form-label">Статус товара</label>
+                        <label class="form-label"><small>Статус товара</small></label>
                         <select class="form-select">
                           <option selected>Активен</option>
                           <option>Удалён</option>
@@ -235,16 +234,49 @@
                     </div>
 
                     <div>
-                      <label class="form-label">Краткое описание</label>
+                      <label class="form-label"><small>Краткое описание</small></label>
                       <textarea class="form-control" rows="2">Intel Core Ultra 7 255HX, 2.4 GHz - 5.2 GHz, 16384 Mb, 16" WQXGA 2560x1600, 1000 Gb SSD, nVidia GeForce RTX 5070 8192 Mb, Windows 11 Home ENG, черный, 2.43 кг, 83F3000PUS
                       </textarea>
                     </div>
                   </div>
+                </div>
 
-                  <!-- Характеристики -->
-                  <div class="tab-pane fade" id="attributes" role="tabpanel" aria-labelledby="attributes-tab">
+                <div class="card card-soft mb-3">
+                  <div class="card-body">
+                    <p class="text-primary">Точки продаж</p>
+                    <div class="row g-3">
+                      <div class="col-12 col-md-3">
+                        <label class="form-label"><small>Подсветка клавиатуры</small></label>
+                        <select class="form-select">
+                          <option selected>есть</option>
+                          <option>нет</option>
+                        </select>
+                      </div>
+                      <div class="col-12 col-md-3">
+                        <label class="form-label"><small>Power Delivery</small></label>
+                        <select class="form-select">
+                          <option selected>есть</option>
+                          <option>нет</option>
+                        </select>
+                      </div>
+                      <div class="col-12 col-md-3">
+                        <label class="form-label"><small>Оптический привод</small></label>
+                        <select class="form-select">
+                          <option selected>есть</option>
+                          <option>нет</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Характеристики -->
+              <div class="tab-pane fade" id="attributes" role="tabpanel" aria-labelledby="attributes-tab">
+                <div class="card card-soft mb-3">
+                  <div class="card-body">
                     <p class="text-primary">Процессор</p>
-                    <div class="row g-3 mb-5">
+                    <div class="row g-3">
                       <div class="col-12 col-md-3">
                         <label class="form-label"><small>Производитель</small></label>
                         <select class="form-select">
@@ -285,10 +317,13 @@
                         <input class="form-control" type="number" min="0" step="1" value="36" />
                       </div>
                     </div>
-                    <hr>
+                  </div>
+                </div>
 
+                <div class="card card-soft mb-3">
+                  <div class="card-body">
                     <p class="text-primary">Оперативная память</p>
-                    <div class="row g-3 mb-5">
+                    <div class="row g-3">
                       <div class="col-12 col-md-3">
                         <label class="form-label"><small>Тип памяти</small></label>
                         <select class="form-select">
@@ -321,10 +356,13 @@
                         <input class="form-control" type="number" min="0" step="1" value="5600" />
                       </div>
                     </div>
-                    <hr>
+                  </div>
+                </div>
 
+                <div class="card card-soft mb-3">
+                  <div class="card-body">
                     <p class="text-primary">Накопитель SSD</p>
-                    <div class="row g-3 mb-5">
+                    <div class="row g-3">
                       <div class="col-12 col-md-3">
                         <label class="form-label"><small>Интерфейс</small></label>
                         <select class="form-select">
@@ -341,10 +379,13 @@
                         </select>
                       </div>
                     </div>
-                    <hr>
+                  </div>
+                </div>
 
+                <div class="card card-soft mb-3">
+                  <div class="card-body">
                     <p class="text-primary">Аккумулятор</p>
-                    <div class="row g-3 mb-5">
+                    <div class="row g-3">
                       <div class="col-12 col-md-3">
                         <label class="form-label"><small>Ёмкость (Вт-ч)</small></label>
                         <select class="form-select">
@@ -362,10 +403,13 @@
                         <input class="form-control" type="number" min="0" step="0.1" value="4.7" />
                       </div>
                     </div>
-                    <hr>
+                  </div>
+                </div>
 
+                <div class="card card-soft mb-3">
+                  <div class="card-body">
                     <p class="text-primary">Видеокарта</p>
-                    <div class="row g-3 mb-5">
+                    <div class="row g-3">
                       <div class="col-12 col-md-3">
                         <label class="form-label"><small>Объём видеопамяти (Мб)</small></label>
                         <input class="form-control" type="number" min="0" step="1" value="8192" />
@@ -393,10 +437,13 @@
                         <input class="form-control" type="number" min="0" step="1" value="115" />
                       </div>
                     </div>
-                    <hr>
+                  </div>
+                </div>
 
+                <div class="card card-soft mb-3">
+                  <div class="card-body">
                     <p class="text-primary">Аудио/Звук</p>
-                    <div class="row g-3 mb-5">
+                    <div class="row g-3">
                       <div class="col-12 col-md-3">
                         <label class="form-label"><small>Микрофон</small></label>
                         <select class="form-select">
@@ -412,10 +459,13 @@
                         </select>
                       </div>
                     </div>
-                    <hr>
+                  </div>
+                </div>
 
+                <div class="card card-soft mb-3">
+                  <div class="card-body">
                     <p class="text-primary">Безопасность</p>
-                    <div class="row g-3 mb-5">
+                    <div class="row g-3">
                       <div class="col-12 col-md-3">
                         <label class="form-label"><small>Защитная шторка</small></label>
                         <select class="form-select">
@@ -424,10 +474,13 @@
                         </select>
                       </div>
                     </div>
-                    <hr>
+                  </div>
+                </div>
 
+                <div class="card card-soft mb-3">
+                  <div class="card-body">
                     <p class="text-primary">Вес</p>
-                    <div class="row g-3 mb-5">
+                    <div class="row g-3">
                       <div class="col-12 col-md-3">
                         <label class="form-label"><small>Брутто (кг)</small></label>
                         <input class="form-control" type="number" min="0" step="0.1" value="4.2" />
@@ -437,10 +490,13 @@
                         <input class="form-control" type="number" min="0" step="0.1" value="2.43" />
                       </div>
                     </div>
-                    <hr>
+                  </div>
+                </div>
 
+                <div class="card card-soft mb-3">
+                  <div class="card-body">
                     <p class="text-primary">Габариты брутто</p>
-                    <div class="row g-3 mb-5">
+                    <div class="row g-3">
                       <div class="col-12 col-md-3">
                         <label class="form-label"><small>Длина (мм)</small></label>
                         <input class="form-control" type="number" min="0" step="1" value="540" />
@@ -454,10 +510,13 @@
                         <input class="form-control" type="number" min="0" step="1" value="90" />
                       </div>
                     </div>
-                    <hr>
+                  </div>
+                </div>
 
+                <div class="card card-soft mb-3">
+                  <div class="card-body">
                     <p class="text-primary">Габариты нетто</p>
-                    <div class="row g-3 mb-5">
+                    <div class="row g-3">
                       <div class="col-12 col-md-3">
                         <label class="form-label"><small>Длина (мм)</small></label>
                         <input class="form-control" type="number" min="0" step="1" value="364" />
@@ -471,10 +530,13 @@
                         <input class="form-control" type="number" min="0" step="1" value="26" />
                       </div>
                     </div>
-                    <hr>
+                  </div>
+                </div>
 
+                <div class="card card-soft mb-3">
+                  <div class="card-body">
                     <p class="text-primary">Дисплей</p>
-                    <div class="row g-3 mb-5">
+                    <div class="row g-3">
                       <div class="col-12 col-md-3">
                         <label class="form-label"><small>Диагональ (дюймы)</small></label>
                         <input class="form-control" type="number" min="0" step="1" value="16" />
@@ -522,10 +584,13 @@
                         <input class="form-control" type="number" min="0" step="1" value="165" />
                       </div>
                     </div>
-                    <hr>
+                  </div>
+                </div>
 
+                <div class="card card-soft mb-3">
+                  <div class="card-body">
                     <p class="text-primary">Интерфейсы</p>
-                    <div class="row g-3 mb-5">
+                    <div class="row g-3">
                       <div class="col-12 col-md-3">
                         <label class="form-label"><small>HDMI</small></label>
                         <select class="form-select">
@@ -591,10 +656,13 @@
                         </select>
                       </div>
                     </div>
-                    <hr>
+                  </div>
+                </div>
 
+                <div class="card card-soft mb-3">
+                  <div class="card-body">
                     <p class="text-primary">Корпус</p>
-                    <div class="row g-3 mb-5">
+                    <div class="row g-3">
                       <div class="col-12 col-md-3">
                         <label class="form-label"><small>Материал корпуса</small></label>
                         <input class="form-control" type="text" value="Пластик" />
@@ -613,10 +681,13 @@
                         </select>
                       </div>
                     </div>
-                    <hr>
+                  </div>
+                </div>
 
+                <div class="card card-soft mb-3">
+                  <div class="card-body">
                     <p class="text-primary">Коммуникации</p>
-                    <div class="row g-3 mb-5">
+                    <div class="row g-3">
                       <div class="col-12 col-md-3">
                         <label class="form-label"><small>Bluetooth</small></label>
                         <select class="form-select">
@@ -639,10 +710,13 @@
                         </select>
                       </div>
                     </div>
-                    <hr>
+                  </div>
+                </div>
 
+                <div class="card card-soft mb-3">
+                  <div class="card-body">
                     <p class="text-primary">Общая информация</p>
-                    <div class="row g-3 mb-5">
+                    <div class="row g-3">
                       <div class="col-12 col-md-3">
                         <label class="form-label"><small>Год начала продаж</small></label>
                         <input class="form-control" type="number" min="0" step="1" value="2025" />
@@ -670,8 +744,11 @@
                         </select>
                       </div>
                     </div>
-                    <hr>
+                  </div>
+                </div>
 
+                <div class="card card-soft mb-3">
+                  <div class="card-body">
                     <p class="text-primary">Дополнительные характеристики</p>
                     <div class="row g-3">
                       <div class="col-12 col-md-3">
@@ -697,71 +774,67 @@
                       </div>
                     </div>
                   </div>
+                </div>
+              </div>
 
-                  <!-- История цен -->
-                  <div class="tab-pane fade" id="price-history" role="tabpanel" aria-labelledby="price-history-tab">
-                    <p class="text-muted">Таблица истории изменения цен.</p>
-                    <table class="table table-sm">
-                      <thead>
-                        <tr>
-                          <th>Дата</th>
-                          <th>Цена</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>2025-01-01</td>
-                          <td>120 000 ₽</td>
-                        </tr>
-                        <tr>
-                          <td>2025-02-01</td>
-                          <td>115 000 ₽</td>
-                        </tr>
-                        <tr>
-                          <td>2025-03-01</td>
-                          <td>118 000 ₽</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
+              <!-- История цен -->
+              <div class="tab-pane fade" id="price-history" role="tabpanel" aria-labelledby="price-history-tab">
+                <p class="text-muted">Таблица истории изменения цен.</p>
+                <table class="table table-sm">
+                  <thead>
+                    <tr>
+                      <th>Дата</th>
+                      <th>Цена</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>2025-01-01</td>
+                      <td>120 000 ₽</td>
+                    </tr>
+                    <tr>
+                      <td>2025-02-01</td>
+                      <td>115 000 ₽</td>
+                    </tr>
+                    <tr>
+                      <td>2025-03-01</td>
+                      <td>118 000 ₽</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
 
-                  <!-- Штрихкоды -->
-                  <div class="tab-pane fade" id="barcodes" role="tabpanel" aria-labelledby="barcodes-tab">
-                    <p class="text-muted">Управление штрихкодами товара.</p>
-                    <div class="mb-3">
-                      <label class="form-label">EAN-13</label>
-                      <input class="form-control" type="text" value="5901234123457" />
-                    </div>
-                    <div class="mb-3">
-                      <label class="form-label">UPC</label>
-                      <input class="form-control" type="text" value="123456789012" />
-                    </div>
-                  </div>
+              <!-- Штрихкоды -->
+              <div class="tab-pane fade" id="barcodes" role="tabpanel" aria-labelledby="barcodes-tab">
+                <p class="text-muted">Управление штрихкодами товара.</p>
+                <div class="mb-3">
+                  <label class="form-label">EAN-13</label>
+                  <input class="form-control" type="text" value="5901234123457" />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">UPC</label>
+                  <input class="form-control" type="text" value="123456789012" />
+                </div>
+              </div>
 
-                  <!-- Привязка к поставщикам -->
-                  <div class="tab-pane fade" id="suppliers" role="tabpanel" aria-labelledby="suppliers-tab">
-                    <p class="text-muted">Список поставщиков и их артикулы.</p>
-                    <div class="mb-3">
-                      <label class="form-label">Поставщик</label>
-                      <select class="form-select">
-                        <option>ООО "Техноснаб"</option>
-                        <option>ИП Петров</option>
-                      </select>
-                    </div>
-                    <div class="mb-3">
-                      <label class="form-label">Артикул поставщика</label>
-                      <input class="form-control" type="text" value="LNVP5-83F3" />
-                    </div>
-                  </div>
+              <!-- Привязка к поставщикам -->
+              <div class="tab-pane fade" id="suppliers" role="tabpanel" aria-labelledby="suppliers-tab">
+                <p class="text-muted">Список поставщиков и их артикулы.</p>
+                <div class="mb-3">
+                  <label class="form-label">Поставщик</label>
+                  <select class="form-select">
+                    <option>ООО "Техноснаб"</option>
+                    <option>ИП Петров</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Артикул поставщика</label>
+                  <input class="form-control" type="text" value="LNVP5-83F3" />
                 </div>
               </div>
             </div>
 
-            <div class="card card-soft">
-              <div class="card-body">
-                Точки продаж
-              </div>
-            </div>
+
           </div>
 
           <!-- Правая колонка с медиа (без изменений) -->
