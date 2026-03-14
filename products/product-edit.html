@@ -9,7 +9,7 @@
   <!-- Bootstrap (локально) -->
   <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" />
   <!-- Стили проекта -->
-  <link rel="stylesheet" href="../css/styles1.css" />
+  <link rel="stylesheet" href="../css/styles.css" />
 </head>
 
 <body>
@@ -253,10 +253,26 @@
                 <div class="card card-soft">
                   <div class="card-body">
                     <p class="text-primary">Точки продаж</p>
+                    <div class="row g-2 align-items-end mb-3">
+                      <div class="col-12 col-md-6">
+                        <input type="search" class="form-control" aria-label="Поиск точки продаж (CMS)" placeholder="Поиск точки продаж (CMS)" />
+                      </div>
+                      <div class="col-12 col-md-auto ms-md-auto">
+                        <button
+                          class="btn btn-outline-primary w-100"
+                          type="button"
+                          data-bs-toggle="modal"
+                          data-bs-target="#addSalesPointModal"
+                        >
+                          Добавить в точку продаж
+                        </button>
+                      </div>
+                    </div>
                     <table class="table table-sm">
                       <thead>
                         <tr>
                           <th>CMS</th>
+                          <th>Категория CMS</th>
                           <th class="text-end">Цена на сайте</th>
                           <th class="text-center">Статус</th>
                         </tr>
@@ -264,21 +280,32 @@
                       <tbody>
                         <tr>
                           <td>KNS Москва</td>
+                          <td>Ноутбуки</td>
                           <td class="text-end">120 000 ₽</td>
                           <td class="text-center"><span class="badge text-bg-success">Опубликован</span></td>
                         </tr>
                         <tr>
                           <td>KNS Санкт-Петербург</td>
+                          <td>Ноутбуки</td>
                           <td class="text-end">115 000 ₽</td>
                           <td class="text-center"><span class="badge text-bg-warning">Новинка</span></td>
                         </tr>
                         <tr>
                           <td>KNS Екатеринбург</td>
+                          <td>Ноутбуки</td>
                           <td class="text-end">118 000 ₽</td>
                           <td class="text-center"><span class="badge text-bg-danger">Скрыт</span></td>
                         </tr>
+
+                        <tr>
+                          <td>KNS Красноярск</td>
+                          <td>Ноутбуки</td>
+                          <td class="text-end">118 000 ₽</td>
+                          <td class="text-center"><span class="badge text-bg-secondary">Черновик</span></td>
+                        </tr>
                         <tr>
                           <td>Яндекс.Маркет</td>
+                          <td>Ноутбуки</td>
                           <td class="text-end">118 000 ₽</td>
                           <td class="text-center"><span class="badge text-bg-success">Опубликован</span></td>
                         </tr>
@@ -934,6 +961,55 @@
         </form>
       </div>
     </main>
+  </div>
+
+  <!-- Модальное окно: Добавление товара в точку продаж -->
+  <div class="modal fade" id="addSalesPointModal" tabindex="-1" aria-labelledby="addSalesPointModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addSalesPointModalLabel">Добавить товар в точку продаж</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form class="row g-3">
+            <div class="col-12">
+              <label class="form-label"><small>Точка продаж (CMS)</small></label>
+              <select class="form-select">
+                <option selected disabled>Выберите точку продаж</option>
+                <option>KNS Москва</option>
+                <option>KNS Санкт-Петербург</option>
+                <option>KNS Екатеринбург</option>
+                <option>Яндекс.Маркет</option>
+              </select>
+            </div>
+            <div class="col-12">
+              <label class="form-label"><small>Категория точки продаж</small></label>
+              <select class="form-select">
+                <option selected disabled>Выберите категорию</option>
+                <option>Ноутбуки</option>
+                <option>Планшеты</option>
+                <option>Комплектующие</option>
+              </select>
+            </div>
+            <div class="col-12">
+              <label class="form-label"><small>Статус</small></label>
+              <select class="form-select">
+                <option selected>Опубликован</option>
+                <option>Черновик</option>
+                <option>Скрыт</option>
+                <option>Новинка</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Отмена</button>
+          <button type="button" class="btn btn-primary">Добавить</button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Bootstrap JS (локально) -->

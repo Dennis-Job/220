@@ -240,6 +240,12 @@ h6, .h6 {
   border: 1px solid #b91c1c4d !important;
 }
 
+.text-bg-secondary {
+  color: #6b7280 !important;
+  background-color: #e2e8f0 !important;
+  border: 1px solid #6b72804d !important;
+}
+
 .pagination {
   --bs-pagination-font-size: 0.8rem;
 }
