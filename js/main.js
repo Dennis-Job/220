@@ -161,12 +161,37 @@
       .replace(/'/g, '&#039;');
   }
 
+  function wireSalesPointStatusDropdown() {
+    document.addEventListener('click', function (event) {
+      var option = event.target.closest('[data-status-option]');
+      if (!option) return;
+
+      var dropdown = option.closest('[data-status-dropdown]');
+      if (!dropdown) return;
+
+      var badge = dropdown.querySelector('.badge');
+      if (!badge) return;
+
+      var label = option.getAttribute('data-status-label');
+      var badgeClass = option.getAttribute('data-status-class');
+
+      if (label) {
+        badge.textContent = label;
+      }
+
+      if (badgeClass) {
+        badge.className = 'badge ' + badgeClass + ' border-0';
+      }
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     setActiveSidebarLink();
     wireDeleteModal();
     wireCmsCreate();
     wireCmsDelete();
     renderCmsStores();
+    wireSalesPointStatusDropdown();
   });
 })();
 

@@ -255,15 +255,12 @@
                     <p class="text-primary">Точки продаж</p>
                     <div class="row g-2 align-items-end mb-3">
                       <div class="col-12 col-md-6">
-                        <input type="search" class="form-control" aria-label="Поиск точки продаж (CMS)" placeholder="Поиск точки продаж (CMS)" />
+                        <input type="search" class="form-control" aria-label="Поиск точки продаж (CMS)"
+                          placeholder="Поиск точки продаж (CMS)" />
                       </div>
                       <div class="col-12 col-md-auto ms-md-auto">
-                        <button
-                          class="btn btn-outline-primary w-100"
-                          type="button"
-                          data-bs-toggle="modal"
-                          data-bs-target="#addSalesPointModal"
-                        >
+                        <button class="btn btn-outline-primary w-100" type="button" data-bs-toggle="modal"
+                          data-bs-target="#addSalesPointModal">
                           Добавить в точку продаж
                         </button>
                       </div>
@@ -282,32 +279,132 @@
                           <td>KNS Москва</td>
                           <td>Ноутбуки</td>
                           <td class="text-end">120 000 ₽</td>
-                          <td class="text-center"><span class="badge text-bg-success">Опубликован</span></td>
+                          <td class="text-center">
+                            <div class="dropdown" data-status-dropdown>
+                              <button class="badge text-bg-success border-0" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Опубликован
+                              </button>
+                              <ul class="dropdown-menu dropdown-menu-end">
+                                <li><button class="dropdown-item" type="button" data-status-option
+                                    data-status-label="Опубликован"
+                                    data-status-class="text-bg-success">Опубликован</button></li>
+                                <li><button class="dropdown-item" type="button" data-status-option
+                                    data-status-label="Черновик" data-status-class="text-bg-secondary">Черновик</button>
+                                </li>
+                                <li><button class="dropdown-item" type="button" data-status-option
+                                    data-status-label="Скрыт" data-status-class="text-bg-danger">Скрыт</button></li>
+                                <li><button class="dropdown-item" type="button" data-status-option
+                                    data-status-label="Новинка" data-status-class="text-bg-warning">Новинка</button>
+                                </li>
+                              </ul>
+                            </div>
+                          </td>
                         </tr>
                         <tr>
                           <td>KNS Санкт-Петербург</td>
                           <td>Ноутбуки</td>
                           <td class="text-end">115 000 ₽</td>
-                          <td class="text-center"><span class="badge text-bg-warning">Новинка</span></td>
+                          <td class="text-center">
+                            <div class="dropdown" data-status-dropdown>
+                              <button class="badge text-bg-warning border-0" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Новинка
+                              </button>
+                              <ul class="dropdown-menu dropdown-menu-end">
+                                <li><button class="dropdown-item" type="button" data-status-option
+                                    data-status-label="Опубликован"
+                                    data-status-class="text-bg-success">Опубликован</button></li>
+                                <li><button class="dropdown-item" type="button" data-status-option
+                                    data-status-label="Черновик" data-status-class="text-bg-secondary">Черновик</button>
+                                </li>
+                                <li><button class="dropdown-item" type="button" data-status-option
+                                    data-status-label="Скрыт" data-status-class="text-bg-danger">Скрыт</button></li>
+                                <li><button class="dropdown-item" type="button" data-status-option
+                                    data-status-label="Новинка" data-status-class="text-bg-warning">Новинка</button>
+                                </li>
+                              </ul>
+                            </div>
+                          </td>
                         </tr>
                         <tr>
                           <td>KNS Екатеринбург</td>
                           <td>Ноутбуки</td>
                           <td class="text-end">118 000 ₽</td>
-                          <td class="text-center"><span class="badge text-bg-danger">Скрыт</span></td>
+                          <td class="text-center">
+                            <div class="dropdown" data-status-dropdown>
+                              <button class="badge text-bg-danger border-0" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Скрыт
+                              </button>
+                              <ul class="dropdown-menu dropdown-menu-end">
+                                <li><button class="dropdown-item" type="button" data-status-option
+                                    data-status-label="Опубликован"
+                                    data-status-class="text-bg-success">Опубликован</button></li>
+                                <li><button class="dropdown-item" type="button" data-status-option
+                                    data-status-label="Черновик" data-status-class="text-bg-secondary">Черновик</button>
+                                </li>
+                                <li><button class="dropdown-item" type="button" data-status-option
+                                    data-status-label="Скрыт" data-status-class="text-bg-danger">Скрыт</button></li>
+                                <li><button class="dropdown-item" type="button" data-status-option
+                                    data-status-label="Новинка" data-status-class="text-bg-warning">Новинка</button>
+                                </li>
+                              </ul>
+                            </div>
+                          </td>
                         </tr>
 
                         <tr>
                           <td>KNS Красноярск</td>
                           <td>Ноутбуки</td>
-                          <td class="text-end">118 000 ₽</td>
-                          <td class="text-center"><span class="badge text-bg-secondary">Черновик</span></td>
+                          <td class="text-end"></td>
+                          <td class="text-center">
+                            <div class="dropdown" data-status-dropdown>
+                              <button class="badge text-bg-secondary border-0" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Черновик
+                              </button>
+                              <ul class="dropdown-menu dropdown-menu-end">
+                                <li><button class="dropdown-item" type="button" data-status-option
+                                    data-status-label="Опубликован"
+                                    data-status-class="text-bg-success">Опубликован</button></li>
+                                <li><button class="dropdown-item" type="button" data-status-option
+                                    data-status-label="Черновик" data-status-class="text-bg-secondary">Черновик</button>
+                                </li>
+                                <li><button class="dropdown-item" type="button" data-status-option
+                                    data-status-label="Скрыт" data-status-class="text-bg-danger">Скрыт</button></li>
+                                <li><button class="dropdown-item" type="button" data-status-option
+                                    data-status-label="Новинка" data-status-class="text-bg-warning">Новинка</button>
+                                </li>
+                              </ul>
+                            </div>
+                          </td>
                         </tr>
                         <tr>
                           <td>Яндекс.Маркет</td>
                           <td>Ноутбуки</td>
                           <td class="text-end">118 000 ₽</td>
-                          <td class="text-center"><span class="badge text-bg-success">Опубликован</span></td>
+                          <td class="text-center">
+                            <div class="dropdown" data-status-dropdown>
+                              <button class="badge text-bg-success border-0" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Опубликован
+                              </button>
+                              <ul class="dropdown-menu dropdown-menu-end">
+                                <li><button class="dropdown-item" type="button" data-status-option
+                                    data-status-label="Опубликован"
+                                    data-status-class="text-bg-success">Опубликован</button></li>
+                                <li><button class="dropdown-item" type="button" data-status-option
+                                    data-status-label="Черновик" data-status-class="text-bg-secondary">Черновик</button>
+                                </li>
+                                <li><button class="dropdown-item" type="button" data-status-option
+                                    data-status-label="Скрыт" data-status-class="text-bg-danger">Скрыт</button></li>
+                                <li><button class="dropdown-item" type="button" data-status-option
+                                    data-status-label="Новинка" data-status-class="text-bg-warning">Новинка</button>
+                                </li>
+                              </ul>
+                            </div>
+                          </td>
                         </tr>
                       </tbody>
                     </table>
