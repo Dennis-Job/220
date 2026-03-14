@@ -125,10 +125,19 @@
     <main class="admin-content">
       <!-- Page header -->
       <div class="content-header">
-        <div class="d-flex align-items-start align-items-md-center flex-column flex-md-row gap-2">
-          <a class="btn btn-outline-primary" href="products-list.html">Назад</a>
-          <div>
-            <h1 class="h4 mb-1">Редактировать товар</h1>
+        <div
+          class="d-flex align-items-start align-items-md-center justify-content-between flex-column flex-md-row gap-2">
+          <div class="d-flex align-items-start align-items-md-center flex-column flex-md-row gap-2">
+            <a class="btn btn-outline-primary" href="products-list.html">Назад</a>
+            <div>
+              <h1 class="h4 mb-1">Редактировать товар</h1>
+            </div>
+          </div>
+
+          <div class="d-flex gap-2">
+            <button class="btn btn-primary" type="button">
+              Сохранить
+            </button>
           </div>
         </div>
       </div>
@@ -241,32 +250,40 @@
                   </div>
                 </div>
 
-                <div class="card card-soft mb-3">
+                <div class="card card-soft">
                   <div class="card-body">
                     <p class="text-primary">Точки продаж</p>
-                    <div class="row g-3">
-                      <div class="col-12 col-md-3">
-                        <label class="form-label"><small>Подсветка клавиатуры</small></label>
-                        <select class="form-select">
-                          <option selected>есть</option>
-                          <option>нет</option>
-                        </select>
-                      </div>
-                      <div class="col-12 col-md-3">
-                        <label class="form-label"><small>Power Delivery</small></label>
-                        <select class="form-select">
-                          <option selected>есть</option>
-                          <option>нет</option>
-                        </select>
-                      </div>
-                      <div class="col-12 col-md-3">
-                        <label class="form-label"><small>Оптический привод</small></label>
-                        <select class="form-select">
-                          <option selected>есть</option>
-                          <option>нет</option>
-                        </select>
-                      </div>
-                    </div>
+                    <table class="table table-sm">
+                      <thead>
+                        <tr>
+                          <th>CMS</th>
+                          <th class="text-end">Цена на сайте</th>
+                          <th class="text-center">Статус</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>KNS Москва</td>
+                          <td class="text-end">120 000 ₽</td>
+                          <td class="text-center"><span class="badge text-bg-success">Опубликован</span></td>
+                        </tr>
+                        <tr>
+                          <td>KNS Санкт-Петербург</td>
+                          <td class="text-end">115 000 ₽</td>
+                          <td class="text-center"><span class="badge text-bg-warning">Новинка</span></td>
+                        </tr>
+                        <tr>
+                          <td>KNS Екатеринбург</td>
+                          <td class="text-end">118 000 ₽</td>
+                          <td class="text-center"><span class="badge text-bg-danger">Скрыт</span></td>
+                        </tr>
+                        <tr>
+                          <td>Яндекс.Маркет</td>
+                          <td class="text-end">118 000 ₽</td>
+                          <td class="text-center"><span class="badge text-bg-success">Опубликован</span></td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>
@@ -747,7 +764,7 @@
                   </div>
                 </div>
 
-                <div class="card card-soft mb-3">
+                <div class="card card-soft">
                   <div class="card-body">
                     <p class="text-primary">Дополнительные характеристики</p>
                     <div class="row g-3">
@@ -779,57 +796,118 @@
 
               <!-- История цен -->
               <div class="tab-pane fade" id="price-history" role="tabpanel" aria-labelledby="price-history-tab">
-                <p class="text-muted">Таблица истории изменения цен.</p>
-                <table class="table table-sm">
-                  <thead>
-                    <tr>
-                      <th>Дата</th>
-                      <th>Цена</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>2025-01-01</td>
-                      <td>120 000 ₽</td>
-                    </tr>
-                    <tr>
-                      <td>2025-02-01</td>
-                      <td>115 000 ₽</td>
-                    </tr>
-                    <tr>
-                      <td>2025-03-01</td>
-                      <td>118 000 ₽</td>
-                    </tr>
-                  </tbody>
-                </table>
+                <div class="card card-soft">
+                  <div class="card-body">
+                    <table class="table table-sm">
+                      <thead>
+                        <tr>
+                          <th>Закупочная цена</th>
+                          <th>Расчётная цена</th>
+                          <th>Поставщик</th>
+                          <th>Статус прайса</th>
+                          <th>Дата изменения</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>110 000 ₽</td>
+                          <td>120 000 ₽</td>
+                          <td>Ситилинк</td>
+                          <td>Нет в наличии более 30 дней</td>
+                          <td>11:04:47 18.06.2025</td>
+                        </tr>
+                        <tr>
+                          <td>110 000 ₽</td>
+                          <td>120 000 ₽</td>
+                          <td>Ситилинк</td>
+                          <td>Нет в наличии более 30 дней</td>
+                          <td>09:34:47 18.06.2025</td>
+                        </tr>
+                        <tr>
+                          <td>110 000 ₽</td>
+                          <td>120 000 ₽</td>
+                          <td>Ситилинк</td>
+                          <td>Нет в наличии более 30 дней</td>
+                          <td>01:04:47 18.06.2025</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
               </div>
 
               <!-- Штрихкоды -->
               <div class="tab-pane fade" id="barcodes" role="tabpanel" aria-labelledby="barcodes-tab">
-                <p class="text-muted">Управление штрихкодами товара.</p>
-                <div class="mb-3">
-                  <label class="form-label">EAN-13</label>
-                  <input class="form-control" type="text" value="5901234123457" />
-                </div>
-                <div class="mb-3">
-                  <label class="form-label">UPC</label>
-                  <input class="form-control" type="text" value="123456789012" />
+                <div class="card card-soft">
+                  <div class="card-body">
+                    <button class="btn btn-primary mb-3 btn-sm float-end">Добавить штрихкод</button>
+                    <table class="table table-sm">
+                      <thead>
+                        <tr>
+                          <th>Главный</th>
+                          <th>Тип штрихкода</th>
+                          <th>Штрихкод</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><input class="form-check-input ms-3" type="checkbox" name="main" id="main" checked></td>
+                          <td>EAN-13</td>
+                          <td>43567890123456</td>
+                        </tr>
+                        <tr>
+                          <td><input class="form-check-input ms-3" type="checkbox" name="main" id="main"></td>
+                          <td>EAN-8</td>
+                          <td>43567890</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
 
               <!-- Привязка к поставщикам -->
               <div class="tab-pane fade" id="suppliers" role="tabpanel" aria-labelledby="suppliers-tab">
-                <p class="text-muted">Список поставщиков и их артикулы.</p>
-                <div class="mb-3">
-                  <label class="form-label">Поставщик</label>
-                  <select class="form-select">
-                    <option>ООО "Техноснаб"</option>
-                    <option>ИП Петров</option>
-                  </select>
-                </div>
-                <div class="mb-3">
-                  <label class="form-label">Артикул поставщика</label>
-                  <input class="form-control" type="text" value="LNVP5-83F3" />
+                <div class="card card-soft">
+                  <div class="card-body">
+                    <table class="table table-sm">
+                      <thead>
+                        <tr>
+                          <th>Поставщик</th>
+                          <th>Прайс</th>
+                          <th>Наименование</th>
+                          <th>Количество</th>
+                          <th>Цена прайса</th>
+                          <th>Статус прайса</th>
+                          <th>Гарантия</th>
+                          <th>Дата окончания прайса</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>110 000 ₽</td>
+                          <td>120 000 ₽</td>
+                          <td>Ситилинк</td>
+                          <td>Нет в наличии более 30 дней</td>
+                          <td>11:04:47 18.06.2025</td>
+                        </tr>
+                        <tr>
+                          <td>110 000 ₽</td>
+                          <td>120 000 ₽</td>
+                          <td>Ситилинк</td>
+                          <td>Нет в наличии более 30 дней</td>
+                          <td>09:34:47 18.06.2025</td>
+                        </tr>
+                        <tr>
+                          <td>110 000 ₽</td>
+                          <td>120 000 ₽</td>
+                          <td>Ситилинк</td>
+                          <td>Нет в наличии более 30 дней</td>
+                          <td>01:04:47 18.06.2025</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
