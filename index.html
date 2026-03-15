@@ -1,19 +1,21 @@
 <!doctype html>
 <html lang="ru">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Admin Panel Prototype — Dashboard</title>
 
-    <!-- Bootstrap (локально) -->
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Panel Prototype — Dashboard</title>
 
-    <!-- Стили проекта -->
-    <link rel="stylesheet" href="css/styles.css" />
-  </head>
-  <body>
-    <div class="admin-layout d-flex flex-column flex-lg-row">
-      <!-- Sidebar navigation -->
+  <!-- Bootstrap (локально) -->
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+
+  <!-- Стили проекта -->
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+  <div class="admin-layout d-flex flex-column flex-lg-row">
+    <!-- Sidebar navigation -->
     <aside class="admin-sidebar p-2">
       <a class="sidebar-brand" href="index.html">
         <div class="d-flex align-items-center justify-content-center my-5">
@@ -50,10 +52,8 @@
               <nav class="nav flex-column gap-1">
                 <a class="nav-link" data-nav-link data-collapse-target="#collapseCatalog"
                   href="products/products-list.html">Товары</a>
-                <a class="nav-link" data-nav-link data-collapse-target="#collapseCatalog"
-                  href="#">Категории</a>
-                <a class="nav-link" data-nav-link data-collapse-target="#collapseCatalog"
-                  href="#">Характеристики</a>
+                <a class="nav-link" data-nav-link data-collapse-target="#collapseCatalog" href="#">Категории</a>
+                <a class="nav-link" data-nav-link data-collapse-target="#collapseCatalog" href="#">Характеристики</a>
               </nav>
             </div>
           </div>
@@ -70,14 +70,13 @@
           <div id="collapsePricing" class="accordion-collapse collapse" aria-labelledby="headingPricing"
             data-bs-parent="#sidebarAccordion">
             <div class="accordion-body">
-              <nav class="nav flex-column gap-1">
-                <a class="nav-link" data-nav-link data-collapse-target="#collapsePricing"
-                  href="#">Обзор</a>
-                <a class="nav-link" data-nav-link data-collapse-target="#collapsePricing"
-                  href="#">Прайс-листы поставщиков</a>
-                <a class="nav-link" data-nav-link data-collapse-target="#collapsePricing"
-                  href="#">Сравнение и назначение цены</a>
-              </nav>
+              <!-- <nav class="nav flex-column gap-1">
+                <a class="nav-link" data-nav-link data-collapse-target="#collapsePricing" href="#">Обзор</a>
+                <a class="nav-link" data-nav-link data-collapse-target="#collapsePricing" href="#">Прайс-листы
+                  поставщиков</a>
+                <a class="nav-link" data-nav-link data-collapse-target="#collapsePricing" href="#">Сравнение и
+                  назначение цены</a>
+              </nav> -->
             </div>
           </div>
         </div>
@@ -93,12 +92,12 @@
           <div id="collapseCms" class="accordion-collapse collapse" aria-labelledby="headingCms"
             data-bs-parent="#sidebarAccordion">
             <div class="accordion-body">
-              <nav class="nav flex-column gap-1">
+              <!-- <nav class="nav flex-column gap-1">
                 <a class="nav-link" data-nav-link data-collapse-target="#collapseCms" href="#">Список
                   CMS</a>
                 <a class="nav-link" data-nav-link data-collapse-target="#collapseCms" href="#">CMS
                   магазина (пример)</a>
-              </nav>
+              </nav> -->
             </div>
           </div>
         </div>
@@ -123,45 +122,48 @@
       </div>
     </aside>
 
-      <!-- Main content area -->
-      <main class="admin-content">
+    <!-- Main content area -->
+    <main class="admin-content">
+      <div class="admin-content-inner">
         <!-- Page header -->
         <div class="content-header">
-          <div class="d-flex align-items-start align-items-md-center justify-content-between flex-column flex-md-row gap-2">
+          <div
+            class="d-flex align-items-start align-items-md-center justify-content-between flex-column flex-md-row gap-2">
             <div>
               <h1 class="h4 mb-1">Dashboard</h1>
               <div class="text-muted-2">Визуальный прототип: навигация и ключевые сценарии администратора.</div>
             </div>
-            <div class="d-flex gap-2">
-          </div>
-        </div>
-      </main>
-    </div>
-
-    <!-- Модалка подтверждения удаления (общая) -->
-    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Подтверждение удаления</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
-          </div>
-          <div class="modal-body">
-            Вы уверены, что хотите удалить: <span class="fw-semibold" data-delete-name>элемент</span>?
-            <div class="small text-muted mt-2">Это прототип — данные не сохраняются на сервере.</div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Отмена</button>
-            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" data-delete-action>Удалить</button>
+            <div class="d-flex gap-2"></div>
           </div>
         </div>
       </div>
+    </main>
+  </div>
+
+  <!-- Модалка подтверждения удаления (общая) -->
+  <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Подтверждение удаления</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
+        <div class="modal-body">
+          Вы уверены, что хотите удалить: <span class="fw-semibold" data-delete-name>элемент</span>?
+          <div class="small text-muted mt-2">Это прототип — данные не сохраняются на сервере.</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Отмена</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" data-delete-action>Удалить</button>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <!-- Bootstrap JS (локально) -->
-    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- Скрипты проекта -->
-    <script src="js/main.js"></script>
-  </body>
+  <!-- Bootstrap JS (локально) -->
+  <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- Скрипты проекта -->
+  <script src="js/main.js"></script>
+</body>
+
 </html>
-
