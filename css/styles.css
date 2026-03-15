@@ -260,3 +260,144 @@ h6, .h6 {
     width: 100%;
   }
 }
+
+/* Медиа блок */
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.photo-item {
+  position: relative;
+  cursor: grab;
+  transition: transform 0.2s;
+}
+
+.photo-item:active {
+  cursor: grabbing;
+}
+
+.photo-item.dragging {
+  opacity: 0.5;
+}
+
+.photo-item.drag-over {
+  border: 2px dashed var(--bs-primary);
+}
+
+.photo-preview {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background-color: var(--bs-light);
+  border: 1px solid rgba(0,0,0,0.1);
+}
+
+.photo-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photo-actions {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  display: flex;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.photo-item:hover .photo-actions {
+  opacity: 1;
+}
+
+.photo-actions .btn {
+  padding: 0.25rem;
+  line-height: 1;
+  background: rgba(255,255,255,0.9);
+  border: none;
+  border-radius: 0.25rem;
+  color: var(--bs-dark);
+}
+
+.photo-actions .btn:hover {
+  background: white;
+  color: var(--bs-primary);
+}
+
+.photo-badge {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,215,0,0.9);
+  color: #000;
+  border-radius: 0.25rem;
+  font-size: 12px;
+}
+
+.photo-order {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  background: rgba(0,0,0,0.5);
+  color: white;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 10px;
+}
+
+.photo-add-placeholder {
+  cursor: pointer;
+}
+
+.photo-add-placeholder .photo-preview {
+  border: 2px dashed var(--bs-primary);
+  background: rgba(var(--bs-primary-rgb), 0.05);
+}
+
+.video-list {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.video-item {
+  transition: background-color 0.2s;
+}
+
+.video-item:hover {
+  background-color: rgba(var(--bs-primary-rgb), 0.05);
+}
+
+/* Стили для вкладок в стиле страницы */
+.nav-tabs-soft {
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.nav-tabs-soft .nav-link {
+  border: none;
+  color: var(--bs-secondary);
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+}
+
+.nav-tabs-soft .nav-link:hover {
+  border: none;
+  color: var(--bs-primary);
+}
+
+.nav-tabs-soft .nav-link.active {
+  border: none;
+  color: var(--bs-primary);
+  background: transparent;
+  border-bottom: 2px solid var(--bs-primary);
+}

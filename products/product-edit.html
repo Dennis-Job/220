@@ -453,15 +453,206 @@
                 <div class="col-12 col-xl-4">
                   <div class="card card-soft mb-3">
                     <div class="card-body">
-                      <div class="fw-semibold mb-3">Медиа</div>
-                      <div class="mb-3">
-                        <label class="form-label">Изображение товара</label>
-                        <input class="form-control" type="file" />
-                        <div class="form-text">В прототипе это только визуальное поле.</div>
-                      </div>
-                      <div
-                        class="ratio ratio-1x1 bg-light border rounded d-flex align-items-center justify-content-center">
-                        <div class="text-muted small">Текущее изображение</div>
+                      <div class="text-primary fw-semibold mb-3">Медиа</div>
+
+                      <!-- Вкладки фото/видео -->
+                      <ul class="nav nav-tabs nav-tabs-soft mb-3" id="mediaTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                          <button class="nav-link active" id="photos-tab" data-bs-toggle="tab" data-bs-target="#photos"
+                            type="button" role="tab" aria-controls="photos" aria-selected="true">
+                            Фото
+                            <span class="badge bg-primary bg-opacity-10 text-primary ms-1 rounded-pill">3/5</span>
+                          </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                          <button class="nav-link" id="videos-tab" data-bs-toggle="tab" data-bs-target="#videos"
+                            type="button" role="tab" aria-controls="videos" aria-selected="false">
+                            Видео
+                            <span class="badge bg-primary bg-opacity-10 text-primary ms-1 rounded-pill">2</span>
+                          </button>
+                        </li>
+                      </ul>
+
+                      <!-- Контент вкладок -->
+                      <div class="tab-content" id="mediaTabsContent">
+                        <!-- Вкладка фото -->
+                        <div class="tab-pane fade show active" id="photos" role="tabpanel" aria-labelledby="photos-tab">
+                          <div class="mb-3">
+                            <label class="form-label">Загрузить фото</label>
+                            <input class="form-control" type="file" accept="image/*" multiple />
+                            <div class="form-text">Максимум 5 фото. Перетаскивайте, чтобы изменить порядок.</div>
+                          </div>
+
+                          <!-- Сетка загруженных фото -->
+                          <div class="photo-grid" data-sortable="photos">
+                            <!-- Пример загруженного фото 1 -->
+                            <div class="photo-item" data-id="1">
+                              <div class="photo-preview">
+                                <img src="../assets/images/img-1.jpg" alt="Preview">
+                                <div class="photo-actions">
+                                  <button class="btn btn-sm btn-light" title="Сделать главным" data-set-main>
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                      <path d="M8 1L10 5.5L15 6L11.5 9.5L12.5 15L8 12.5L3.5 15L4.5 9.5L1 6L6 5.5L8 1Z"
+                                        fill="currentColor" />
+                                    </svg>
+                                  </button>
+                                  <button class="btn btn-sm btn-light" title="Удалить" data-delete>
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                      <path d="M3 4H13V13C13 14.1046 12.1046 15 11 15H5C3.89543 15 3 14.1046 3 13V4Z"
+                                        fill="currentColor" fill-opacity="0.2" stroke="currentColor" />
+                                      <path d="M2 4H14" stroke="currentColor" stroke-linecap="round" />
+                                      <path d="M6 2H10" stroke="currentColor" stroke-linecap="round" />
+                                      <path d="M6 7V12" stroke="currentColor" stroke-linecap="round" />
+                                      <path d="M10 7V12" stroke="currentColor" stroke-linecap="round" />
+                                    </svg>
+                                  </button>
+                                </div>
+                                <div class="photo-badge main-badge" title="Главное фото">★</div>
+                                <div class="photo-order">1</div>
+                              </div>
+                            </div>
+
+                            <!-- Пример загруженного фото 2 -->
+                            <div class="photo-item" data-id="2">
+                              <div class="photo-preview">
+                                <img src="../assets/images/img-2.jpg" alt="Preview">
+                                <div class="photo-actions">
+                                  <button class="btn btn-sm btn-light" title="Сделать главным" data-set-main>
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                      <path d="M8 1L10 5.5L15 6L11.5 9.5L12.5 15L8 12.5L3.5 15L4.5 9.5L1 6L6 5.5L8 1Z"
+                                        fill="currentColor" />
+                                    </svg>
+                                  </button>
+                                  <button class="btn btn-sm btn-light" title="Удалить" data-delete>
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                      <path d="M3 4H13V13C13 14.1046 12.1046 15 11 15H5C3.89543 15 3 14.1046 3 13V4Z"
+                                        fill="currentColor" fill-opacity="0.2" stroke="currentColor" />
+                                      <path d="M2 4H14" stroke="currentColor" stroke-linecap="round" />
+                                      <path d="M6 2H10" stroke="currentColor" stroke-linecap="round" />
+                                      <path d="M6 7V12" stroke="currentColor" stroke-linecap="round" />
+                                      <path d="M10 7V12" stroke="currentColor" stroke-linecap="round" />
+                                    </svg>
+                                  </button>
+                                </div>
+                                <div class="photo-order">2</div>
+                              </div>
+                            </div>
+
+                            <!-- Пример загруженного фото 3 -->
+                            <div class="photo-item" data-id="3">
+                              <div class="photo-preview">
+                                <img src="../assets/images/img-3.jpg" alt="Preview">
+                                <div class="photo-actions">
+                                  <button class="btn btn-sm btn-light" title="Сделать главным" data-set-main>
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                      <path d="M8 1L10 5.5L15 6L11.5 9.5L12.5 15L8 12.5L3.5 15L4.5 9.5L1 6L6 5.5L8 1Z"
+                                        fill="currentColor" />
+                                    </svg>
+                                  </button>
+                                  <button class="btn btn-sm btn-light" title="Удалить" data-delete>
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                      <path d="M3 4H13V13C13 14.1046 12.1046 15 11 15H5C3.89543 15 3 14.1046 3 13V4Z"
+                                        fill="currentColor" fill-opacity="0.2" stroke="currentColor" />
+                                      <path d="M2 4H14" stroke="currentColor" stroke-linecap="round" />
+                                      <path d="M6 2H10" stroke="currentColor" stroke-linecap="round" />
+                                      <path d="M6 7V12" stroke="currentColor" stroke-linecap="round" />
+                                      <path d="M10 7V12" stroke="currentColor" stroke-linecap="round" />
+                                    </svg>
+                                  </button>
+                                </div>
+                                <div class="photo-order">3</div>
+                              </div>
+                            </div>
+
+                            <!-- Заглушка для добавления фото (появляется, если фото < 5) -->
+                            <div class="photo-item photo-add-placeholder">
+                              <div class="photo-preview">
+                                <div
+                                  class="d-flex flex-column align-items-center justify-content-center h-100 text-muted">
+                                  <svg width="24" height="24" viewBox="0 0 16 16" fill="none" class="mb-2">
+                                    <rect x="2" y="2" width="12" height="12" rx="2" stroke="currentColor"
+                                      stroke-dasharray="3 3" />
+                                    <path d="M8 4V12" stroke="currentColor" stroke-linecap="round" />
+                                    <path d="M4 8H12" stroke="currentColor" stroke-linecap="round" />
+                                  </svg>
+                                  <small>Добавить</small>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- Индикатор заполнения -->
+                          <div class="d-flex align-items-center justify-content-between mt-3">
+                            <small class="text-muted">Загружено 3 из 5 фото</small>
+                            <div class="progress flex-grow-1 ms-3" style="height: 4px;">
+                              <div class="progress-bar bg-primary" role="progressbar" style="width: 60%"></div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Вкладка видео -->
+                        <div class="tab-pane fade" id="videos" role="tabpanel" aria-labelledby="videos-tab">
+                          <div class="mb-3">
+                            <label class="form-label">Загрузить видео</label>
+                            <input class="form-control" type="file" accept="video/*" />
+                            <div class="form-text">Поддерживаемые форматы: MP4, WebM, MOV</div>
+                          </div>
+
+                          <!-- Список загруженных видео -->
+                          <div class="video-list">
+                            <!-- Пример видео 1 -->
+                            <div class="video-item d-flex align-items-center gap-2 p-2 border rounded mb-2">
+                              <div class="video-preview bg-light rounded" style="width: 60px; height: 60px;">
+                                <div class="d-flex align-items-center justify-content-center h-100 text-muted">
+                                  <svg width="24" height="24" viewBox="0 0 16 16" fill="none">
+                                    <rect x="2" y="2" width="12" height="12" rx="2" stroke="currentColor" />
+                                    <path d="M6 5L11 8L6 11V5Z" fill="currentColor" />
+                                  </svg>
+                                </div>
+                              </div>
+                              <div class="flex-grow-1">
+                                <div class="small fw-semibold">обзор-ноутбука.mp4</div>
+                                <div class="small text-muted">15.2 MB</div>
+                              </div>
+                              <button class="btn btn-sm btn-outline-danger" title="Удалить">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                  <path d="M3 4H13V13C13 14.1046 12.1046 15 11 15H5C3.89543 15 3 14.1046 3 13V4Z"
+                                    fill="currentColor" fill-opacity="0.2" stroke="currentColor" />
+                                  <path d="M2 4H14" stroke="currentColor" stroke-linecap="round" />
+                                  <path d="M6 2H10" stroke="currentColor" stroke-linecap="round" />
+                                  <path d="M6 7V12" stroke="currentColor" stroke-linecap="round" />
+                                  <path d="M10 7V12" stroke="currentColor" stroke-linecap="round" />
+                                </svg>
+                              </button>
+                            </div>
+
+                            <!-- Пример видео 2 -->
+                            <div class="video-item d-flex align-items-center gap-2 p-2 border rounded mb-2">
+                              <div class="video-preview bg-light rounded" style="width: 60px; height: 60px;">
+                                <div class="d-flex align-items-center justify-content-center h-100 text-muted">
+                                  <svg width="24" height="24" viewBox="0 0 16 16" fill="none">
+                                    <rect x="2" y="2" width="12" height="12" rx="2" stroke="currentColor" />
+                                    <path d="M6 5L11 8L6 11V5Z" fill="currentColor" />
+                                  </svg>
+                                </div>
+                              </div>
+                              <div class="flex-grow-1">
+                                <div class="small fw-semibold">распаковка.mp4</div>
+                                <div class="small text-muted">8.7 MB</div>
+                              </div>
+                              <button class="btn btn-sm btn-outline-danger" title="Удалить">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                  <path d="M3 4H13V13C13 14.1046 12.1046 15 11 15H5C3.89543 15 3 14.1046 3 13V4Z"
+                                    fill="currentColor" fill-opacity="0.2" stroke="currentColor" />
+                                  <path d="M2 4H14" stroke="currentColor" stroke-linecap="round" />
+                                  <path d="M6 2H10" stroke="currentColor" stroke-linecap="round" />
+                                  <path d="M6 7V12" stroke="currentColor" stroke-linecap="round" />
+                                  <path d="M10 7V12" stroke="currentColor" stroke-linecap="round" />
+                                </svg>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
