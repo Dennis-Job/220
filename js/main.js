@@ -192,6 +192,40 @@
     wireCmsDelete();
     renderCmsStores();
     wireSalesPointStatusDropdown();
+    wirePhotoPreviewModal();
   });
 })();
+
+/**
+ * Модальное окно предпросмотра фото товара.
+ * Отвечает только за открытие/закрытие крупного изображения при клике.
+ */
+function wirePhotoPreviewModal() {
+  var modalEl = document.getElementById('photoPreviewModal');
+  if (!modalEl || !window.bootstrap) return;
+
+  var imgTarget = modalEl.querySelector('[data-photo-preview-image]');
+  if (!imgTarget) return;
+
+  var modal = window.bootstrap.Modal.getOrCreateInstance(modalEl);
+
+  document.addEventListener('click', function (event) {
+    var img = event.target.closest('.photo-preview img');
+    if (!img) {
+      return;
+    }
+
+    var src = img.getAttribute('src');
+    if (!src) {
+      return;
+    }
+
+    var alt = img.getAttribute('alt') || 'Предпросмотр фото';
+
+    imgTarget.setAttribute('src', src);
+    imgTarget.setAttribute('alt', alt);
+
+    modal.show();
+  });
+}
 

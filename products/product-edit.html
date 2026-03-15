@@ -1300,6 +1300,22 @@
     </main>
   </div>
 
+  <!-- Модальное окно: предпросмотр фото товара -->
+  <div class="modal fade" id="photoPreviewModal" tabindex="-1" aria-labelledby="photoPreviewModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="photoPreviewModalLabel">Предпросмотр фото</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
+        <div class="modal-body text-center">
+          <img data-photo-preview-image src="" alt="Предпросмотр фото" class="img-fluid rounded" />
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Модальное окно: Добавление товара в точку продаж -->
   <div class="modal fade" id="addSalesPointModal" tabindex="-1" aria-labelledby="addSalesPointModalLabel"
     aria-hidden="true">
