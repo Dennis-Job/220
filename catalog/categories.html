@@ -140,7 +140,7 @@
                     </button>
                   </div>
                 </div>
-                <table class="table table-hover table-borderless table-sm mb-0">
+                <table class="table table-hover table-borderless table-sm mb-0" data-categories-table>
                   <thead>
                     <tr>
                       <th>ID</th>
@@ -152,7 +152,7 @@
                   <tbody>
                     <tr>
                       <td>#10</td>
-                      <td><a href="#" class="fw-semibold text-decoration-none">Смартфоны</a></td>
+                      <td><a href="#" class="fw-semibold text-decoration-none" data-category-id="10">Смартфоны</a></td>
                       <td class="text-center">120</td>
                       <td class="text-end">
                         <div class="btn-group">
@@ -164,7 +164,7 @@
                     </tr>
                     <tr>
                       <td>#11</td>
-                      <td><a href="#" class="fw-semibold text-decoration-none">Ноутбуки</a></td>
+                      <td><a href="#" class="fw-semibold text-decoration-none" data-category-id="11">Ноутбуки</a></td>
                       <td class="text-center">48</td>
                       <td class="text-end">
                         <div class="btn-group">
@@ -176,7 +176,7 @@
                     </tr>
                     <tr>
                       <td>#12</td>
-                      <td><a href="#" class="fw-semibold text-decoration-none">Кабели, шлейфы, переходники</a></td>
+                      <td><a href="#" class="fw-semibold text-decoration-none" data-category-id="12">Кабели, шлейфы, переходники</a></td>
                       <td class="text-center">210</td>
                       <td class="text-end">
                         <div class="btn-group">
@@ -211,21 +211,16 @@
                 <table class="table table-hover table-borderless table-sm mb-0">
                   <thead>
                     <tr>
-                      <th>Главный</th>
-                      <th>Тип штрихкода</th>
-                      <th>Штрихкод</th>
+                      <th>Группа</th>
+                      <th>Название</th>
+                      <th>Тип</th>
+                      <th>Единица измерения</th>
+                      <th class="text-end">Действия</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody id="categoryAttributesBody">
                     <tr>
-                      <td><input class="form-check-input ms-3" type="checkbox" name="main" id="main" checked></td>
-                      <td>EAN-13</td>
-                      <td>43567890123456</td>
-                    </tr>
-                    <tr>
-                      <td><input class="form-check-input ms-3" type="checkbox" name="main" id="main"></td>
-                      <td>EAN-8</td>
-                      <td>43567890</td>
+                      <td colspan="5" class="text-muted small">Выберите категорию слева, чтобы увидеть связанные с ней характеристики.</td>
                     </tr>
                   </tbody>
                 </table>

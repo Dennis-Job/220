@@ -185,6 +185,84 @@
     });
   }
 
+  var CATEGORY_ATTRIBUTES = {
+    '10': [
+      { group: 'Основные', name: 'Бренд', type: 'Справочник', unit: '' },
+      { group: 'Основные', name: 'Модель', type: 'Строка', unit: '' },
+      { group: 'Дисплей', name: 'Диагональ экрана', type: 'Число', unit: '″' },
+      { group: 'Дисплей', name: 'Тип матрицы', type: 'Справочник', unit: '' },
+      { group: 'Память', name: 'Объём встроенной памяти', type: 'Число', unit: 'ГБ' }
+    ],
+    '11': [
+      { group: 'Основные', name: 'Бренд', type: 'Справочник', unit: '' },
+      { group: 'Основные', name: 'Модель', type: 'Строка', unit: '' },
+      { group: 'Производительность', name: 'Процессор', type: 'Строка', unit: '' },
+      { group: 'Производительность', name: 'Объём оперативной памяти', type: 'Число', unit: 'ГБ' },
+      { group: 'Накопитель', name: 'Тип накопителя', type: 'Справочник', unit: '' },
+      { group: 'Накопитель', name: 'Объём SSD', type: 'Число', unit: 'ГБ' }
+    ],
+    '12': [
+      { group: 'Основные', name: 'Тип аксессуара', type: 'Справочник', unit: '' },
+      { group: 'Совместимость', name: 'Тип разъёма', type: 'Справочник', unit: '' },
+      { group: 'Физические параметры', name: 'Длина кабеля', type: 'Число', unit: 'м' }
+    ]
+  };
+
+  function renderCategoryAttributes(categoryId) {
+    var tbody = document.getElementById('categoryAttributesBody');
+    if (!tbody) return;
+
+    var attributes = CATEGORY_ATTRIBUTES[categoryId] || [];
+
+    if (!attributes.length) {
+      tbody.innerHTML = '' +
+        '<tr>' +
+        '  <td colspan="5" class="text-muted small">Для выбранной категории пока не настроены характеристики.</td>' +
+        '</tr>';
+      return;
+    }
+
+    tbody.innerHTML = attributes.map(function (attr) {
+      return '' +
+        '<tr>' +
+        '  <td>' + escapeHtml(attr.group) + '</td>' +
+        '  <td>' + escapeHtml(attr.name) + '</td>' +
+        '  <td>' + escapeHtml(attr.type) + '</td>' +
+        '  <td>' + escapeHtml(attr.unit) + '</td>' +
+        '  <td class="text-end">' +
+        '    <button type="button" class="btn btn-sm btn-outline-secondary" disabled>Редактировать</button>' +
+        '  </td>' +
+        '</tr>';
+    }).join('');
+  }
+
+  function wireCategoryAttributes() {
+    var categoriesTable = document.querySelector('[data-categories-table]');
+    if (!categoriesTable) return;
+
+    categoriesTable.addEventListener('click', function (event) {
+      var link = event.target.closest('[data-category-id]');
+      if (!link || !categoriesTable.contains(link)) return;
+
+      event.preventDefault();
+
+      var categoryId = link.getAttribute('data-category-id');
+      if (!categoryId) return;
+
+      var activeRow = categoriesTable.querySelector('tr.table-active');
+      if (activeRow) {
+        activeRow.classList.remove('table-active');
+      }
+
+      var currentRow = link.closest('tr');
+      if (currentRow) {
+        currentRow.classList.add('table-active');
+      }
+
+      renderCategoryAttributes(categoryId);
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     setActiveSidebarLink();
     wireDeleteModal();
@@ -193,6 +271,7 @@
     renderCmsStores();
     wireSalesPointStatusDropdown();
     wirePhotoPreviewModal();
+    wireCategoryAttributes();
   });
 })();
 
