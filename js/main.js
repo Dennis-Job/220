@@ -185,36 +185,111 @@
     });
   }
 
-  var CATEGORY_ATTRIBUTES = {
-    '10': [
-      { group: 'Основные', name: 'Бренд', type: 'Справочник', unit: '' },
-      { group: 'Основные', name: 'Модель', type: 'Строка', unit: '' },
-      { group: 'Дисплей', name: 'Диагональ экрана', type: 'Число', unit: '″' },
-      { group: 'Дисплей', name: 'Тип матрицы', type: 'Справочник', unit: '' },
-      { group: 'Память', name: 'Объём встроенной памяти', type: 'Число', unit: 'ГБ' }
-    ],
-    '11': [
-      { group: 'Основные', name: 'Бренд', type: 'Справочник', unit: '' },
-      { group: 'Основные', name: 'Модель', type: 'Строка', unit: '' },
-      { group: 'Производительность', name: 'Процессор', type: 'Строка', unit: '' },
-      { group: 'Производительность', name: 'Объём оперативной памяти', type: 'Число', unit: 'ГБ' },
-      { group: 'Накопитель', name: 'Тип накопителя', type: 'Справочник', unit: '' },
-      { group: 'Накопитель', name: 'Объём SSD', type: 'Число', unit: 'ГБ' }
-    ],
-    '12': [
-      { group: 'Основные', name: 'Тип аксессуара', type: 'Справочник', unit: '' },
-      { group: 'Совместимость', name: 'Тип разъёма', type: 'Справочник', unit: '' },
-      { group: 'Физические параметры', name: 'Длина кабеля', type: 'Число', unit: 'м' }
-    ]
-  };
+  /**
+   * Справочник характеристик (демо-набор для прототипа).
+   * В дальнейшем можно заменить на данные со страницы `catalog/attributes.html`.
+   */
+  var ATTRIBUTES_CATALOG = [
+    { id: '201', name: 'Объём памяти', type: 'Список значений', unit: 'ГБ' },
+    { id: '202', name: 'Диагональ экрана', type: 'Число', unit: '″' },
+    { id: '203', name: 'Цвет', type: 'Список значений', unit: '' },
+    { id: '204', name: 'Бренд', type: 'Справочник', unit: '' },
+    { id: '205', name: 'Модель', type: 'Строка', unit: '' },
+    { id: '206', name: 'Процессор', type: 'Строка', unit: '' },
+    { id: '207', name: 'Объём оперативной памяти', type: 'Число', unit: 'ГБ' },
+    { id: '208', name: 'Тип накопителя', type: 'Справочник', unit: '' },
+    { id: '209', name: 'Объём SSD', type: 'Число', unit: 'ГБ' },
+    { id: '210', name: 'Тип разъёма', type: 'Справочник', unit: '' },
+    { id: '211', name: 'Длина кабеля', type: 'Число', unit: 'м' },
+    { id: '212', name: 'Тип матрицы', type: 'Справочник', unit: '' }
+  ];
+
+  var CATEGORY_GROUPS_STORAGE_KEY = 'demo_category_attribute_groups_v1';
+
+  /**
+   * Структура:
+   * {
+   *   [categoryId]: [
+   *     { id, name, attributeIds: [ '201', '202' ] }
+   *   ]
+   * }
+   */
+  function loadCategoryAttributeGroups() {
+    try {
+      var raw = localStorage.getItem(CATEGORY_GROUPS_STORAGE_KEY);
+      if (!raw) return {};
+      var data = JSON.parse(raw);
+      return data && typeof data === 'object' ? data : {};
+    } catch (e) {
+      return {};
+    }
+  }
+
+  function saveCategoryAttributeGroups(data) {
+    try {
+      localStorage.setItem(CATEGORY_GROUPS_STORAGE_KEY, JSON.stringify(data));
+    } catch (e) {
+      // Для прототипа игнорируем ошибки хранилища
+    }
+  }
+
+  function buildDefaultGroups() {
+    // Базовые группы (чтобы страница выглядела заполненной до первых действий пользователя).
+    return {
+      '10': [
+        { id: 'g_10_basic', name: 'Основные', attributeIds: ['204', '205'] },
+        { id: 'g_10_display', name: 'Дисплей', attributeIds: ['202', '212'] },
+        { id: 'g_10_memory', name: 'Память', attributeIds: ['201'] }
+      ],
+      '11': [
+        { id: 'g_11_basic', name: 'Основные', attributeIds: ['204', '205'] },
+        { id: 'g_11_perf', name: 'Производительность', attributeIds: ['206', '207'] },
+        { id: 'g_11_storage', name: 'Накопитель', attributeIds: ['208', '209'] }
+      ],
+      '12': [
+        { id: 'g_12_basic', name: 'Основные', attributeIds: ['203'] },
+        { id: 'g_12_compat', name: 'Совместимость', attributeIds: ['210'] },
+        { id: 'g_12_physical', name: 'Физические параметры', attributeIds: ['211'] }
+      ]
+    };
+  }
+
+  var CATEGORY_ATTRIBUTE_GROUPS = loadCategoryAttributeGroups();
+  if (!Object.keys(CATEGORY_ATTRIBUTE_GROUPS).length) {
+    CATEGORY_ATTRIBUTE_GROUPS = buildDefaultGroups();
+    saveCategoryAttributeGroups(CATEGORY_ATTRIBUTE_GROUPS);
+  }
+
+  var selectedCategoryId = null;
+  var selectedCategoryName = null;
+
+  function getAttributeById(id) {
+    return ATTRIBUTES_CATALOG.find(function (a) { return a.id === String(id); }) || null;
+  }
 
   function renderCategoryAttributes(categoryId) {
     var tbody = document.getElementById('categoryAttributesBody');
     if (!tbody) return;
 
-    var attributes = CATEGORY_ATTRIBUTES[categoryId] || [];
+    var groups = (CATEGORY_ATTRIBUTE_GROUPS && CATEGORY_ATTRIBUTE_GROUPS[categoryId]) ? CATEGORY_ATTRIBUTE_GROUPS[categoryId] : [];
+    var rows = [];
 
-    if (!attributes.length) {
+    groups.forEach(function (g) {
+      (g.attributeIds || []).forEach(function (attrId) {
+        var attr = getAttributeById(attrId);
+        if (!attr) return;
+        rows.push({
+          groupId: g.id,
+          groupName: g.name,
+          attrId: attr.id,
+          name: attr.name,
+          type: attr.type,
+          unit: attr.unit || ''
+        });
+      });
+    });
+
+    if (!rows.length) {
       tbody.innerHTML = '' +
         '<tr>' +
         '  <td colspan="5" class="text-muted small">Для выбранной категории пока не настроены характеристики.</td>' +
@@ -222,18 +297,29 @@
       return;
     }
 
-    tbody.innerHTML = attributes.map(function (attr) {
+    tbody.innerHTML = rows.map(function (row) {
       return '' +
         '<tr>' +
-        '  <td>' + escapeHtml(attr.group) + '</td>' +
-        '  <td>' + escapeHtml(attr.name) + '</td>' +
-        '  <td>' + escapeHtml(attr.type) + '</td>' +
-        '  <td>' + escapeHtml(attr.unit) + '</td>' +
+        '  <td>' + escapeHtml(row.groupName) + '</td>' +
+        '  <td>' + escapeHtml(row.name) + '</td>' +
+        '  <td>' + escapeHtml(row.type) + '</td>' +
+        '  <td>' + escapeHtml(row.unit) + '</td>' +
         '  <td class="text-end">' +
-        '    <button type="button" class="btn btn-sm btn-outline-secondary" disabled>Редактировать</button>' +
+        '    <button type="button" class="btn btn-sm btn-outline-danger" data-action="remove-category-attribute" data-category-id="' + escapeHtml(categoryId) + '" data-group-id="' + escapeHtml(row.groupId) + '" data-attr-id="' + escapeHtml(row.attrId) + '">Удалить</button>' +
         '  </td>' +
         '</tr>';
     }).join('');
+  }
+
+  function setSelectedCategoryUi(name, id) {
+    var label = document.getElementById('selectedCategoryName');
+    if (label) label.textContent = name ? String(name) : '—';
+
+    var addBtn = document.querySelector('[data-add-attribute-group-btn]');
+    if (addBtn) addBtn.disabled = !id;
+
+    var modalCat = document.querySelector('[data-modal-selected-category]');
+    if (modalCat) modalCat.textContent = name ? String(name) : '—';
   }
 
   function wireCategoryAttributes() {
@@ -249,6 +335,10 @@
       var categoryId = link.getAttribute('data-category-id');
       if (!categoryId) return;
 
+      selectedCategoryId = categoryId;
+      selectedCategoryName = link.textContent ? link.textContent.trim() : ('Категория #' + categoryId);
+      setSelectedCategoryUi(selectedCategoryName, selectedCategoryId);
+
       var activeRow = categoriesTable.querySelector('tr.table-active');
       if (activeRow) {
         activeRow.classList.remove('table-active');
@@ -263,6 +353,169 @@
     });
   }
 
+  function renderAttributePickerList(filter) {
+    var listEl = document.querySelector('[data-attribute-picker-list]');
+    if (!listEl) return;
+
+    var countEl = document.querySelector('[data-attribute-picker-count]');
+
+    var q = String(filter || '').trim().toLowerCase();
+    var items = ATTRIBUTES_CATALOG.filter(function (a) {
+      if (!q) return true;
+      return (a.name || '').toLowerCase().includes(q) || String(a.id).includes(q);
+    });
+
+    if (countEl) countEl.textContent = String(items.length);
+
+    if (!items.length) {
+      listEl.innerHTML = '<div class="text-muted small">Ничего не найдено.</div>';
+      return;
+    }
+
+    listEl.innerHTML = items.map(function (a) {
+      return '' +
+        '<label class="d-flex align-items-start gap-2 py-1 border-bottom" style="cursor: pointer;">' +
+        '  <input class="form-check-input mt-1" type="checkbox" value="' + escapeHtml(a.id) + '" data-attribute-picker-item />' +
+        '  <span class="flex-grow-1">' +
+        '    <span class="fw-semibold">' + escapeHtml(a.name) + '</span>' +
+        '    <span class="text-muted-2">#' + escapeHtml(a.id) + '</span>' +
+        '    <div class="small text-muted-2">' +
+        '      ' + escapeHtml(a.type) + (a.unit ? (' • ' + escapeHtml(a.unit)) : '') +
+        '    </div>' +
+        '  </span>' +
+        '</label>';
+    }).join('');
+  }
+
+  function showAttributeGroupError(message) {
+    var el = document.querySelector('[data-attribute-group-error]');
+    if (!el) return;
+    if (!message) {
+      el.classList.add('d-none');
+      el.textContent = '';
+      return;
+    }
+    el.textContent = message;
+    el.classList.remove('d-none');
+  }
+
+  function resetAttributeGroupModal() {
+    showAttributeGroupError(null);
+
+    var nameInput = document.querySelector('[data-attribute-group-name]');
+    if (nameInput) nameInput.value = '';
+
+    var search = document.querySelector('[data-attribute-picker-search]');
+    if (search) search.value = '';
+
+    renderAttributePickerList('');
+  }
+
+  function wireAttributeGroupModal() {
+    var modalEl = document.getElementById('addAttributeGroupModal');
+    if (!modalEl || !window.bootstrap) return;
+
+    modalEl.addEventListener('show.bs.modal', function () {
+      if (!selectedCategoryId) {
+        // На всякий случай: не даём открыть без выбранной категории.
+        showAttributeGroupError('Сначала выберите категорию слева.');
+      }
+      setSelectedCategoryUi(selectedCategoryName, selectedCategoryId);
+      resetAttributeGroupModal();
+    });
+
+    var search = modalEl.querySelector('[data-attribute-picker-search]');
+    if (search) {
+      search.addEventListener('input', function () {
+        renderAttributePickerList(search.value);
+      });
+    }
+
+    var saveBtn = modalEl.querySelector('[data-save-attribute-group]');
+    if (saveBtn) {
+      saveBtn.addEventListener('click', function () {
+        showAttributeGroupError(null);
+
+        if (!selectedCategoryId) {
+          showAttributeGroupError('Сначала выберите категорию слева.');
+          return;
+        }
+
+        var nameInput = modalEl.querySelector('[data-attribute-group-name]');
+        var groupName = nameInput ? String(nameInput.value || '').trim() : '';
+        if (!groupName) {
+          showAttributeGroupError('Укажите название группы (например: «Процессор»).');
+          return;
+        }
+
+        var checked = Array.from(modalEl.querySelectorAll('[data-attribute-picker-item]:checked'));
+        var attributeIds = checked.map(function (c) { return String(c.value); });
+        if (!attributeIds.length) {
+          showAttributeGroupError('Выберите хотя бы одну характеристику для добавления в группу.');
+          return;
+        }
+
+        var data = CATEGORY_ATTRIBUTE_GROUPS || {};
+        var list = Array.isArray(data[selectedCategoryId]) ? data[selectedCategoryId] : [];
+
+        var newGroup = {
+          id: 'g_' + Date.now(),
+          name: groupName,
+          attributeIds: attributeIds
+        };
+
+        list.unshift(newGroup);
+        data[selectedCategoryId] = list;
+        CATEGORY_ATTRIBUTE_GROUPS = data;
+        saveCategoryAttributeGroups(CATEGORY_ATTRIBUTE_GROUPS);
+
+        renderCategoryAttributes(selectedCategoryId);
+
+        var modal = window.bootstrap.Modal.getOrCreateInstance(modalEl);
+        modal.hide();
+      });
+    }
+  }
+
+  function wireCategoryAttributeRemove() {
+    document.addEventListener('click', function (event) {
+      var btn = event.target.closest('[data-action="remove-category-attribute"]');
+      if (!btn) return;
+
+      var categoryId = btn.getAttribute('data-category-id');
+      var groupId = btn.getAttribute('data-group-id');
+      var attrId = btn.getAttribute('data-attr-id');
+      if (!categoryId || !groupId || !attrId) return;
+
+      var data = CATEGORY_ATTRIBUTE_GROUPS || {};
+      var groups = Array.isArray(data[categoryId]) ? data[categoryId] : [];
+      var changed = false;
+
+      groups = groups.map(function (g) {
+        if (g.id !== groupId) return g;
+        var ids = Array.isArray(g.attributeIds) ? g.attributeIds : [];
+        var nextIds = ids.filter(function (id) { return String(id) !== String(attrId); });
+        if (nextIds.length !== ids.length) changed = true;
+        return Object.assign({}, g, { attributeIds: nextIds });
+      }).filter(function (g) {
+        // Если в группе больше нет атрибутов — удаляем группу.
+        var ids = Array.isArray(g.attributeIds) ? g.attributeIds : [];
+        return ids.length > 0;
+      });
+
+      if (!changed) return;
+
+      data[categoryId] = groups;
+      CATEGORY_ATTRIBUTE_GROUPS = data;
+      saveCategoryAttributeGroups(CATEGORY_ATTRIBUTE_GROUPS);
+
+      // Если удаляли в текущей категории — перерисуем.
+      if (selectedCategoryId && String(selectedCategoryId) === String(categoryId)) {
+        renderCategoryAttributes(categoryId);
+      }
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     setActiveSidebarLink();
     wireDeleteModal();
@@ -272,6 +525,8 @@
     wireSalesPointStatusDropdown();
     wirePhotoPreviewModal();
     wireCategoryAttributes();
+    wireAttributeGroupModal();
+    wireCategoryAttributeRemove();
   });
 })();
 
