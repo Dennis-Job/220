@@ -893,6 +893,330 @@
     });
   }
 
+  // ==================== НОВЫЕ ФУНКЦИИ ДЛЯ ХАРАКТЕРИСТИК И ЕДИНИЦ ИЗМЕРЕНИЯ ====================
+
+  var ATTRIBUTES_STORAGE_KEY = 'demo_attributes_v2';
+
+  function loadAttributes() {
+    try {
+      var raw = localStorage.getItem(ATTRIBUTES_STORAGE_KEY);
+      if (!raw) {
+        return ATTRIBUTES_CATALOG.map(function(a) {
+          return { id: a.id, name: a.name, type: a.type };
+        });
+      }
+      var data = JSON.parse(raw);
+      return Array.isArray(data) ? data : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function saveAttributes(attrs) {
+    try {
+      localStorage.setItem(ATTRIBUTES_STORAGE_KEY, JSON.stringify(attrs));
+    } catch (e) {}
+  }
+
+  function renderAttributesTable() {
+    var tbody = document.getElementById('attributesTableBody');
+    if (!tbody) return;
+
+    var attrs = loadAttributes();
+    if (!attrs.length) {
+      tbody.innerHTML = '<tr><td colspan="4" class="text-center text-muted small">Нет характеристик. Добавьте первую.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = attrs.map(function(a) {
+      return '<tr data-attribute-id="' + escapeHtml(a.id) + '">' +
+        '<td>#' + escapeHtml(a.id) + '</td>' +
+        '<td>' + escapeHtml(a.name) + '</td>' +
+        '<td>' + escapeHtml(a.type) + '</td>' +
+        '<td class="text-center">' +
+          '<div class="btn-group">' +
+            '<button class="btn btn-sm btn-outline-primary" type="button" data-action="edit-attribute" ' +
+                    'data-attribute-id="' + escapeHtml(a.id) + '" ' +
+                    'data-attribute-name="' + escapeHtml(a.name) + '" ' +
+                    'data-attribute-type="' + escapeHtml(a.type) + '" ' +
+                    'title="Редактировать характеристику">' +
+              '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">' +
+                '<path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>' +
+              '</svg>' +
+            '</button>' +
+            '<button class="btn btn-sm btn-outline-danger" type="button" data-action="delete-attribute" ' +
+                    'data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" ' +
+                    'data-item-name="Характеристику «' + escapeHtml(a.name) + '»" ' +
+                    'data-attribute-id="' + escapeHtml(a.id) + '" ' +
+                    'title="Удалить характеристику">' +
+              '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">' +
+                '<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>' +
+                '<path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>' +
+              '</svg>' +
+            '</button>' +
+          '</div>' +
+        '</td>' +
+      '</tr>';
+    }).join('');
+  }
+
+  var UNITS_STORAGE_KEY = 'demo_units_v1';
+
+  var DEFAULT_UNITS = [
+    { id: '1', fullName: 'Грамм', abbr: 'г', code: 'GRM' },
+    { id: '2', fullName: 'Килограмм', abbr: 'кг', code: 'KGM' },
+    { id: '3', fullName: 'Сантиметр', abbr: 'см', code: 'CMT' },
+    { id: '4', fullName: 'Дюйм', abbr: '″', code: 'INH' }
+  ];
+
+  function loadUnits() {
+    try {
+      var raw = localStorage.getItem(UNITS_STORAGE_KEY);
+      if (!raw) return DEFAULT_UNITS;
+      var data = JSON.parse(raw);
+      return Array.isArray(data) ? data : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function saveUnits(units) {
+    try {
+      localStorage.setItem(UNITS_STORAGE_KEY, JSON.stringify(units));
+    } catch (e) {}
+  }
+
+  function renderUnitsTable() {
+    var tbody = document.getElementById('unitsTableBody');
+    if (!tbody) return;
+
+    var units = loadUnits();
+    if (!units.length) {
+      tbody.innerHTML = '<tr><td colspan="4" class="text-center text-muted small">Нет единиц измерения. Добавьте первую.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = units.map(function(u) {
+      return '<tr data-unit-id="' + escapeHtml(u.id) + '">' +
+        '<td>' + escapeHtml(u.fullName) + '</td>' +
+        '<td>' + escapeHtml(u.abbr) + '</td>' +
+        '<td>' + escapeHtml(u.code) + '</td>' +
+        '<td class="text-center">' +
+          '<div class="btn-group">' +
+            '<button class="btn btn-sm btn-outline-primary" type="button" data-action="edit-unit" ' +
+                    'data-unit-id="' + escapeHtml(u.id) + '" ' +
+                    'data-unit-fullname="' + escapeHtml(u.fullName) + '" ' +
+                    'data-unit-abbr="' + escapeHtml(u.abbr) + '" ' +
+                    'data-unit-code="' + escapeHtml(u.code) + '" ' +
+                    'title="Редактировать единицу измерения">' +
+              '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">' +
+                '<path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>' +
+              '</svg>' +
+            '</button>' +
+            '<button class="btn btn-sm btn-outline-danger" type="button" data-action="delete-unit" ' +
+                    'data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" ' +
+                    'data-item-name="Единицу измерения «' + escapeHtml(u.fullName) + '»" ' +
+                    'data-unit-id="' + escapeHtml(u.id) + '" ' +
+                    'title="Удалить единицу измерения">' +
+              '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">' +
+                '<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>' +
+                '<path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>' +
+              '</svg>' +
+            '</button>' +
+          '</div>' +
+        '</td>' +
+      '</tr>';
+    }).join('');
+  }
+
+  function wireAttributesCrud() {
+    var modalEl = document.getElementById('attributeModal');
+    if (!modalEl) return;
+
+    var addBtn = document.getElementById('addAttributeBtn');
+    if (addBtn) {
+      addBtn.addEventListener('click', function() {
+        document.getElementById('attributeModalTitle').textContent = 'Добавить характеристику';
+        document.getElementById('attributeId').value = '';
+        document.getElementById('attributeName').value = '';
+        document.getElementById('attributeType').value = 'Строка';
+      });
+    }
+
+    document.addEventListener('click', function(e) {
+      var btn = e.target.closest('[data-action="edit-attribute"]');
+      if (!btn) return;
+
+      var id = btn.getAttribute('data-attribute-id');
+      var name = btn.getAttribute('data-attribute-name');
+      var type = btn.getAttribute('data-attribute-type');
+
+      document.getElementById('attributeModalTitle').textContent = 'Редактировать характеристику';
+      document.getElementById('attributeId').value = id || '';
+      document.getElementById('attributeName').value = name || '';
+      document.getElementById('attributeType').value = type || 'Строка';
+
+      var modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+      modal.show();
+    });
+
+    var saveBtn = document.getElementById('saveAttributeBtn');
+    if (saveBtn) {
+      saveBtn.addEventListener('click', function() {
+        var id = document.getElementById('attributeId').value;
+        var name = document.getElementById('attributeName').value.trim();
+        var type = document.getElementById('attributeType').value;
+
+        if (!name) {
+          alert('Укажите название характеристики');
+          return;
+        }
+
+        var attrs = loadAttributes();
+
+        if (id) {
+          attrs = attrs.map(function(a) {
+            return a.id === id ? { id: id, name: name, type: type } : a;
+          });
+        } else {
+          var newId = 'attr_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5);
+          attrs.unshift({ id: newId, name: name, type: type });
+        }
+
+        saveAttributes(attrs);
+        renderAttributesTable();
+
+        var modal = bootstrap.Modal.getInstance(modalEl);
+        modal.hide();
+      });
+    }
+  }
+
+  function wireUnitsCrud() {
+    var modalEl = document.getElementById('unitModal');
+    if (!modalEl) return;
+
+    var addBtn = document.getElementById('addUnitBtn');
+    if (addBtn) {
+      addBtn.addEventListener('click', function() {
+        document.getElementById('unitModalTitle').textContent = 'Добавить единицу измерения';
+        document.getElementById('unitId').value = '';
+        document.getElementById('unitFullName').value = '';
+        document.getElementById('unitAbbr').value = '';
+        document.getElementById('unitCode').value = '';
+      });
+    }
+
+    document.addEventListener('click', function(e) {
+      var btn = e.target.closest('[data-action="edit-unit"]');
+      if (!btn) return;
+
+      var id = btn.getAttribute('data-unit-id');
+      var fullName = btn.getAttribute('data-unit-fullname');
+      var abbr = btn.getAttribute('data-unit-abbr');
+      var code = btn.getAttribute('data-unit-code');
+
+      document.getElementById('unitModalTitle').textContent = 'Редактировать единицу измерения';
+      document.getElementById('unitId').value = id || '';
+      document.getElementById('unitFullName').value = fullName || '';
+      document.getElementById('unitAbbr').value = abbr || '';
+      document.getElementById('unitCode').value = code || '';
+
+      var modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+      modal.show();
+    });
+
+    var saveBtn = document.getElementById('saveUnitBtn');
+    if (saveBtn) {
+      saveBtn.addEventListener('click', function() {
+        var id = document.getElementById('unitId').value;
+        var fullName = document.getElementById('unitFullName').value.trim();
+        var abbr = document.getElementById('unitAbbr').value.trim();
+        var code = document.getElementById('unitCode').value.trim();
+
+        if (!fullName || !abbr || !code) {
+          alert('Заполните все поля');
+          return;
+        }
+
+        var units = loadUnits();
+
+        if (id) {
+          units = units.map(function(u) {
+            return u.id === id ? { id: id, fullName: fullName, abbr: abbr, code: code } : u;
+          });
+        } else {
+          var newId = 'unit_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5);
+          units.unshift({ id: newId, fullName: fullName, abbr: abbr, code: code });
+        }
+
+        saveUnits(units);
+        renderUnitsTable();
+
+        var modal = bootstrap.Modal.getInstance(modalEl);
+        modal.hide();
+      });
+    }
+  }
+
+  function wireDeleteForAttributesAndUnits() {
+    document.addEventListener('click', function(e) {
+      var btn = e.target.closest('[data-action="delete-attribute"]');
+      if (!btn) return;
+
+      var attrId = btn.getAttribute('data-attribute-id');
+      var deleteAction = document.querySelector('#confirmDeleteModal [data-delete-action]');
+      if (!deleteAction) return;
+
+      deleteAction.onclick = function() {
+        var attrs = loadAttributes().filter(function(a) { return a.id !== attrId; });
+        saveAttributes(attrs);
+        renderAttributesTable();
+      };
+    });
+
+    document.addEventListener('click', function(e) {
+      var btn = e.target.closest('[data-action="delete-unit"]');
+      if (!btn) return;
+
+      var unitId = btn.getAttribute('data-unit-id');
+      var deleteAction = document.querySelector('#confirmDeleteModal [data-delete-action]');
+      if (!deleteAction) return;
+
+      deleteAction.onclick = function() {
+        var units = loadUnits().filter(function(u) { return u.id !== unitId; });
+        saveUnits(units);
+        renderUnitsTable();
+      };
+    });
+  }
+
+  function wireSearch() {
+    var searchAttr = document.getElementById('searchAttributes');
+    if (searchAttr) {
+      searchAttr.addEventListener('input', function() {
+        var term = this.value.toLowerCase();
+        var rows = document.querySelectorAll('#attributesTableBody tr');
+        rows.forEach(function(row) {
+          var text = row.innerText.toLowerCase();
+          row.style.display = text.includes(term) ? '' : 'none';
+        });
+      });
+    }
+
+    var searchUnits = document.getElementById('searchUnits');
+    if (searchUnits) {
+      searchUnits.addEventListener('input', function() {
+        var term = this.value.toLowerCase();
+        var rows = document.querySelectorAll('#unitsTableBody tr');
+        rows.forEach(function(row) {
+          var text = row.innerText.toLowerCase();
+          row.style.display = text.includes(term) ? '' : 'none';
+        });
+      });
+    }
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     setActiveSidebarLink();
     wireDeleteModal();
@@ -906,6 +1230,14 @@
     wireCategoryAttributeRemove();
     wireCategoryGroupEdit();
     wireCategoryGroupDelete();
+
+    // Новые функции для attributes.html
+    renderAttributesTable();
+    renderUnitsTable();
+    wireAttributesCrud();
+    wireUnitsCrud();
+    wireDeleteForAttributesAndUnits();
+    wireSearch();
   });
 })();
 
@@ -941,4 +1273,3 @@ function wirePhotoPreviewModal() {
     modal.show();
   });
 }
-
