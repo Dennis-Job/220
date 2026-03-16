@@ -337,50 +337,102 @@
     return t;
   }
 
+  function getAttributePlaceholder(type, cfg) {
+    var t = String(type || '');
+    if (isNumberAttributeType(t)) {
+      if (cfg && cfg.numberKind === 'int') return 'Число (целое)';
+      if (cfg && cfg.numberKind === 'decimal') return 'Число (десятичное)';
+      return 'Число';
+    }
+    if (isListAttributeType(t)) {
+      return 'Список значений';
+    }
+    return 'Строка';
+  }
+
   function renderCategoryAttributes(categoryId) {
     var tbody = document.getElementById('categoryAttributesBody');
     if (!tbody) return;
 
     var groups = (CATEGORY_ATTRIBUTE_GROUPS && CATEGORY_ATTRIBUTE_GROUPS[categoryId]) ? CATEGORY_ATTRIBUTE_GROUPS[categoryId] : [];
-    var rows = [];
-
-    groups.forEach(function (g) {
+    var normalizedGroups = groups.map(function (g) {
       var attrs = Array.isArray(g.attributes) ? g.attributes : [];
-      attrs.forEach(function (cfg) {
+      var items = attrs.map(function (cfg) {
         var attr = getAttributeById(cfg.id);
-        if (!attr) return;
+        if (!attr) return null;
         var unit = (cfg && typeof cfg.unit === 'string' && cfg.unit.trim()) ? cfg.unit.trim() : (attr.unit || '');
-        rows.push({
+        var listValues = (cfg && Array.isArray(cfg.listValues)) ? cfg.listValues : [];
+
+        return {
           groupId: g.id,
           groupName: g.name,
           attrId: attr.id,
           name: attr.name,
-          type: formatTypeLabel(attr.type, cfg),
-          unit: unit
-        });
-      });
-    });
+          type: String(attr.type || ''),
+          placeholder: getAttributePlaceholder(attr.type, cfg),
+          unit: unit,
+          listValues: listValues
+        };
+      }).filter(Boolean);
 
-    if (!rows.length) {
-      tbody.innerHTML = '' +
-        '<tr>' +
-        '  <td colspan="5" class="text-muted small">Для выбранной категории пока не настроены характеристики.</td>' +
-        '</tr>';
+      return {
+        id: g.id,
+        name: g.name,
+        items: items
+      };
+    }).filter(function (g) { return g.items.length > 0; });
+
+    if (!normalizedGroups.length) {
+      tbody.innerHTML = '<div class="text-muted small">Для выбранной категории пока не настроены характеристики.</div>';
       return;
     }
 
-    tbody.innerHTML = rows.map(function (row) {
-      return '' +
-        '<tr>' +
-        '  <td>' + escapeHtml(row.groupName) + '</td>' +
-        '  <td>' + escapeHtml(row.name) + '</td>' +
-        '  <td>' + escapeHtml(row.type) + '</td>' +
-        '  <td>' + escapeHtml(row.unit) + '</td>' +
-        '  <td class="text-end">' +
-        '    <button type="button" class="btn btn-sm btn-outline-danger" data-action="remove-category-attribute" data-category-id="' + escapeHtml(categoryId) + '" data-group-id="' + escapeHtml(row.groupId) + '" data-attr-id="' + escapeHtml(row.attrId) + '">Удалить</button>' +
-        '  </td>' +
-        '</tr>';
-    }).join('');
+    tbody.innerHTML = '' +
+      '<div class="row g-3">' +
+      normalizedGroups.map(function (g) {
+        return '' +
+          '<div class="col-12 col-md-6">' +
+          '  <div class="card card-soft h-100">' +
+          '    <div class="card-body">' +
+          '      <p class="text-primary mb-3">' + escapeHtml(g.name) + '</p>' +
+          '      <div class="row g-3 align-items-end">' +
+          g.items.map(function (it) {
+            var label = escapeHtml(it.name) + (it.unit ? (' <span class="text-muted-2">(' + escapeHtml(it.unit) + ')</span>') : '');
+            var isList = isListAttributeType(it.type);
+
+            if (isList) {
+              var values = Array.isArray(it.listValues) ? it.listValues : [];
+              var optionsHtml = '';
+              optionsHtml += '<option value="" selected disabled>' + escapeHtml(it.placeholder) + '</option>';
+              if (values.length) {
+                optionsHtml += values.map(function (v) {
+                  return '<option value="' + escapeHtml(v) + '" disabled>' + escapeHtml(v) + '</option>';
+                }).join('');
+              } else {
+                optionsHtml += '<option value="" disabled>Значения не заданы</option>';
+              }
+
+              return '' +
+                '<div class="col-12 col-md-4">' +
+                '  <label class="form-label"><small>' + label + '</small></label>' +
+                '  <select class="form-select" aria-label="Список значений (просмотр)">' +
+                optionsHtml +
+                '  </select>' +
+                '</div>';
+            }
+
+            return '' +
+              '<div class="col-12 col-md-4">' +
+              '  <label class="form-label"><small>' + label + '</small></label>' +
+              '  <input class="form-control" type="text" placeholder="' + escapeHtml(it.placeholder) + '" disabled />' +
+              '</div>';
+          }).join('') +
+          '      </div>' +
+          '    </div>' +
+          '  </div>' +
+          '</div>';
+      }).join('') +
+      '</div>';
   }
 
   function setSelectedCategoryUi(name, id) {
@@ -456,14 +508,13 @@
         '    <div class="flex-grow-1">' +
         '      <div class="d-flex align-items-start justify-content-between gap-2">' +
         '        <div>' +
-        '          <div class="fw-semibold">' + escapeHtml(a.name) + ' <span class="text-muted-2">#' + escapeHtml(a.id) + '</span></div>' +
-        '          <div class="small text-muted-2">' + escapeHtml(a.type) + (a.unit ? (' • базовая ед.: ' + escapeHtml(a.unit)) : '') + '</div>' +
+        '          <div class="text-primary fw-semibold">' + escapeHtml(a.name) + ' <span class="text-muted-2">#' + escapeHtml(a.id) + '</span></div>' +
         '        </div>' +
         '        <span class="badge text-bg-light border">' + escapeHtml(a.type) + '</span>' +
         '      </div>' +
         '      <div class="mt-2 d-none" data-attribute-picker-config>' +
         '        <div class="row g-2">' +
-        '          <div class="col-12 col-md-4">' +
+        '          <div class="col-12 col-md-6">' +
         '            <label class="form-label mb-1"><small>Ед. измерения (опционально)</small></label>' +
         '            <select class="form-select form-select-sm" data-attribute-config-unit>' +
         renderUnitOptionsHtml(a.unit || '') +
