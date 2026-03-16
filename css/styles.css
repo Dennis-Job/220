@@ -237,6 +237,11 @@ h6, .h6 {
     padding: .3rem .3rem;
 }
 
+.table td,
+.table th {
+  white-space: nowrap;
+}
+
 /* Мелкие утилиты */
 .text-muted-2 {
   color: #64748b !important; /* slate-500 */
