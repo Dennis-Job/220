@@ -291,6 +291,7 @@
 
   var selectedCategoryId = null;
   var selectedCategoryName = null;
+  var editingGroupId = null;
 
   function getAttributeById(id) {
     return ATTRIBUTES_CATALOG.find(function (a) { return a.id === String(id); }) || null;
@@ -394,7 +395,13 @@
           '<div class="col-12 col-md-6">' +
           '  <div class="card card-soft h-100">' +
           '    <div class="card-body">' +
-          '      <p class="text-primary mb-3">' + escapeHtml(g.name) + '</p>' +
+          '      <div class="d-flex align-items-start justify-content-between gap-2 mb-3">' +
+          '        <p class="text-primary mb-0">' + escapeHtml(g.name) + '</p>' +
+          '        <div class="btn-group btn-group-sm" role="group" aria-label="Действия с группой">' +
+          '          <button class="btn btn-outline-primary" type="button" data-action="edit-attribute-group" data-category-id="' + escapeHtml(categoryId) + '" data-group-id="' + escapeHtml(g.id) + '" title="Редактировать категорию"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16"><path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/></svg></button>' +
+          '          <button class="btn btn-outline-danger" type="button" data-action="delete-attribute-group" data-category-id="' + escapeHtml(categoryId) + '" data-group-id="' + escapeHtml(g.id) + '" data-group-name="' + escapeHtml(g.name) + '" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" title="Удалить группу"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"></path><path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"></path></svg></button>' +
+          '        </div>' +
+          '      </div>' +
           '      <div class="row g-3 align-items-end">' +
           g.items.map(function (it) {
             var label = escapeHtml(it.name) + (it.unit ? (' <span class="text-muted-2">(' + escapeHtml(it.unit) + ')</span>') : '');
@@ -576,6 +583,71 @@
     renderAttributePickerList('');
   }
 
+  function setAttributeGroupModalModeAdd() {
+    var modalEl = document.getElementById('addAttributeGroupModal');
+    if (!modalEl) return;
+
+    editingGroupId = null;
+
+    var title = modalEl.querySelector('.modal-title');
+    if (title) title.textContent = 'Добавить группу характеристик';
+  }
+
+  function getGroupById(categoryId, groupId) {
+    var data = CATEGORY_ATTRIBUTE_GROUPS || {};
+    var list = Array.isArray(data[categoryId]) ? data[categoryId] : [];
+    return list.find(function (g) { return String(g.id) === String(groupId); }) || null;
+  }
+
+  function fillAttributeGroupModalForEdit(categoryId, groupId) {
+    var modalEl = document.getElementById('addAttributeGroupModal');
+    if (!modalEl) return;
+
+    var group = getGroupById(categoryId, groupId);
+    if (!group) return;
+
+    editingGroupId = String(group.id);
+
+    var title = modalEl.querySelector('.modal-title');
+    if (title) title.textContent = 'Редактировать группу характеристик';
+
+    var nameInput = modalEl.querySelector('[data-attribute-group-name]');
+    if (nameInput) nameInput.value = String(group.name || '');
+
+    var search = modalEl.querySelector('[data-attribute-picker-search]');
+    if (search) search.value = '';
+
+    renderAttributePickerList('');
+
+    var attrs = Array.isArray(group.attributes) ? group.attributes : [];
+    attrs.forEach(function (cfg) {
+      var id = String(cfg.id);
+      var row = modalEl.querySelector('[data-attribute-picker-row="' + id + '"]');
+      if (!row) return;
+
+      var checkbox = row.querySelector('[data-attribute-picker-item]');
+      if (checkbox) checkbox.checked = true;
+
+      var cfgBlock = row.querySelector('[data-attribute-picker-config]');
+      if (cfgBlock) cfgBlock.classList.remove('d-none');
+
+      var unitSelect = row.querySelector('[data-attribute-config-unit]');
+      if (unitSelect && typeof cfg.unit === 'string') {
+        unitSelect.value = cfg.unit;
+      }
+
+      var numberKindSelect = row.querySelector('[data-attribute-config-number-kind]');
+      if (numberKindSelect && cfg.numberKind) {
+        numberKindSelect.value = cfg.numberKind;
+      }
+
+      var listValuesTextarea = row.querySelector('[data-attribute-config-list-values]');
+      if (listValuesTextarea && Array.isArray(cfg.listValues)) {
+        listValuesTextarea.value = cfg.listValues.join('\n');
+      }
+    });
+  }
+
   function wireAttributeGroupModal() {
     var modalEl = document.getElementById('addAttributeGroupModal');
     if (!modalEl || !window.bootstrap) return;
@@ -586,7 +658,11 @@
         showAttributeGroupError('Сначала выберите категорию слева.');
       }
       setSelectedCategoryUi(selectedCategoryName, selectedCategoryId);
-      resetAttributeGroupModal();
+      // Если модалку открыли через "Добавить группу" — работаем в режиме добавления.
+      if (!editingGroupId) {
+        setAttributeGroupModalModeAdd();
+        resetAttributeGroupModal();
+      }
     });
 
     var search = modalEl.querySelector('[data-attribute-picker-search]');
@@ -649,7 +725,7 @@
           var numberKindSelect = row ? row.querySelector('[data-attribute-config-number-kind]') : null;
           var listValuesTextarea = row ? row.querySelector('[data-attribute-config-list-values]') : null;
 
-      var unit = unitInput ? String(unitInput.value || '').trim() : '';
+          var unit = unitInput ? String(unitInput.value || '').trim() : '';
           var numberKind = numberKindSelect ? String(numberKindSelect.value || '') : '';
           var listValuesRaw = listValuesTextarea ? String(listValuesTextarea.value || '') : '';
           var listValues = listValuesRaw
@@ -686,14 +762,26 @@
         var data = CATEGORY_ATTRIBUTE_GROUPS || {};
         var list = Array.isArray(data[selectedCategoryId]) ? data[selectedCategoryId] : [];
 
-        var newGroup = {
-          id: 'g_' + Date.now(),
-          name: groupName,
-          attributes: attributes
-        };
-
-        list.unshift(newGroup);
-        data[selectedCategoryId] = list;
+        if (editingGroupId) {
+          var updated = false;
+          list = list.map(function (g) {
+            if (String(g.id) !== String(editingGroupId)) return g;
+            updated = true;
+            return Object.assign({}, g, { name: groupName, attributes: attributes });
+          });
+          if (!updated) {
+            list.unshift({ id: 'g_' + Date.now(), name: groupName, attributes: attributes });
+          }
+          data[selectedCategoryId] = list;
+        } else {
+          var newGroup = {
+            id: 'g_' + Date.now(),
+            name: groupName,
+            attributes: attributes
+          };
+          list.unshift(newGroup);
+          data[selectedCategoryId] = list;
+        }
         CATEGORY_ATTRIBUTE_GROUPS = data;
         saveCategoryAttributeGroups(CATEGORY_ATTRIBUTE_GROUPS);
 
@@ -703,6 +791,11 @@
         modal.hide();
       });
     }
+
+    modalEl.addEventListener('hidden.bs.modal', function () {
+      // После закрытия возвращаем модалку в режим добавления.
+      setAttributeGroupModalModeAdd();
+    });
   }
 
   function wireCategoryAttributeRemove() {
@@ -744,6 +837,62 @@
     });
   }
 
+  function wireCategoryGroupEdit() {
+    document.addEventListener('click', function (event) {
+      var btn = event.target.closest('[data-action="edit-attribute-group"]');
+      if (!btn) return;
+
+      var categoryId = btn.getAttribute('data-category-id');
+      var groupId = btn.getAttribute('data-group-id');
+      if (!categoryId || !groupId) return;
+
+      // Синхронизируем выбранную категорию (на всякий случай).
+      selectedCategoryId = String(categoryId);
+      setSelectedCategoryUi(selectedCategoryName, selectedCategoryId);
+
+      fillAttributeGroupModalForEdit(categoryId, groupId);
+
+      var modalEl = document.getElementById('addAttributeGroupModal');
+      if (!modalEl || !window.bootstrap) return;
+      var modal = window.bootstrap.Modal.getOrCreateInstance(modalEl);
+      modal.show();
+    });
+  }
+
+  function wireCategoryGroupDelete() {
+    var modalEl = document.getElementById('confirmDeleteModal');
+    if (!modalEl) return;
+
+    var nameEl = modalEl.querySelector('[data-delete-name]');
+    var actionEl = modalEl.querySelector('[data-delete-action]');
+
+    document.addEventListener('click', function (event) {
+      var btn = event.target.closest('[data-action="delete-attribute-group"]');
+      if (!btn) return;
+
+      var categoryId = btn.getAttribute('data-category-id');
+      var groupId = btn.getAttribute('data-group-id');
+      var groupName = btn.getAttribute('data-group-name') || 'группа';
+      if (!categoryId || !groupId) return;
+
+      if (nameEl) nameEl.textContent = 'Группу «' + groupName + '»';
+
+      if (actionEl) {
+        actionEl.onclick = function () {
+          var data = CATEGORY_ATTRIBUTE_GROUPS || {};
+          var list = Array.isArray(data[categoryId]) ? data[categoryId] : [];
+          data[categoryId] = list.filter(function (g) { return String(g.id) !== String(groupId); });
+          CATEGORY_ATTRIBUTE_GROUPS = data;
+          saveCategoryAttributeGroups(CATEGORY_ATTRIBUTE_GROUPS);
+
+          if (selectedCategoryId && String(selectedCategoryId) === String(categoryId)) {
+            renderCategoryAttributes(categoryId);
+          }
+        };
+      }
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     setActiveSidebarLink();
     wireDeleteModal();
@@ -755,6 +904,8 @@
     wireCategoryAttributes();
     wireAttributeGroupModal();
     wireCategoryAttributeRemove();
+    wireCategoryGroupEdit();
+    wireCategoryGroupDelete();
   });
 })();
 
