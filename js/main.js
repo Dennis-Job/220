@@ -186,22 +186,22 @@
   }
 
   /**
-   * Справочник характеристик (демо-набор для прототипа).
+   * Каталог характеристик (демо-набор для прототипа).
    * В дальнейшем можно заменить на данные со страницы `catalog/attributes.html`.
    */
   var ATTRIBUTES_CATALOG = [
     { id: '201', name: 'Объём памяти', type: 'Список значений', unit: 'ГБ' },
     { id: '202', name: 'Диагональ экрана', type: 'Число', unit: '″' },
     { id: '203', name: 'Цвет', type: 'Список значений', unit: '' },
-    { id: '204', name: 'Бренд', type: 'Справочник', unit: '' },
+    { id: '204', name: 'Бренд', type: 'Строка', unit: '' },
     { id: '205', name: 'Модель', type: 'Строка', unit: '' },
     { id: '206', name: 'Процессор', type: 'Строка', unit: '' },
     { id: '207', name: 'Объём оперативной памяти', type: 'Число', unit: 'ГБ' },
-    { id: '208', name: 'Тип накопителя', type: 'Справочник', unit: '' },
+    { id: '208', name: 'Тип накопителя', type: 'Строка', unit: '' },
     { id: '209', name: 'Объём SSD', type: 'Число', unit: 'ГБ' },
-    { id: '210', name: 'Тип разъёма', type: 'Справочник', unit: '' },
+    { id: '210', name: 'Тип разъёма', type: 'Строка', unit: '' },
     { id: '211', name: 'Длина кабеля', type: 'Число', unit: 'м' },
-    { id: '212', name: 'Тип матрицы', type: 'Справочник', unit: '' }
+    { id: '212', name: 'Тип матрицы', type: 'Строка', unit: '' }
   ];
 
   var CATEGORY_GROUPS_STORAGE_KEY = 'demo_category_attribute_groups_v1';
@@ -210,7 +210,18 @@
    * Структура:
    * {
    *   [categoryId]: [
-   *     { id, name, attributeIds: [ '201', '202' ] }
+   *     {
+   *       id,
+   *       name,
+   *       attributes: [
+   *         {
+   *           id: '201',
+   *           unit: 'ГБ',
+   *           numberKind: 'int' | 'decimal',
+   *           listValues: ['значение 1', 'значение 2']
+   *         }
+   *       ]
+   *     }
    *   ]
    * }
    */
@@ -219,7 +230,25 @@
       var raw = localStorage.getItem(CATEGORY_GROUPS_STORAGE_KEY);
       if (!raw) return {};
       var data = JSON.parse(raw);
-      return data && typeof data === 'object' ? data : {};
+      if (!data || typeof data !== 'object') return {};
+
+      // Миграция старого формата (attributeIds -> attributes)
+      Object.keys(data).forEach(function (categoryId) {
+        var groups = Array.isArray(data[categoryId]) ? data[categoryId] : [];
+        data[categoryId] = groups.map(function (g) {
+          if (Array.isArray(g.attributes)) {
+            return g;
+          }
+          if (Array.isArray(g.attributeIds)) {
+            return Object.assign({}, g, {
+              attributes: g.attributeIds.map(function (id) { return { id: String(id) }; })
+            });
+          }
+          return Object.assign({}, g, { attributes: [] });
+        });
+      });
+
+      return data;
     } catch (e) {
       return {};
     }
@@ -237,19 +266,19 @@
     // Базовые группы (чтобы страница выглядела заполненной до первых действий пользователя).
     return {
       '10': [
-        { id: 'g_10_basic', name: 'Основные', attributeIds: ['204', '205'] },
-        { id: 'g_10_display', name: 'Дисплей', attributeIds: ['202', '212'] },
-        { id: 'g_10_memory', name: 'Память', attributeIds: ['201'] }
+        { id: 'g_10_basic', name: 'Основные', attributes: [{ id: '204' }, { id: '205' }] },
+        { id: 'g_10_display', name: 'Дисплей', attributes: [{ id: '202' }, { id: '212' }] },
+        { id: 'g_10_memory', name: 'Память', attributes: [{ id: '201' }] }
       ],
       '11': [
-        { id: 'g_11_basic', name: 'Основные', attributeIds: ['204', '205'] },
-        { id: 'g_11_perf', name: 'Производительность', attributeIds: ['206', '207'] },
-        { id: 'g_11_storage', name: 'Накопитель', attributeIds: ['208', '209'] }
+        { id: 'g_11_basic', name: 'Основные', attributes: [{ id: '204' }, { id: '205' }] },
+        { id: 'g_11_perf', name: 'Производительность', attributes: [{ id: '206' }, { id: '207' }] },
+        { id: 'g_11_storage', name: 'Накопитель', attributes: [{ id: '208' }, { id: '209' }] }
       ],
       '12': [
-        { id: 'g_12_basic', name: 'Основные', attributeIds: ['203'] },
-        { id: 'g_12_compat', name: 'Совместимость', attributeIds: ['210'] },
-        { id: 'g_12_physical', name: 'Физические параметры', attributeIds: ['211'] }
+        { id: 'g_12_basic', name: 'Основные', attributes: [{ id: '203' }] },
+        { id: 'g_12_compat', name: 'Совместимость', attributes: [{ id: '210' }] },
+        { id: 'g_12_physical', name: 'Физические параметры', attributes: [{ id: '211' }] }
       ]
     };
   }
@@ -267,6 +296,47 @@
     return ATTRIBUTES_CATALOG.find(function (a) { return a.id === String(id); }) || null;
   }
 
+  function isListAttributeType(type) {
+    return String(type || '').toLowerCase().includes('спис');
+  }
+
+  function isNumberAttributeType(type) {
+    return String(type || '').toLowerCase() === 'число';
+  }
+
+  var UNIT_OPTIONS = [
+    { value: '', label: '— (не указывать)' },
+    { value: 'ГБ', label: 'ГБ' },
+    { value: 'МБ', label: 'МБ' },
+    { value: 'мм', label: 'мм' },
+    { value: 'см', label: 'см' },
+    { value: 'м', label: 'м' },
+    { value: 'МГц', label: 'МГц' },
+    { value: 'ГГц', label: 'ГГц' },
+    { value: '″', label: 'Дюймы (″)' },
+    { value: '%', label: '%' },
+    { value: 'Вт', label: 'Вт' },
+    { value: 'кг', label: 'кг' }
+  ];
+
+  function renderUnitOptionsHtml(selectedValue) {
+    var current = String(selectedValue || '');
+    return UNIT_OPTIONS.map(function (opt) {
+      var isSelected = String(opt.value) === current ? ' selected' : '';
+      return '<option value="' + escapeHtml(opt.value) + '"' + isSelected + '>' + escapeHtml(opt.label) + '</option>';
+    }).join('');
+  }
+
+  function formatTypeLabel(type, cfg) {
+    var t = String(type || '');
+    if (isNumberAttributeType(t)) {
+      if (cfg && cfg.numberKind === 'int') return 'Число (целое)';
+      if (cfg && cfg.numberKind === 'decimal') return 'Число (десятичное)';
+      return 'Число';
+    }
+    return t;
+  }
+
   function renderCategoryAttributes(categoryId) {
     var tbody = document.getElementById('categoryAttributesBody');
     if (!tbody) return;
@@ -275,16 +345,18 @@
     var rows = [];
 
     groups.forEach(function (g) {
-      (g.attributeIds || []).forEach(function (attrId) {
-        var attr = getAttributeById(attrId);
+      var attrs = Array.isArray(g.attributes) ? g.attributes : [];
+      attrs.forEach(function (cfg) {
+        var attr = getAttributeById(cfg.id);
         if (!attr) return;
+        var unit = (cfg && typeof cfg.unit === 'string' && cfg.unit.trim()) ? cfg.unit.trim() : (attr.unit || '');
         rows.push({
           groupId: g.id,
           groupName: g.name,
           attrId: attr.id,
           name: attr.name,
-          type: attr.type,
-          unit: attr.unit || ''
+          type: formatTypeLabel(attr.type, cfg),
+          unit: unit
         });
       });
     });
@@ -373,17 +445,59 @@
     }
 
     listEl.innerHTML = items.map(function (a) {
+      var type = String(a.type || '');
+      var isNum = isNumberAttributeType(type);
+      var isList = isListAttributeType(type);
+
       return '' +
-        '<label class="d-flex align-items-start gap-2 py-1 border-bottom" style="cursor: pointer;">' +
-        '  <input class="form-check-input mt-1" type="checkbox" value="' + escapeHtml(a.id) + '" data-attribute-picker-item />' +
-        '  <span class="flex-grow-1">' +
-        '    <span class="fw-semibold">' + escapeHtml(a.name) + '</span>' +
-        '    <span class="text-muted-2">#' + escapeHtml(a.id) + '</span>' +
-        '    <div class="small text-muted-2">' +
-        '      ' + escapeHtml(a.type) + (a.unit ? (' • ' + escapeHtml(a.unit)) : '') +
+        '<div class="py-2 border-bottom" data-attribute-picker-row="' + escapeHtml(a.id) + '">' +
+        '  <div class="d-flex align-items-start gap-2">' +
+        '    <input class="form-check-input mt-1" type="checkbox" value="' + escapeHtml(a.id) + '" data-attribute-picker-item />' +
+        '    <div class="flex-grow-1">' +
+        '      <div class="d-flex align-items-start justify-content-between gap-2">' +
+        '        <div>' +
+        '          <div class="fw-semibold">' + escapeHtml(a.name) + ' <span class="text-muted-2">#' + escapeHtml(a.id) + '</span></div>' +
+        '          <div class="small text-muted-2">' + escapeHtml(a.type) + (a.unit ? (' • базовая ед.: ' + escapeHtml(a.unit)) : '') + '</div>' +
+        '        </div>' +
+        '        <span class="badge text-bg-light border">' + escapeHtml(a.type) + '</span>' +
+        '      </div>' +
+        '      <div class="mt-2 d-none" data-attribute-picker-config>' +
+        '        <div class="row g-2">' +
+        '          <div class="col-12 col-md-4">' +
+        '            <label class="form-label mb-1"><small>Ед. измерения (опционально)</small></label>' +
+        '            <select class="form-select form-select-sm" data-attribute-config-unit>' +
+        renderUnitOptionsHtml(a.unit || '') +
+        '            </select>' +
+        '          </div>' +
+        (isNum
+          ? (
+            '          <div class="col-12 col-md-4">' +
+            '            <label class="form-label mb-1"><small>Тип числа</small></label>' +
+            '            <select class="form-select form-select-sm" data-attribute-config-number-kind>' +
+            '              <option value="" selected>Не задано</option>' +
+            '              <option value="int">Целое</option>' +
+            '              <option value="decimal">Десятичное</option>' +
+            '            </select>' +
+            '          </div>'
+          )
+          : (
+            '          <div class="col-12 col-md-4 d-none"></div>'
+          )
+        ) +
+        (isList
+          ? (
+            '          <div class="col-12 col-md-12">' +
+            '            <label class="form-label mb-1"><small>Значения списка (по одному в строке)</small></label>' +
+            '            <textarea class="form-control form-control-sm" rows="3" placeholder="Например:\nIntel\nAMD" data-attribute-config-list-values></textarea>' +
+            '          </div>'
+          )
+          : ''
+        ) +
+        '        </div>' +
+        '      </div>' +
         '    </div>' +
-        '  </span>' +
-        '</label>';
+        '  </div>' +
+        '</div>';
     }).join('');
   }
 
@@ -431,6 +545,23 @@
       });
     }
 
+    modalEl.addEventListener('change', function (event) {
+      var checkbox = event.target.closest('[data-attribute-picker-item]');
+      if (!checkbox) return;
+
+      var row = checkbox.closest('[data-attribute-picker-row]');
+      if (!row) return;
+
+      var cfg = row.querySelector('[data-attribute-picker-config]');
+      if (!cfg) return;
+
+      if (checkbox.checked) {
+        cfg.classList.remove('d-none');
+      } else {
+        cfg.classList.add('d-none');
+      }
+    });
+
     var saveBtn = modalEl.querySelector('[data-save-attribute-group]');
     if (saveBtn) {
       saveBtn.addEventListener('click', function () {
@@ -449,9 +580,55 @@
         }
 
         var checked = Array.from(modalEl.querySelectorAll('[data-attribute-picker-item]:checked'));
-        var attributeIds = checked.map(function (c) { return String(c.value); });
-        if (!attributeIds.length) {
+        if (!checked.length) {
           showAttributeGroupError('Выберите хотя бы одну характеристику для добавления в группу.');
+          return;
+        }
+
+        var attributes = [];
+        var listWarnings = [];
+
+        checked.forEach(function (c) {
+          var id = String(c.value);
+          var def = getAttributeById(id);
+          if (!def) return;
+
+          var row = c.closest('[data-attribute-picker-row]');
+          var unitInput = row ? row.querySelector('[data-attribute-config-unit]') : null;
+          var numberKindSelect = row ? row.querySelector('[data-attribute-config-number-kind]') : null;
+          var listValuesTextarea = row ? row.querySelector('[data-attribute-config-list-values]') : null;
+
+      var unit = unitInput ? String(unitInput.value || '').trim() : '';
+          var numberKind = numberKindSelect ? String(numberKindSelect.value || '') : '';
+          var listValuesRaw = listValuesTextarea ? String(listValuesTextarea.value || '') : '';
+          var listValues = listValuesRaw
+            .split('\n')
+            .map(function (s) { return s.trim(); })
+            .filter(Boolean);
+
+          if (isNumberAttributeType(def.type) && numberKind && numberKind !== 'int' && numberKind !== 'decimal') {
+            numberKind = '';
+          }
+
+          if (isListAttributeType(def.type) && listValues.length === 0) {
+            listWarnings.push('Для «' + def.name + '» не заданы значения списка.');
+          }
+
+          attributes.push({
+            id: id,
+            unit: unit,
+            numberKind: isNumberAttributeType(def.type) ? numberKind : undefined,
+            listValues: isListAttributeType(def.type) ? listValues : undefined
+          });
+        });
+
+        if (!attributes.length) {
+          showAttributeGroupError('Не удалось собрать выбранные характеристики. Попробуйте ещё раз.');
+          return;
+        }
+
+        if (listWarnings.length) {
+          showAttributeGroupError(listWarnings.join(' ') + ' Можно сохранить, но лучше заполнить сейчас.');
           return;
         }
 
@@ -461,7 +638,7 @@
         var newGroup = {
           id: 'g_' + Date.now(),
           name: groupName,
-          attributeIds: attributeIds
+          attributes: attributes
         };
 
         list.unshift(newGroup);
@@ -493,14 +670,14 @@
 
       groups = groups.map(function (g) {
         if (g.id !== groupId) return g;
-        var ids = Array.isArray(g.attributeIds) ? g.attributeIds : [];
-        var nextIds = ids.filter(function (id) { return String(id) !== String(attrId); });
-        if (nextIds.length !== ids.length) changed = true;
-        return Object.assign({}, g, { attributeIds: nextIds });
+        var attrs = Array.isArray(g.attributes) ? g.attributes : [];
+        var nextAttrs = attrs.filter(function (a) { return String(a.id) !== String(attrId); });
+        if (nextAttrs.length !== attrs.length) changed = true;
+        return Object.assign({}, g, { attributes: nextAttrs });
       }).filter(function (g) {
         // Если в группе больше нет атрибутов — удаляем группу.
-        var ids = Array.isArray(g.attributeIds) ? g.attributeIds : [];
-        return ids.length > 0;
+        var attrs = Array.isArray(g.attributes) ? g.attributes : [];
+        return attrs.length > 0;
       });
 
       if (!changed) return;
