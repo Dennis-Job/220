@@ -139,11 +139,11 @@ h6, .h6 {
   overflow: auto;
 }
 
-/* .admin-content-inner {
+.admin-content-inner {
   width: 100%;
-  max-width: 1440px;
+  max-width: 1710px;
   margin: 0 auto;
-} */
+}
 
 .badge {
   --bs-badge-font-weight: 500;
@@ -204,6 +204,11 @@ h6, .h6 {
 
 .content-body {
   padding: 1rem;
+}
+
+.card-header {
+  padding: 1rem 1rem 0;
+  border-bottom: none;
 }
 
 .card-soft {
