@@ -211,6 +211,17 @@ h6, .h6 {
   border-bottom: none;
 }
 
+.card-header .input-group .btn {
+  border: 1px solid #dee2e6;
+  background-color: #fff;
+}
+
+.card-header .input-group .btn:hover {
+  border: 1px solid #71A6CD;
+  background-color: #71A6CD;
+  color: #fff;
+}
+
 .card-soft {
   border: 1px solid rgba(15, 23, 42, 0.08);
   box-shadow: 0 10px 25px rgba(2, 6, 23, 0.05);
@@ -225,6 +236,15 @@ h6, .h6 {
   background-color: #F4F8FB;
   border-bottom: 1px solid #F4F8FB;
 }
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link  {
+  background-color: #71A6CD;
+ }
+ 
+ .navbar-nav .nav-link.active, .navbar-nav .nav-link.show {
+   background-color: #71A6CD;
+   color: #fff;
+ }
 
 /* Таблица */
 .table thead th {
@@ -242,6 +262,14 @@ h6, .h6 {
   white-space: nowrap;
 }
 
+.table-goods>:not(caption)>*>* {
+  padding: 0 .3rem;
+}
+
+.table .btn {
+  border: none;
+}
+
 /* Мелкие утилиты */
 .text-muted-2 {
   color: #64748b !important; /* slate-500 */
@@ -250,25 +278,35 @@ h6, .h6 {
 .text-bg-success {
   color: #155c2e !important;
   background-color: #cff9ec !important;
-  border: 1px solid #155c2e54 !important;
+  /* border: 1px solid #155c2e54 !important; */
 }
 
 .text-bg-warning {
   color: #dc6803 !important;
   background-color: #fef3c7 !important;
-  border: 1px solid #dc680354 !important;
+  /* border: 1px solid #dc680354 !important; */
 }
 
 .text-bg-danger {
   color: #b91c1c !important;
   background-color: #fee2e2 !important;
-  border: 1px solid #b91c1c4d !important;
+  /* border: 1px solid #b91c1c4d !important; */
 }
 
 .text-bg-secondary {
   color: #6b7280 !important;
   background-color: #e2e8f0 !important;
-  border: 1px solid #6b72804d !important;
+  /* border: 1px solid #6b72804d !important; */
+}
+
+.text-bg-primary  {
+  background-color: #d4e6f1 !important;
+  color: #225281 !important;
+  /* border: 1px solid #225281 !important; */
+}
+
+.text-bg-primary {
+ border-color: #000;
 }
 
 .pagination {
