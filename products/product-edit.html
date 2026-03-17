@@ -58,7 +58,11 @@
         <div
           class="d-flex align-items-start align-items-md-center justify-content-between flex-column flex-md-row gap-2">
           <div class="d-flex align-items-start align-items-md-center flex-column flex-md-row gap-2">
-            <a class="btn btn-outline-primary" href="products-list.html">Назад</a>
+            <a class="btn btn-outline-primary" href="products-list.html">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
+                <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
+              </svg>
+            </a>
             <div>
               <h1 class="h4 mb-1">Редактировать товар</h1>
             </div>
@@ -76,7 +80,7 @@
         <!-- Product form -->
         <form>
           <!-- Колонка с вкладками -->
-          <ul class="nav nav-tabs mb-3" id="productTabs" role="tablist">
+          <ul class="nav nav-tabs nav-tabs-soft mb-3" id="productTabs" role="tablist">
             <li class="nav-item" role="presentation">
               <button class="nav-link active" id="main-tab" data-bs-toggle="tab" data-bs-target="#main" type="button"
                 role="tab" aria-controls="main" aria-selected="true">Основные данные</button>
