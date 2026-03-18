@@ -1433,45 +1433,47 @@
   function renderLines() {
     var container = document.getElementById('linesContainer');
     if (!container) return;
-
+  
     var categoryId = selectedCategoryId;
     var brandId = document.getElementById('brandSelector')?.value;
-
-    // Получаем название категории (если есть)
+  
     var categoryDisplay = selectedCategoryName ? selectedCategoryName : '—';
-
-    // Если категория не выбрана — показываем соответствующее сообщение
+  
+    // Если категория не выбрана
     if (!categoryId) {
       container.innerHTML = '<div class="small text-muted-2 mb-2">Выбрана категория: <span class="text-primary fw-semibold">—</span></div>' +
-        '<div class="text-muted alert alert-info text-center small">Сначала выберите категорию слева.</div>';
-      document.getElementById('seriesContainer').style.display = 'none';
+        '<div class="text-muted alert alert-warning text-center small">Сначала выберите категорию слева.</div>';
+      // Сбрасываем правую колонку
+      document.getElementById('seriesContainer').innerHTML = '<div class="text-muted alert alert-warning text-center small">Выберите линейку слева, чтобы увидеть серии.</div>';
+      document.getElementById('addSeriesBtn').disabled = true;
       return;
     }
-
+  
     // Категория выбрана, но бренд не выбран
     if (!brandId) {
       container.innerHTML = '<div class="small text-muted-2 mb-2">Выбрана категория: <span class="text-primary fw-semibold">' + escapeHtml(categoryDisplay) + '</span></div>' +
-        '<div class="text-muted alert alert-info text-center small">Выберите бренд, чтобы увидеть линейки.</div>';
-      document.getElementById('seriesContainer').style.display = 'none';
+        '<div class="text-muted alert alert-warning text-center small m-0">Выберите бренд, чтобы увидеть линейки.</div>';
+      document.getElementById('seriesContainer').innerHTML = '<div class="text-muted alert alert-warning text-center small m-0">Выберите линейку слева, чтобы увидеть серии.</div>';
+      document.getElementById('addSeriesBtn').disabled = true;
       return;
     }
-
-    // Категория и бренд выбраны – загружаем линейки
+  
+    // Загружаем линейки
     var lines = loadLines().filter(function (l) {
       return l.categoryId === categoryId && l.brandId === brandId;
     });
-
-    // Всегда показываем название категории над списком
+  
     var headerHtml = '<div class="small text-muted-2 mb-2">Выбрана категория: <span class="text-primary fw-semibold">' + escapeHtml(categoryDisplay) + '</span></div>';
-
+  
     if (lines.length === 0) {
-      container.innerHTML = headerHtml + '<div class="text-muted alert alert-primary text-center small">Нет линеек для этой пары. Нажмите <strong>«Добавить линейку»</strong>.</div>';
-      document.getElementById('seriesContainer').style.display = 'none';
+      container.innerHTML = headerHtml + '<div class="text-muted alert alert-primary text-center small m-0">Нет линеек для этой пары. Нажмите <strong>«Добавить линейку»</strong>.</div>';
+      document.getElementById('seriesContainer').innerHTML = '<div class="text-muted alert alert-info text-center small">Выберите линейку слева, чтобы увидеть серии.</div>';
+      document.getElementById('addSeriesBtn').disabled = true;
       return;
     }
-
+  
     // Отрисовываем список линеек
-    var html = headerHtml + '<div class="list-group mb-3">';
+    var html = headerHtml + '<div class="list-group">';
     lines.forEach(function (line) {
       html += '<div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" data-line-id="' + escapeHtml(line.id) + '">' +
         '<span>' + escapeHtml(line.name) + '</span>' +
@@ -1492,29 +1494,32 @@
     });
     html += '</div>';
     container.innerHTML = html;
-
-    // Сбрасываем подсветку активной линейки
+  
+    // Сбрасываем выделение и правую колонку
     var activeLine = document.querySelector('[data-line-id].active-line');
     if (activeLine) {
       activeLine.classList.remove('active-line');
     }
+document.getElementById('seriesContainer').innerHTML = '<div class="text-muted alert alert-info text-center small">Выберите линейку слева, чтобы увидеть серии.</div>';
+document.getElementById('addSeriesBtn').disabled = true;
+document.getElementById('seriesContainer').style.display = 'block';
   }
 
   // Отобразить серии для выбранной линейки
   function renderSeries(lineId) {
     var container = document.getElementById('seriesContainer');
-    var listEl = document.getElementById('seriesList');
-    if (!container || !listEl) return;
-
+    if (!container) return;
+  
     if (!lineId) {
-      container.style.display = 'none';
+      container.innerHTML = '<div class="text-muted alert alert-info text-center small">Выберите линейку слева, чтобы увидеть серии.</div>';
+      document.getElementById('addSeriesBtn').disabled = true;
       return;
     }
-
+  
     var series = loadSeries().filter(function (s) { return s.lineId === lineId; });
-
+  
     if (series.length === 0) {
-      listEl.innerHTML = '<div class="text-muted small">Нет серий. Добавьте первую.</div>';
+      container.innerHTML = '<div class="text-muted alert alert-warning text-center small m-0">Нет серий. Добавьте первую.</div>';
     } else {
       var html = '<div class="list-group">';
       series.forEach(function (s) {
@@ -1536,10 +1541,11 @@
           '</div>';
       });
       html += '</div>';
-      listEl.innerHTML = html;
+      container.innerHTML = html;
     }
-
-    container.style.display = 'block';
+  
+    document.getElementById('addSeriesBtn').disabled = false;
+    document.getElementById('seriesContainer').style.display = 'block';
   }
 
   // Инициализация обработчиков для линеек и серий
@@ -1736,7 +1742,6 @@
     var selector = document.getElementById('brandSelector');
     if (selector) selector.value = '';
     renderLines();
-    document.getElementById('seriesContainer').style.display = 'none';
   }
 
   document.addEventListener('DOMContentLoaded', function () {

@@ -243,7 +243,7 @@
                     </div>
                     <!-- Группы характеристик (карточки) -->
                     <div id="categoryAttributesBody">
-                      <div class="text-muted alert alert-warning text-center small">
+                      <div class="text-muted alert alert-warning text-center small m-0">
                         Выберите категорию слева, чтобы увидеть связанные с ней характеристики.
                       </div>
                     </div>
@@ -251,29 +251,36 @@
 
                   <!-- Вкладка Линейки и серии -->
                   <div class="tab-pane fade" id="linesAndSeries" role="tabpanel" aria-labelledby="linesAndSeries-tab">
-                    <div class="row g-2 align-items-end mb-3">
-                      <div class="col-12 col-md-6">
-                        <select class="form-select form-select-sm" id="brandSelector" disabled>
-                          <option value="">Сначала выберите бренд</option>
-                        </select>
-                      </div>
-                      <div class="col-12 col-md-auto ms-md-auto">
-                        <button class="btn btn-primary btn-sm" id="addLineBtn" disabled>Добавить линейку</button>
-                      </div>
-                    </div>
-                    <div id="linesContainer">
-                      <div class="text-muted alert alert-warning text-center small">
-                        Выберите категорию слева, чтобы увидеть линейки.
-                      </div>
-                    </div>
-                    <div id="seriesContainer" style="display: none;">
-                      <p class="text-primary mt-3">Серии выбранной линейки</p>
-                      <div class="row g-2 align-items-end mb-3">
-                        <div class="col-12 col-md-auto ms-md-auto">
-                          <button class="btn btn-primary btn-sm" id="addSeriesBtn">Добавить серию</button>
+                    <div class="row g-3">
+                      <!-- Левая колонка: линейки -->
+                      <div class="col-md-6">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                          <p class="text-primary mb-0">Линейки</p>
+                          <button class="btn btn-primary btn-sm" id="addLineBtn" disabled>Добавить линейку</button>
+                        </div>
+                        <div class="mb-3">
+                          <select class="form-select form-select-sm" id="brandSelector" disabled>
+                            <option value="">Выберите бренд</option>
+                          </select>
+                        </div>
+                        <div id="linesContainer" style="max-height: 400px; overflow-y: auto;">
+                          <div class="text-muted alert alert-warning text-center small m-0">
+                            Выберите категорию и бренд, чтобы увидеть линейки.
+                          </div>
                         </div>
                       </div>
-                      <div id="seriesList"></div>
+                      <!-- Правая колонка: серии -->
+                      <div class="col-md-6">
+                        <div class="d-flex justify-content-between align-items-center mb-5">
+                          <p class="text-primary mb-0">Серии</p>
+                          <button class="btn btn-primary btn-sm" id="addSeriesBtn" disabled>Добавить серию</button>
+                        </div>
+                        <div id="seriesContainer" style="max-height: 400px; overflow-y: auto;">
+                          <div class="text-muted alert alert-warning text-center small m-0">
+                            Выберите линейку слева, чтобы увидеть серии.
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
