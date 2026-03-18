@@ -451,6 +451,15 @@
 
     var modalCat = document.querySelector('[data-modal-selected-category]');
     if (modalCat) modalCat.textContent = name ? String(name) : '—';
+
+    if (id) {
+      renderBrandSelector();  // заполнить селект брендов
+      resetLinesAndSeries();  // сбросить списки
+    } else {
+      var selector = document.getElementById('brandSelector');
+      if (selector) selector.disabled = true;
+      document.getElementById('addLineBtn').disabled = true;
+    }
   }
 
   function wireCategoryAttributes() {
@@ -901,7 +910,7 @@
     try {
       var raw = localStorage.getItem(ATTRIBUTES_STORAGE_KEY);
       if (!raw) {
-        return ATTRIBUTES_CATALOG.map(function(a) {
+        return ATTRIBUTES_CATALOG.map(function (a) {
           return { id: a.id, name: a.name, type: a.type };
         });
       }
@@ -915,7 +924,7 @@
   function saveAttributes(attrs) {
     try {
       localStorage.setItem(ATTRIBUTES_STORAGE_KEY, JSON.stringify(attrs));
-    } catch (e) {}
+    } catch (e) { }
   }
 
   function renderAttributesTable() {
@@ -928,35 +937,35 @@
       return;
     }
 
-    tbody.innerHTML = attrs.map(function(a) {
+    tbody.innerHTML = attrs.map(function (a) {
       return '<tr data-attribute-id="' + escapeHtml(a.id) + '">' +
         '<td>#' + escapeHtml(a.id) + '</td>' +
         '<td>' + escapeHtml(a.name) + '</td>' +
         '<td>' + escapeHtml(a.type) + '</td>' +
         '<td class="text-center">' +
-          '<div class="btn-group">' +
-            '<button class="btn btn-sm btn-outline-primary" type="button" data-action="edit-attribute" ' +
-                    'data-attribute-id="' + escapeHtml(a.id) + '" ' +
-                    'data-attribute-name="' + escapeHtml(a.name) + '" ' +
-                    'data-attribute-type="' + escapeHtml(a.type) + '" ' +
-                    'title="Редактировать характеристику">' +
-              '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">' +
-                '<path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>' +
-              '</svg>' +
-            '</button>' +
-            '<button class="btn btn-sm btn-outline-danger" type="button" data-action="delete-attribute" ' +
-                    'data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" ' +
-                    'data-item-name="Характеристику «' + escapeHtml(a.name) + '»" ' +
-                    'data-attribute-id="' + escapeHtml(a.id) + '" ' +
-                    'title="Удалить характеристику">' +
-              '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">' +
-                '<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>' +
-                '<path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>' +
-              '</svg>' +
-            '</button>' +
-          '</div>' +
+        '<div class="btn-group">' +
+        '<button class="btn btn-sm btn-outline-primary" type="button" data-action="edit-attribute" ' +
+        'data-attribute-id="' + escapeHtml(a.id) + '" ' +
+        'data-attribute-name="' + escapeHtml(a.name) + '" ' +
+        'data-attribute-type="' + escapeHtml(a.type) + '" ' +
+        'title="Редактировать характеристику">' +
+        '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">' +
+        '<path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>' +
+        '</svg>' +
+        '</button>' +
+        '<button class="btn btn-sm btn-outline-danger" type="button" data-action="delete-attribute" ' +
+        'data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" ' +
+        'data-item-name="Характеристику «' + escapeHtml(a.name) + '»" ' +
+        'data-attribute-id="' + escapeHtml(a.id) + '" ' +
+        'title="Удалить характеристику">' +
+        '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">' +
+        '<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>' +
+        '<path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>' +
+        '</svg>' +
+        '</button>' +
+        '</div>' +
         '</td>' +
-      '</tr>';
+        '</tr>';
     }).join('');
   }
 
@@ -983,7 +992,7 @@
   function saveUnits(units) {
     try {
       localStorage.setItem(UNITS_STORAGE_KEY, JSON.stringify(units));
-    } catch (e) {}
+    } catch (e) { }
   }
 
   function renderUnitsTable() {
@@ -996,36 +1005,36 @@
       return;
     }
 
-    tbody.innerHTML = units.map(function(u) {
+    tbody.innerHTML = units.map(function (u) {
       return '<tr data-unit-id="' + escapeHtml(u.id) + '">' +
         '<td>' + escapeHtml(u.fullName) + '</td>' +
         '<td>' + escapeHtml(u.abbr) + '</td>' +
         '<td>' + escapeHtml(u.code) + '</td>' +
         '<td class="text-center">' +
-          '<div class="btn-group">' +
-            '<button class="btn btn-sm btn-outline-primary" type="button" data-action="edit-unit" ' +
-                    'data-unit-id="' + escapeHtml(u.id) + '" ' +
-                    'data-unit-fullname="' + escapeHtml(u.fullName) + '" ' +
-                    'data-unit-abbr="' + escapeHtml(u.abbr) + '" ' +
-                    'data-unit-code="' + escapeHtml(u.code) + '" ' +
-                    'title="Редактировать единицу измерения">' +
-              '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">' +
-                '<path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>' +
-              '</svg>' +
-            '</button>' +
-            '<button class="btn btn-sm btn-outline-danger" type="button" data-action="delete-unit" ' +
-                    'data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" ' +
-                    'data-item-name="Единицу измерения «' + escapeHtml(u.fullName) + '»" ' +
-                    'data-unit-id="' + escapeHtml(u.id) + '" ' +
-                    'title="Удалить единицу измерения">' +
-              '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">' +
-                '<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>' +
-                '<path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>' +
-              '</svg>' +
-            '</button>' +
-          '</div>' +
+        '<div class="btn-group">' +
+        '<button class="btn btn-sm btn-outline-primary" type="button" data-action="edit-unit" ' +
+        'data-unit-id="' + escapeHtml(u.id) + '" ' +
+        'data-unit-fullname="' + escapeHtml(u.fullName) + '" ' +
+        'data-unit-abbr="' + escapeHtml(u.abbr) + '" ' +
+        'data-unit-code="' + escapeHtml(u.code) + '" ' +
+        'title="Редактировать единицу измерения">' +
+        '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">' +
+        '<path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>' +
+        '</svg>' +
+        '</button>' +
+        '<button class="btn btn-sm btn-outline-danger" type="button" data-action="delete-unit" ' +
+        'data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" ' +
+        'data-item-name="Единицу измерения «' + escapeHtml(u.fullName) + '»" ' +
+        'data-unit-id="' + escapeHtml(u.id) + '" ' +
+        'title="Удалить единицу измерения">' +
+        '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">' +
+        '<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>' +
+        '<path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>' +
+        '</svg>' +
+        '</button>' +
+        '</div>' +
         '</td>' +
-      '</tr>';
+        '</tr>';
     }).join('');
   }
 
@@ -1035,7 +1044,7 @@
 
     var addBtn = document.getElementById('addAttributeBtn');
     if (addBtn) {
-      addBtn.addEventListener('click', function() {
+      addBtn.addEventListener('click', function () {
         document.getElementById('attributeModalTitle').textContent = 'Добавить характеристику';
         document.getElementById('attributeId').value = '';
         document.getElementById('attributeName').value = '';
@@ -1043,7 +1052,7 @@
       });
     }
 
-    document.addEventListener('click', function(e) {
+    document.addEventListener('click', function (e) {
       var btn = e.target.closest('[data-action="edit-attribute"]');
       if (!btn) return;
 
@@ -1062,7 +1071,7 @@
 
     var saveBtn = document.getElementById('saveAttributeBtn');
     if (saveBtn) {
-      saveBtn.addEventListener('click', function() {
+      saveBtn.addEventListener('click', function () {
         var id = document.getElementById('attributeId').value;
         var name = document.getElementById('attributeName').value.trim();
         var type = document.getElementById('attributeType').value;
@@ -1075,7 +1084,7 @@
         var attrs = loadAttributes();
 
         if (id) {
-          attrs = attrs.map(function(a) {
+          attrs = attrs.map(function (a) {
             return a.id === id ? { id: id, name: name, type: type } : a;
           });
         } else {
@@ -1098,7 +1107,7 @@
 
     var addBtn = document.getElementById('addUnitBtn');
     if (addBtn) {
-      addBtn.addEventListener('click', function() {
+      addBtn.addEventListener('click', function () {
         document.getElementById('unitModalTitle').textContent = 'Добавить единицу измерения';
         document.getElementById('unitId').value = '';
         document.getElementById('unitFullName').value = '';
@@ -1107,7 +1116,7 @@
       });
     }
 
-    document.addEventListener('click', function(e) {
+    document.addEventListener('click', function (e) {
       var btn = e.target.closest('[data-action="edit-unit"]');
       if (!btn) return;
 
@@ -1128,7 +1137,7 @@
 
     var saveBtn = document.getElementById('saveUnitBtn');
     if (saveBtn) {
-      saveBtn.addEventListener('click', function() {
+      saveBtn.addEventListener('click', function () {
         var id = document.getElementById('unitId').value;
         var fullName = document.getElementById('unitFullName').value.trim();
         var abbr = document.getElementById('unitAbbr').value.trim();
@@ -1142,7 +1151,7 @@
         var units = loadUnits();
 
         if (id) {
-          units = units.map(function(u) {
+          units = units.map(function (u) {
             return u.id === id ? { id: id, fullName: fullName, abbr: abbr, code: code } : u;
           });
         } else {
@@ -1160,7 +1169,7 @@
   }
 
   function wireDeleteForAttributesAndUnits() {
-    document.addEventListener('click', function(e) {
+    document.addEventListener('click', function (e) {
       var btn = e.target.closest('[data-action="delete-attribute"]');
       if (!btn) return;
 
@@ -1168,14 +1177,14 @@
       var deleteAction = document.querySelector('#confirmDeleteModal [data-delete-action]');
       if (!deleteAction) return;
 
-      deleteAction.onclick = function() {
-        var attrs = loadAttributes().filter(function(a) { return a.id !== attrId; });
+      deleteAction.onclick = function () {
+        var attrs = loadAttributes().filter(function (a) { return a.id !== attrId; });
         saveAttributes(attrs);
         renderAttributesTable();
       };
     });
 
-    document.addEventListener('click', function(e) {
+    document.addEventListener('click', function (e) {
       var btn = e.target.closest('[data-action="delete-unit"]');
       if (!btn) return;
 
@@ -1183,8 +1192,8 @@
       var deleteAction = document.querySelector('#confirmDeleteModal [data-delete-action]');
       if (!deleteAction) return;
 
-      deleteAction.onclick = function() {
-        var units = loadUnits().filter(function(u) { return u.id !== unitId; });
+      deleteAction.onclick = function () {
+        var units = loadUnits().filter(function (u) { return u.id !== unitId; });
         saveUnits(units);
         renderUnitsTable();
       };
@@ -1194,10 +1203,10 @@
   function wireSearch() {
     var searchAttr = document.getElementById('searchAttributes');
     if (searchAttr) {
-      searchAttr.addEventListener('input', function() {
+      searchAttr.addEventListener('input', function () {
         var term = this.value.toLowerCase();
         var rows = document.querySelectorAll('#attributesTableBody tr');
-        rows.forEach(function(row) {
+        rows.forEach(function (row) {
           var text = row.innerText.toLowerCase();
           row.style.display = text.includes(term) ? '' : 'none';
         });
@@ -1206,15 +1215,528 @@
 
     var searchUnits = document.getElementById('searchUnits');
     if (searchUnits) {
-      searchUnits.addEventListener('input', function() {
+      searchUnits.addEventListener('input', function () {
         var term = this.value.toLowerCase();
         var rows = document.querySelectorAll('#unitsTableBody tr');
-        rows.forEach(function(row) {
+        rows.forEach(function (row) {
           var text = row.innerText.toLowerCase();
           row.style.display = text.includes(term) ? '' : 'none';
         });
       });
     }
+
+    var searchBrands = document.getElementById('searchBrands');
+    if (searchBrands) {
+      searchBrands.addEventListener('input', function () {
+        var term = this.value.toLowerCase();
+        var rows = document.querySelectorAll('#brandsTableBody tr');
+        rows.forEach(function (row) {
+          var text = row.innerText.toLowerCase();
+          row.style.display = text.includes(term) ? '' : 'none';
+        });
+      });
+    }
+  }
+
+  // ========== БРЕНДЫ ==========
+  var BRANDS_STORAGE_KEY = 'demo_brands_v1';
+
+  function loadBrands() {
+    try {
+      var raw = localStorage.getItem(BRANDS_STORAGE_KEY);
+      if (!raw) return [];
+      var data = JSON.parse(raw);
+      return Array.isArray(data) ? data : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function saveBrands(brands) {
+    try {
+      localStorage.setItem(BRANDS_STORAGE_KEY, JSON.stringify(brands));
+    } catch (e) { }
+  }
+
+  function renderBrandsTable() {
+    var tbody = document.getElementById('brandsTableBody');
+    if (!tbody) return;
+
+    var brands = loadBrands();
+    if (!brands.length) {
+      tbody.innerHTML = '<tr><td colspan="4" class="text-center text-muted small">Нет брендов. Добавьте первый.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = brands.map(function (b) {
+      return '<tr data-brand-id="' + escapeHtml(b.id) + '">' +
+        '<td>#' + escapeHtml(b.id) + '</td>' +
+        '<td>' + escapeHtml(b.article1c || '') + '</td>' +
+        '<td>' + escapeHtml(b.name) + '</td>' +
+        '<td class="text-center">' +
+        '<div class="btn-group">' +
+        '<button class="btn btn-sm btn-outline-primary" type="button" data-action="edit-brand" ' +
+        'data-brand-id="' + escapeHtml(b.id) + '" ' +
+        'data-brand-name="' + escapeHtml(b.name) + '" ' +
+        'data-brand-article="' + escapeHtml(b.article1c || '') + '" ' +
+        'title="Редактировать бренд">' +
+        '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">' +
+        '<path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>' +
+        '</svg>' +
+        '</button>' +
+        '<button class="btn btn-sm btn-outline-danger" type="button" data-action="delete-brand" ' +
+        'data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" ' +
+        'data-item-name="Бренд «' + escapeHtml(b.name) + '»" ' +
+        'data-brand-id="' + escapeHtml(b.id) + '" ' +
+        'title="Удалить бренд">' +
+        '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">' +
+        '<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>' +
+        '<path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>' +
+        '</svg>' +
+        '</button>' +
+        '</div>' +
+        '</td>' +
+        '</tr>';
+    }).join('');
+  }
+
+  function wireBrandsCrud() {
+    var modalEl = document.getElementById('brandModal');
+    if (!modalEl) return;
+
+    var addBtn = document.getElementById('addBrandBtn');
+    if (addBtn) {
+      addBtn.addEventListener('click', function () {
+        document.getElementById('brandModalTitle').textContent = 'Добавить бренд';
+        document.getElementById('brandId').value = '';
+        document.getElementById('brandName').value = '';
+        document.getElementById('brandArticle').value = '';
+      });
+    }
+
+    document.addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-action="edit-brand"]');
+      if (!btn) return;
+
+      var id = btn.getAttribute('data-brand-id');
+      var name = btn.getAttribute('data-brand-name');
+      var article = btn.getAttribute('data-brand-article');
+
+      document.getElementById('brandModalTitle').textContent = 'Редактировать бренд';
+      document.getElementById('brandId').value = id || '';
+      document.getElementById('brandName').value = name || '';
+      document.getElementById('brandArticle').value = article || '';
+
+      var modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+      modal.show();
+    });
+
+    var saveBtn = document.getElementById('saveBrandBtn');
+    if (saveBtn) {
+      saveBtn.addEventListener('click', function () {
+        var id = document.getElementById('brandId').value;
+        var name = document.getElementById('brandName').value.trim();
+        var article = document.getElementById('brandArticle').value.trim();
+
+        if (!name) {
+          alert('Укажите название бренда');
+          return;
+        }
+
+        var brands = loadBrands();
+
+        if (id) {
+          brands = brands.map(function (b) {
+            return b.id === id ? { id: id, name: name, article1c: article } : b;
+          });
+        } else {
+          var newId = 'brand_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5);
+          brands.unshift({ id: newId, name: name, article1c: article });
+        }
+
+        saveBrands(brands);
+        renderBrandsTable();
+
+        var modal = bootstrap.Modal.getInstance(modalEl);
+        modal.hide();
+      });
+    }
+
+    // Удаление бренда через общую модалку
+    document.addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-action="delete-brand"]');
+      if (!btn) return;
+
+      var brandId = btn.getAttribute('data-brand-id');
+      var deleteAction = document.querySelector('#confirmDeleteModal [data-delete-action]');
+      if (!deleteAction) return;
+
+      deleteAction.onclick = function () {
+        var brands = loadBrands().filter(function (b) { return b.id !== brandId; });
+        saveBrands(brands);
+        renderBrandsTable();
+      };
+    });
+  }
+
+  // ========== ЛИНЕЙКИ И СЕРИИ ==========
+  var LINES_STORAGE_KEY = 'demo_lines_v1';
+  var SERIES_STORAGE_KEY = 'demo_series_v1';
+
+  function loadLines() {
+    try {
+      var raw = localStorage.getItem(LINES_STORAGE_KEY);
+      return raw ? JSON.parse(raw) : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function saveLines(lines) {
+    try {
+      localStorage.setItem(LINES_STORAGE_KEY, JSON.stringify(lines));
+    } catch (e) { }
+  }
+
+  function loadSeries() {
+    try {
+      var raw = localStorage.getItem(SERIES_STORAGE_KEY);
+      return raw ? JSON.parse(raw) : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function saveSeries(series) {
+    try {
+      localStorage.setItem(SERIES_STORAGE_KEY, JSON.stringify(series));
+    } catch (e) { }
+  }
+
+  // Заполнить селект брендов (вызывается при выборе категории)
+  function renderBrandSelector(selectedBrandId) {
+    var selector = document.getElementById('brandSelector');
+    if (!selector) return;
+
+    var brands = loadBrands();
+    var options = '<option value="">Выберите бренд</option>';
+    brands.forEach(function (b) {
+      var selected = (b.id === selectedBrandId) ? ' selected' : '';
+      options += '<option value="' + escapeHtml(b.id) + '"' + selected + '>' + escapeHtml(b.name) + '</option>';
+    });
+    selector.innerHTML = options;
+    selector.disabled = (!selectedCategoryId || brands.length === 0);
+    document.getElementById('addLineBtn').disabled = !selectedCategoryId || !selector.value;
+  }
+
+  // Отобразить список линеек для выбранной категории и бренда
+  function renderLines() {
+    var container = document.getElementById('linesContainer');
+    if (!container) return;
+
+    var categoryId = selectedCategoryId;
+    var brandId = document.getElementById('brandSelector')?.value;
+
+    // Получаем название категории (если есть)
+    var categoryDisplay = selectedCategoryName ? selectedCategoryName : '—';
+
+    // Если категория не выбрана — показываем соответствующее сообщение
+    if (!categoryId) {
+      container.innerHTML = '<div class="small text-muted-2 mb-2">Выбрана категория: <span class="text-primary fw-semibold">—</span></div>' +
+        '<div class="text-muted alert alert-info text-center small">Сначала выберите категорию слева.</div>';
+      document.getElementById('seriesContainer').style.display = 'none';
+      return;
+    }
+
+    // Категория выбрана, но бренд не выбран
+    if (!brandId) {
+      container.innerHTML = '<div class="small text-muted-2 mb-2">Выбрана категория: <span class="text-primary fw-semibold">' + escapeHtml(categoryDisplay) + '</span></div>' +
+        '<div class="text-muted alert alert-info text-center small">Выберите бренд, чтобы увидеть линейки.</div>';
+      document.getElementById('seriesContainer').style.display = 'none';
+      return;
+    }
+
+    // Категория и бренд выбраны – загружаем линейки
+    var lines = loadLines().filter(function (l) {
+      return l.categoryId === categoryId && l.brandId === brandId;
+    });
+
+    // Всегда показываем название категории над списком
+    var headerHtml = '<div class="small text-muted-2 mb-2">Выбрана категория: <span class="text-primary fw-semibold">' + escapeHtml(categoryDisplay) + '</span></div>';
+
+    if (lines.length === 0) {
+      container.innerHTML = headerHtml + '<div class="text-muted alert alert-primary text-center small">Нет линеек для этой пары. Нажмите <strong>«Добавить линейку»</strong>.</div>';
+      document.getElementById('seriesContainer').style.display = 'none';
+      return;
+    }
+
+    // Отрисовываем список линеек
+    var html = headerHtml + '<div class="list-group mb-3">';
+    lines.forEach(function (line) {
+      html += '<div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" data-line-id="' + escapeHtml(line.id) + '">' +
+        '<span>' + escapeHtml(line.name) + '</span>' +
+        '<div class="btn-group btn-group-sm">' +
+        '<button class="btn btn-outline-primary border-0" data-action="edit-line" data-line-id="' + escapeHtml(line.id) + '" data-line-name="' + escapeHtml(line.name) + '">' +
+        '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">' +
+        '<path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>' +
+        '</svg>' +
+        '</button>' +
+        '<button class="btn btn-outline-danger border-0" data-action="delete-line" data-line-id="' + escapeHtml(line.id) + '" data-line-name="' + escapeHtml(line.name) + '">' +
+        '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">' +
+        '<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>' +
+        '<path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>' +
+        '</svg>' +
+        '</button>' +
+        '</div>' +
+        '</div>';
+    });
+    html += '</div>';
+    container.innerHTML = html;
+
+    // Сбрасываем подсветку активной линейки
+    var activeLine = document.querySelector('[data-line-id].active-line');
+    if (activeLine) {
+      activeLine.classList.remove('active-line');
+    }
+  }
+
+  // Отобразить серии для выбранной линейки
+  function renderSeries(lineId) {
+    var container = document.getElementById('seriesContainer');
+    var listEl = document.getElementById('seriesList');
+    if (!container || !listEl) return;
+
+    if (!lineId) {
+      container.style.display = 'none';
+      return;
+    }
+
+    var series = loadSeries().filter(function (s) { return s.lineId === lineId; });
+
+    if (series.length === 0) {
+      listEl.innerHTML = '<div class="text-muted small">Нет серий. Добавьте первую.</div>';
+    } else {
+      var html = '<div class="list-group">';
+      series.forEach(function (s) {
+        html += '<div class="list-group-item d-flex justify-content-between align-items-center">' +
+          '<span>' + escapeHtml(s.name) + '</span>' +
+          '<div class="btn-group btn-group-sm">' +
+          '<button class="btn btn-outline-primary border-0" data-action="edit-series" data-series-id="' + escapeHtml(s.id) + '" data-series-name="' + escapeHtml(s.name) + '">' +
+          '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">' +
+          '<path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>' +
+          '</svg>' +
+          '</button>' +
+          '<button class="btn btn-outline-danger border-0" data-action="delete-series" data-series-id="' + escapeHtml(s.id) + '" data-series-name="' + escapeHtml(s.name) + '">' +
+          '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">' +
+          '<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>' +
+          '<path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>' +
+          '</svg>' +
+          '</button>' +
+          '</div>' +
+          '</div>';
+      });
+      html += '</div>';
+      listEl.innerHTML = html;
+    }
+
+    container.style.display = 'block';
+  }
+
+  // Инициализация обработчиков для линеек и серий
+  function wireLinesAndSeries() {
+    var brandSelector = document.getElementById('brandSelector');
+    var addLineBtn = document.getElementById('addLineBtn');
+    var addSeriesBtn = document.getElementById('addSeriesBtn');
+    var lineModalEl = document.getElementById('lineModal');
+    var seriesModalEl = document.getElementById('seriesModal');
+    if (!lineModalEl || !seriesModalEl) return;
+
+    var lineModal = new bootstrap.Modal(lineModalEl);
+    var seriesModal = new bootstrap.Modal(seriesModalEl);
+
+    // Переменные для хранения ID редактируемых элементов
+    var editingLineId = null;
+    var editingSeriesId = null;
+
+    if (brandSelector) {
+      brandSelector.addEventListener('change', function () {
+        renderLines();
+        document.getElementById('seriesContainer').style.display = 'none';
+        if (addLineBtn) addLineBtn.disabled = !brandSelector.value;
+      });
+    }
+
+    // Добавление линейки
+    if (addLineBtn) {
+      addLineBtn.addEventListener('click', function () {
+        if (!selectedCategoryId || !brandSelector.value) return;
+        editingLineId = null;
+        document.getElementById('lineModalTitle').textContent = 'Добавить линейку';
+        document.getElementById('lineId').value = '';
+        document.getElementById('lineName').value = '';
+        lineModal.show();
+      });
+    }
+
+    // Сохранение линейки
+    document.getElementById('saveLineBtn').addEventListener('click', function () {
+      var lineName = document.getElementById('lineName').value.trim();
+      if (!lineName) {
+        alert('Введите название линейки');
+        return;
+      }
+
+      var lines = loadLines();
+      if (editingLineId) {
+        // Редактирование
+        lines = lines.map(function (l) {
+          return l.id === editingLineId ? Object.assign({}, l, { name: lineName }) : l;
+        });
+      } else {
+        // Добавление
+        var newLine = {
+          id: 'line_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5),
+          categoryId: selectedCategoryId,
+          brandId: brandSelector.value,
+          name: lineName
+        };
+        lines.push(newLine);
+      }
+      saveLines(lines);
+      renderLines();
+      lineModal.hide();
+    });
+
+    // Редактирование линейки (через карандаш)
+    document.addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-action="edit-line"]');
+      if (!btn) return;
+
+      var lineId = btn.getAttribute('data-line-id');
+      var lineName = btn.getAttribute('data-line-name');
+      editingLineId = lineId;
+      document.getElementById('lineModalTitle').textContent = 'Редактировать линейку';
+      document.getElementById('lineId').value = lineId;
+      document.getElementById('lineName').value = lineName;
+      lineModal.show();
+    });
+
+    // Удаление линейки
+    document.addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-action="delete-line"]');
+      if (!btn) return;
+
+      var lineId = btn.getAttribute('data-line-id');
+      if (confirm('Удалить линейку? Все связанные серии также будут удалены.')) {
+        var lines = loadLines().filter(function (l) { return l.id !== lineId; });
+        saveLines(lines);
+        var series = loadSeries().filter(function (s) { return s.lineId !== lineId; });
+        saveSeries(series);
+        renderLines();
+        document.getElementById('seriesContainer').style.display = 'none';
+      }
+    });
+
+    // Выбор линейки для показа серий
+    document.addEventListener('click', function (e) {
+      var lineDiv = e.target.closest('[data-line-id]');
+      if (!lineDiv) return;
+
+      document.querySelectorAll('[data-line-id]').forEach(function (el) {
+        el.classList.remove('active-line');
+      });
+      lineDiv.classList.add('active-line');
+
+      var lineId = lineDiv.getAttribute('data-line-id');
+      renderSeries(lineId);
+    });
+
+    // Добавление серии
+    if (addSeriesBtn) {
+      addSeriesBtn.addEventListener('click', function () {
+        var activeLine = document.querySelector('[data-line-id].active-line');
+        if (!activeLine) {
+          alert('Сначала выберите линейку из списка.');
+          return;
+        }
+        editingSeriesId = null;
+        document.getElementById('seriesModalTitle').textContent = 'Добавить серию';
+        document.getElementById('seriesId').value = '';
+        document.getElementById('seriesName').value = '';
+        seriesModal.show();
+      });
+    }
+
+    // Сохранение серии
+    document.getElementById('saveSeriesBtn').addEventListener('click', function () {
+      var seriesName = document.getElementById('seriesName').value.trim();
+      if (!seriesName) {
+        alert('Введите название серии');
+        return;
+      }
+
+      var activeLine = document.querySelector('[data-line-id].active-line');
+      if (!activeLine && !editingSeriesId) return; // при редактировании activeLine может отсутствовать
+
+      var series = loadSeries();
+      if (editingSeriesId) {
+        // Редактирование
+        series = series.map(function (s) {
+          return s.id === editingSeriesId ? Object.assign({}, s, { name: seriesName }) : s;
+        });
+      } else {
+        // Добавление
+        var lineId = activeLine.getAttribute('data-line-id');
+        var newSeries = {
+          id: 'series_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5),
+          lineId: lineId,
+          name: seriesName
+        };
+        series.push(newSeries);
+      }
+      saveSeries(series);
+      var currentLineId = editingSeriesId ?
+        series.find(s => s.id === editingSeriesId).lineId :
+        activeLine.getAttribute('data-line-id');
+      renderSeries(currentLineId);
+      seriesModal.hide();
+    });
+
+    // Редактирование серии
+    document.addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-action="edit-series"]');
+      if (!btn) return;
+
+      var seriesId = btn.getAttribute('data-series-id');
+      var seriesName = btn.getAttribute('data-series-name');
+      editingSeriesId = seriesId;
+      document.getElementById('seriesModalTitle').textContent = 'Редактировать серию';
+      document.getElementById('seriesId').value = seriesId;
+      document.getElementById('seriesName').value = seriesName;
+      seriesModal.show();
+    });
+
+    // Удаление серии
+    document.addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-action="delete-series"]');
+      if (!btn) return;
+
+      var seriesId = btn.getAttribute('data-series-id');
+      if (confirm('Удалить серию?')) {
+        var series = loadSeries().filter(function (s) { return s.id !== seriesId; });
+        saveSeries(series);
+        var activeLine = document.querySelector('[data-line-id].active-line');
+        if (activeLine) renderSeries(activeLine.getAttribute('data-line-id'));
+      }
+    });
+  }
+
+  // Функция для сброса блока линеек при смене категории
+  function resetLinesAndSeries() {
+    var selector = document.getElementById('brandSelector');
+    if (selector) selector.value = '';
+    renderLines();
+    document.getElementById('seriesContainer').style.display = 'none';
   }
 
   document.addEventListener('DOMContentLoaded', function () {
@@ -1238,6 +1760,19 @@
     wireUnitsCrud();
     wireDeleteForAttributesAndUnits();
     wireSearch();
+
+    // Для attributes.html
+    if (document.getElementById('brandsTableBody')) {
+      renderBrandsTable();
+      wireBrandsCrud();
+    }
+
+    // Для categories.html — инициализация линеек и серий
+    wireLinesAndSeries();
+    // Также нужно обновить селект брендов при загрузке, если категория уже выбрана (например, при перезагрузке)
+    if (selectedCategoryId) {
+      renderBrandSelector();
+    }
   });
 })();
 

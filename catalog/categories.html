@@ -203,26 +203,79 @@
           <div class="col-12 col-md-8">
             <div class="card card-soft">
               <div class="card-body">
-                <p class="text-primary">Характеристики категории</p>
-                <div class="row g-2 align-items-end mb-3">
-                  <div class="col-12 col-md-6">
-                    <input type="search" class="form-control form-control-sm" aria-label="Поиск характеристики"
-                      placeholder="Поиск характеристики" />
-                  </div>
-                  <div class="col-12 col-md-auto ms-md-auto">
-                    <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal"
-                      data-bs-target="#addAttributeGroupModal" data-add-attribute-group-btn disabled>
-                      Добавить группу характеристик
+                <!-- Вкладки Характеристики категории/Линейки и серии -->
+                <ul class="nav nav-tabs nav-tabs-soft mb-3" id="mediaTabs" role="tablist">
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="attributes-tab" data-bs-toggle="tab"
+                      data-bs-target="#attributes" type="button" role="tab" aria-controls="attributes"
+                      aria-selected="true">
+                      Характеристики категории
                     </button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="linesAndSeries-tab" data-bs-toggle="tab"
+                      data-bs-target="#linesAndSeries" type="button" role="tab" aria-controls="linesAndSeries"
+                      aria-selected="false">
+                      Линейки и серии
+                    </button>
+                  </li>
+                </ul>
+
+                <!-- Контент вкладок -->
+                <div class="tab-content" id="mediaTabsContent">
+                  <!-- Вкладка Характеристики категории -->
+                  <div class="tab-pane fade show active" id="attributes" role="tabpanel"
+                    aria-labelledby="attributes-tab">
+                    <div class="row g-2 align-items-end mb-3">
+                      <div class="col-12 col-md-6">
+                        <input type="search" class="form-control form-control-sm" aria-label="Поиск характеристики"
+                          placeholder="Поиск характеристики" />
+                      </div>
+                      <div class="col-12 col-md-auto ms-md-auto">
+                        <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal"
+                          data-bs-target="#addAttributeGroupModal" data-add-attribute-group-btn disabled>
+                          Добавить группу характеристик
+                        </button>
+                      </div>
+                    </div>
+                    <div class="small text-muted-2 mb-2">
+                      Выбрана категория: <span class="text-primary fw-semibold" id="selectedCategoryName">—</span>
+                    </div>
+                    <!-- Группы характеристик (карточки) -->
+                    <div id="categoryAttributesBody">
+                      <div class="text-muted alert alert-warning text-center small">
+                        Выберите категорию слева, чтобы увидеть связанные с ней характеристики.
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <div class="small text-muted-2 mb-2">
-                  Выбрана категория: <span class="text-primary fw-semibold" id="selectedCategoryName">—</span>
-                </div>
-                <!-- Группы характеристик (карточки) -->
-                <div id="categoryAttributesBody">
-                  <div class="text-muted alert alert-warning text-center small">Выберите категорию слева, чтобы увидеть
-                    связанные с ней характеристики.</div>
+
+                  <!-- Вкладка Линейки и серии -->
+                  <div class="tab-pane fade" id="linesAndSeries" role="tabpanel" aria-labelledby="linesAndSeries-tab">
+                    <div class="row g-2 align-items-end mb-3">
+                      <div class="col-12 col-md-6">
+                        <select class="form-select form-select-sm" id="brandSelector" disabled>
+                          <option value="">Сначала выберите бренд</option>
+                        </select>
+                      </div>
+                      <div class="col-12 col-md-auto ms-md-auto">
+                        <button class="btn btn-primary btn-sm" id="addLineBtn" disabled>Добавить линейку</button>
+                      </div>
+                    </div>
+                    <div id="linesContainer">
+                      <div class="text-muted alert alert-warning text-center small">
+                        Выберите категорию слева, чтобы увидеть линейки.
+                      </div>
+                    </div>
+                    <div id="seriesContainer" style="display: none;">
+                      <p class="text-primary mt-3">Серии выбранной линейки</p>
+                      <div class="row g-2 align-items-end mb-3">
+                        <div class="col-12 col-md-auto ms-md-auto">
+                          <button class="btn btn-primary btn-sm" id="addSeriesBtn">Добавить серию</button>
+                        </div>
+                      </div>
+                      <div id="seriesList"></div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -231,6 +284,56 @@
       </div>
     </div>
   </main>
+
+  <!-- Модалка для линейки (добавление/редактирование) -->
+  <div class="modal fade" id="lineModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="lineModalTitle">Добавить линейку</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
+        <div class="modal-body">
+          <form id="lineForm">
+            <input type="hidden" id="lineId" value="">
+            <div class="mb-3">
+              <label for="lineName" class="form-label">Название линейки</label>
+              <input type="text" class="form-control" id="lineName" placeholder="Например: IdeaPad" required>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Отмена</button>
+          <button type="button" class="btn btn-primary" id="saveLineBtn">Сохранить</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Модалка для серии (добавление/редактирование) -->
+  <div class="modal fade" id="seriesModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="seriesModalTitle">Добавить серию</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
+        <div class="modal-body">
+          <form id="seriesForm">
+            <input type="hidden" id="seriesId" value="">
+            <div class="mb-3">
+              <label for="seriesName" class="form-label">Название серии</label>
+              <input type="text" class="form-control" id="seriesName" placeholder="Например: 100" required>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Отмена</button>
+          <button type="button" class="btn btn-primary" id="saveSeriesBtn">Сохранить</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Модалка подтверждения удаления -->
   <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-hidden="true">

@@ -108,24 +108,24 @@
             </div>
           </div>
 
-          <!-- Средняя колонка: Характеристики -->
+          <!-- Средняя колонка: Бренды -->
           <div class="col-12 col-md-4">
             <div class="card card-soft">
               <div class="card-body">
                 <p class="text-primary">Бренды</p>
                 <div class="row g-2 align-items-end mb-3">
                   <div class="col-12 col-md-6">
-                    <input type="search" class="form-control form-control-sm" id="searchAttributes"
+                    <input type="search" class="form-control form-control-sm" id="searchBrands"
                       placeholder="Поиск бренда" />
                   </div>
                   <div class="col-12 col-md-auto ms-md-auto">
-                    <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#"
-                      id="">
+                    <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal"
+                      data-bs-target="#brandModal" id="addBrandBtn">
                       Добавить бренд
                     </button>
                   </div>
                 </div>
-                <table class="table table-hover table-borderless table-sm mb-0" id="attributesTable">
+                <table class="table table-hover table-borderless table-sm mb-0">
                   <thead>
                     <tr>
                       <th>ID</th>
@@ -134,100 +134,8 @@
                       <th class="text-center">Действия</th>
                     </tr>
                   </thead>
-                  <tbody id="">
-                    <tr>
-                      <td>#302</td>
-                      <td>42</td>
-                      <td>A4Tech</td>
-                      <td class="text-center">
-                        <div class="btn-group">
-                          <button class="btn btn-sm btn-outline-primary" type="button" data-action="edit"
-                            data-bs-toggle="modal" data-bs-target="#editCategoryModal" data-item-name="Бренд"
-                            title="Редактировать бренд A4Tech">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                              class="bi bi-pencil" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-                              <path
-                                d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
-                            </svg>
-                          </button>
-                          <button class="btn btn-sm btn-outline-danger" type="button" data-action="delete"
-                            data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-item-name="Бренд "
-                            title="Удалить бренд A4Tech">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                              class="bi bi-trash" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-                              <path
-                                d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z">
-                              </path>
-                              <path
-                                d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z">
-                              </path>
-                            </svg>
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>#301</td>
-                      <td>946</td>
-                      <td>Deppa</td>
-                      <td class="text-center">
-                        <div class="btn-group">
-                          <button class="btn btn-sm btn-outline-primary" type="button" data-action="edit"
-                            data-bs-toggle="modal" data-bs-target="#editCategoryModal" data-item-name="Бренд"
-                            title="Редактировать бренд Deppa">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                              class="bi bi-pencil" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-                              <path
-                                d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
-                            </svg>
-                          </button>
-                          <button class="btn btn-sm btn-outline-danger" type="button" data-action="delete"
-                            data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-item-name="Бренд "
-                            title="Удалить бренд Deppa">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                              class="bi bi-trash" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-                              <path
-                                d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z">
-                              </path>
-                              <path
-                                d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z">
-                              </path>
-                            </svg>
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>#300</td>
-                      <td>1704</td>
-                      <td>Витязь</td>
-                      <td class="text-center">
-                        <div class="btn-group">
-                          <button class="btn btn-sm btn-outline-primary" type="button" data-action="edit"
-                            data-bs-toggle="modal" data-bs-target="#editCategoryModal" data-item-name="Бренд"
-                            title="Редактировать бренд Витязь">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                              class="bi bi-pencil" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-                              <path
-                                d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
-                            </svg>
-                          </button>
-                          <button class="btn btn-sm btn-outline-danger" type="button" data-action="delete"
-                            data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-item-name="Бренд "
-                            title="Удалить бренд Витязь">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                              class="bi bi-trash" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-                              <path
-                                d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z">
-                              </path>
-                              <path
-                                d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z">
-                              </path>
-                            </svg>
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
+                  <tbody id="brandsTableBody">
+                    <!-- заполняется динамически -->
                   </tbody>
                 </table>
               </div>
@@ -271,6 +179,35 @@
       </div>
     </div>
   </main>
+
+  <!-- Модалка для бренда (добавление/редактирование) -->
+  <div class="modal fade" id="brandModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="brandModalTitle">Добавить бренд</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
+        <div class="modal-body">
+          <form id="brandForm">
+            <input type="hidden" id="brandId" value="">
+            <div class="mb-3">
+              <label for="brandName" class="form-label">Название бренда</label>
+              <input type="text" class="form-control" id="brandName" placeholder="Например: A4Tech">
+            </div>
+            <div class="mb-3">
+              <label for="brandArticle" class="form-label">Артикул 1С (опционально)</label>
+              <input type="text" class="form-control" id="brandArticle" placeholder="Например: 42">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Отмена</button>
+          <button type="button" class="btn btn-primary" id="saveBrandBtn">Сохранить</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Модалка подтверждения удаления -->
   <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-hidden="true">
