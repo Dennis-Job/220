@@ -134,9 +134,9 @@ h6, .h6 {
 }
 
 .admin-content {
-  flex: 1;
-  min-width: 0;
-  overflow: auto;
+  width: 100%;
+  max-width: 2560px;
+  margin: 0 auto;
 }
 
 .admin-content-inner {
