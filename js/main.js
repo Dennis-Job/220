@@ -1510,18 +1510,29 @@ document.getElementById('seriesContainer').style.display = 'block';
     var container = document.getElementById('seriesContainer');
     if (!container) return;
   
+    // Сбрасываем содержимое, чтобы потом заполнить заново
+    container.innerHTML = '';
+  
     if (!lineId) {
       container.innerHTML = '<div class="text-muted alert alert-info text-center small">Выберите линейку слева, чтобы увидеть серии.</div>';
       document.getElementById('addSeriesBtn').disabled = true;
       return;
     }
   
+    // Находим название линейки по её ID
+    var lines = loadLines();
+    var currentLine = lines.find(function(line) { return line.id === lineId; });
+    var lineName = currentLine ? currentLine.name : 'неизвестная линейка';
+  
+    // Формируем заголовок с названием выбранной линейки
+    var headerHtml = '<div class="small text-muted-2 mb-2">Выбрана линейка: <span class="text-primary fw-semibold">' + escapeHtml(lineName) + '</span></div>';
+  
     var series = loadSeries().filter(function (s) { return s.lineId === lineId; });
   
     if (series.length === 0) {
-      container.innerHTML = '<div class="text-muted alert alert-warning text-center small m-0">Нет серий. Добавьте первую.</div>';
+      container.innerHTML = headerHtml + '<div class="text-muted alert alert-warning text-center small m-0">Нет серий. Добавьте первую.</div>';
     } else {
-      var html = '<div class="list-group">';
+      var html = headerHtml + '<div class="list-group">';
       series.forEach(function (s) {
         html += '<div class="list-group-item d-flex justify-content-between align-items-center">' +
           '<span>' + escapeHtml(s.name) + '</span>' +

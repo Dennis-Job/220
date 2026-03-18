@@ -55,6 +55,11 @@ h6, .h6 {
   border-color: #71A6CD;
 }
 
+.active-line {
+  background-color: rgba(var(--bs-primary-rgb), 0.05);
+  border-left: 3px solid var(--bs-primary);
+}
+
 /* Лэйаут админ-панели */
 .admin-layout {
   height: 100vh;
