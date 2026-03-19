@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Сопоставление товаров| Обработка прайс-листов</title>
+
+  <!-- Bootstrap (локально) -->
+  <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" />
+  <!-- Стили проекта -->
+  <link rel="stylesheet" href="../css/styles.css" />
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom sticky-top">
+    <div class="admin-content container-fluid">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="../index.html">Расчётный центр</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../products/products-list.html">Общий каталог товаров</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="../partnership/price-list.html">Обработка прайс-листов</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">CMS магазинов</a>
+        </li>
+      </ul>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNav"
+        aria-controls="topNav" aria-expanded="false" aria-label="Переключить навигацию">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="topNav">
+        <div class="dropdown">
+          <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            Администратор
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="#">Профиль</a></li>
+            <li><a class="dropdown-item" href="#">Настройки</a></li>
+            <li>
+              <hr class="dropdown-divider" />
+            </li>
+            <li><a class="dropdown-item" href="#">Выход</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main content area -->
+  <main class="admin-content">
+    <div class="content-body">
+      <!-- Navbar 2 -->
+      <ul class="nav nav-tabs nav-tabs-soft mb-1" id="mediaTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <a href="../partnership/price-list.html" class="nav-link">
+            Прайс-листы
+          </a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a href="../partnership/partner.html" class="nav-link">
+            Поставщики
+          </a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a href="../partnership/comparison.html" class="nav-link active">
+            Сопоставление товаров
+          </a>
+        </li>
+      </ul>
+
+      <div class="card card-soft">
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Модалка подтверждения удаления -->
+  <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Подтверждение удаления</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
+        <div class="modal-body">
+          Вы уверены, что хотите удалить: <br><span class="fw-semibold" data-delete-name>элемент</span>?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Отмена</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" data-delete-action>Удалить</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Модалка подтверждения восстановления -->
+  <div class="modal fade" id="confirmRestoreModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Подтверждение восстановления</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
+        <div class="modal-body">
+          Вы уверены, что хотите вернуть: <br><span class="fw-semibold" data-delete-name>элемент</span>?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Отмена</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" data-delete-action>Вернуть</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS (локально) -->
+  <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- Скрипты проекта -->
+  <script src="../js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Прайс-листы | Обработка прайс-листов</title>
+
+  <!-- Bootstrap (локально) -->
+  <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" />
+  <!-- Стили проекта -->
+  <link rel="stylesheet" href="../css/styles.css" />
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom sticky-top">
+    <div class="admin-content container-fluid">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="../index.html">Расчётный центр</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../products/products-list.html">Общий каталог товаров</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="../partnership/price-list.html">Обработка прайс-листов</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">CMS магазинов</a>
+        </li>
+      </ul>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNav"
+        aria-controls="topNav" aria-expanded="false" aria-label="Переключить навигацию">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="topNav">
+        <div class="dropdown">
+          <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            Администратор
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="#">Профиль</a></li>
+            <li><a class="dropdown-item" href="#">Настройки</a></li>
+            <li>
+              <hr class="dropdown-divider" />
+            </li>
+            <li><a class="dropdown-item" href="#">Выход</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main content area -->
+  <main class="admin-content">
+    <div class="content-body">
+      <!-- Navbar 2 -->
+      <ul class="nav nav-tabs nav-tabs-soft mb-1" id="mediaTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <a href="../partnership/price-list.html" class="nav-link active">
+            Прайс-листы
+          </a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a href="../partnership/partner.html" class="nav-link">
+            Поставщики
+          </a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a href="../partnership/comparison.html" class="nav-link">
+            Сопоставление товаров
+          </a>
+        </li>
+      </ul>
+
+      <div class="card card-soft">
+        <div class="card-header p-1 bg-white">
+          <!-- Search and filters -->
+          <div class="d-flex justify-content-between mb-0">
+            <div class="input-group w-25">
+              <input class="form-control" type="text" placeholder="Поиск" />
+              <button class="btn btn-light" type="button">Найти</button>
+            </div>
+            <div class="d-flex">
+              <div class="me-3 d-inline-flex align-items-center">
+                <span class="badge text-bg-primary d-inline-flex align-items-center ms-2">
+                  API
+                  <span class="ms-2" style="cursor: pointer;" onclick="this.parentElement.remove()">&times;</span>
+                </span>
+                <span class="badge text-bg-primary d-inline-flex align-items-center ms-2">
+                  Активен
+                  <span class="ms-2" style="cursor: pointer;" onclick="this.parentElement.remove()">&times;</span>
+                </span>
+                <span class="badge text-bg-primary d-inline-flex align-items-center ms-2">
+                  Надёжность 7
+                  <span class="ms-2" style="cursor: pointer;" onclick="this.parentElement.remove()">&times;</span>
+                </span>
+              </div>
+              <button class="btn btn-outline-primary me-2" href="product-create.html">Фильтр</button>
+              <button class="btn btn-outline-primary me-5" href="product-create.html">Сбросить
+                фильтр</button>
+              <a class="btn btn-primary" href="product-create.html">Добавить прайс-лист</a>
+            </div>
+          </div>
+        </div>
+        <div class="card-body p-1 pt-0">
+          <!-- Product table -->
+          <div class="table-responsive">
+            <table class="table table-hover table-bordered align-middle mb-0 table-goods">
+              <thead>
+                <tr>
+                  <th class="text-center align-middle" style="width: 70px;">Активность</th>
+                  <th class="text-center align-middle" style="width: 70px;">Признак РРЦ</th>
+                  <th class="align-middle">Наименование</th>
+                  <th class="align-middle">Поставщик</th>
+                  <th class="text-center align-middle">Надёжность</th>
+                  <th class="text-center align-middle">Тип</th>
+                  <th class="text-center align-middle">Валюта</th>
+                  <th class="text-center align-middle">Кол-во товаров</th>
+                  <th class="text-center align-middle">Сопоставлено товаров</th>
+                  <th class="text-center align-middle">Исключённых из сопоставления</th>
+                  <th class="text-center align-middle">Несопоставлено товаров</th>
+                  <th class="text-end align-middle">Обновлён</th>
+                  <th class="text-end align-middle">Активен до</th>
+                  <th class="text-center align-middle" style="width: 70px;">Статус</th>
+                  <th class="text-center align-middle" style="width: 70px;">Действия</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="text-center align-middle"><input class="form-check-input" type="checkbox" name="main"
+                      id="main" checked></td>
+                  <td class="text-center"><span class="badge text-bg-success">РРЦ</span></td>
+                  <td>
+                    <a href="#" class="text-decoration-none">
+                      Прайс 1
+                    </a>
+                  </td>
+                  <td>
+                    <a href="#" class="text-decoration-none">
+                      3logic
+                    </a>
+                  </td>
+                  <td class="text-center">7</td>
+                  <td class="text-center">API</td>
+                  <td class="text-center">Доллар</td>
+                  <td class="text-center">6789</td>
+                  <td class="text-center">3488</td>
+                  <td class="text-center">2478</td>
+                  <td class="text-center">823</td>
+                  <td class="text-end">13:23 19.03.2026</td>
+                  <td class="text-end"></td>
+                  <td class="text-center"><span class="badge text-bg-success">Активен</span></td>
+                  <td class="text-center">
+                    <div class="btn-group" role="group" aria-label="Действия">
+                      <button class="btn btn-sm btn-outline-danger" type="button" data-action="delete"
+                        data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-item-name="Прайс 1"
+                        title="Удалить прайс-лист">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                          class="bi bi-trash" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                          <path
+                            d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z">
+                          </path>
+                          <path
+                            d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z">
+                          </path>
+                        </svg>
+                      </button>
+                      <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="modal"
+                        title="Скачать прайс-лист">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                          class="bi bi-cloud-download" viewBox="0 0 16 16">
+                          <path
+                            d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.569 14.502 11 12.687 11H10a.5.5 0 0 1 0-1h2.688C13.979 10 15 8.988 15 7.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 2.825 10.328 1 8 1a4.53 4.53 0 0 0-2.941 1.1c-.757.652-1.153 1.438-1.153 2.055v.448l-.445.049C2.064 4.805 1 5.952 1 7.318 1 8.785 2.23 10 3.781 10H6a.5.5 0 0 1 0 1H3.781C1.708 11 0 9.366 0 7.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383" />
+                          <path
+                            d="M7.646 15.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 14.293V5.5a.5.5 0 0 0-1 0v8.793l-2.146-2.147a.5.5 0 0 0-.708.708z" />
+                        </svg>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                
+                <tr>
+                  <td class="text-center align-middle"><input class="form-check-input" type="checkbox" name="main"
+                      id="main"></td>
+                  <td class="text-center"></td>
+                  <td>
+                    <a href="#" class="text-decoration-none">
+                      Прайс 2
+                    </a>
+                  </td>
+                  <td>
+                    <a href="#" class="text-decoration-none">
+                      Digis
+                    </a>
+                  </td>
+                  <td class="text-center">4</td>
+                  <td class="text-center">Файл</td>
+                  <td class="text-center">Евро</td>
+                  <td class="text-center">6789</td>
+                  <td class="text-center">3488</td>
+                  <td class="text-center">2478</td>
+                  <td class="text-center">823</td>
+                  <td class="text-end">13:23 19.03.2026</td>
+                  <td class="text-end">20.03.2026</td>
+                  <td class="text-center"><span class="badge text-bg-secondary">Не активен</span></td>
+                  <td class="text-center">
+                    <div class="btn-group" role="group" aria-label="Действия">
+                      <button class="btn btn-sm btn-outline-danger" type="button" data-action="delete"
+                        data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-item-name="Прайс 2"
+                        title="Удалить прайс-лист">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                          class="bi bi-trash" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                          <path
+                            d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z">
+                          </path>
+                          <path
+                            d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z">
+                          </path>
+                        </svg>
+                      </button>
+                      <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="modal"
+                        title="Скачать прайс-лист">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                          class="bi bi-cloud-download" viewBox="0 0 16 16">
+                          <path
+                            d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.569 14.502 11 12.687 11H10a.5.5 0 0 1 0-1h2.688C13.979 10 15 8.988 15 7.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 2.825 10.328 1 8 1a4.53 4.53 0 0 0-2.941 1.1c-.757.652-1.153 1.438-1.153 2.055v.448l-.445.049C2.064 4.805 1 5.952 1 7.318 1 8.785 2.23 10 3.781 10H6a.5.5 0 0 1 0 1H3.781C1.708 11 0 9.366 0 7.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383" />
+                          <path
+                            d="M7.646 15.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 14.293V5.5a.5.5 0 0 0-1 0v8.793l-2.146-2.147a.5.5 0 0 0-.708.708z" />
+                        </svg>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                
+                <tr>
+                  <td class="text-center align-middle"><input class="form-check-input" type="checkbox" name="main"
+                      id="main" checked></td>
+                  <td class="text-center"></td>
+                  <td>
+                    <a href="#" class="text-decoration-none">
+                      Прайс 1
+                    </a>
+                  </td>
+                  <td>
+                    <a href="#" class="text-decoration-none">
+                      Digis
+                    </a>
+                  </td>
+                  <td class="text-center">4</td>
+                  <td class="text-center">Файл</td>
+                  <td class="text-center">Рубль</td>
+                  <td class="text-center">6789</td>
+                  <td class="text-center">3488</td>
+                  <td class="text-center">2478</td>
+                  <td class="text-center">823</td>
+                  <td class="text-end">13:23 19.03.2026</td>
+                  <td class="text-end"></td>
+                  <td class="text-center"><span class="badge text-bg-danger">С ошибками</span></td>
+                  <td class="text-center">
+                    <div class="btn-group" role="group" aria-label="Действия">
+                      <button class="btn btn-sm btn-outline-danger" type="button" data-action="delete"
+                        data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-item-name="Прайс 1"
+                        title="Удалить прайс-лист">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                          class="bi bi-trash" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                          <path
+                            d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z">
+                          </path>
+                          <path
+                            d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z">
+                          </path>
+                        </svg>
+                      </button>
+                      <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="modal"
+                        title="Скачать прайс-лист">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                          class="bi bi-cloud-download" viewBox="0 0 16 16">
+                          <path
+                            d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.569 14.502 11 12.687 11H10a.5.5 0 0 1 0-1h2.688C13.979 10 15 8.988 15 7.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 2.825 10.328 1 8 1a4.53 4.53 0 0 0-2.941 1.1c-.757.652-1.153 1.438-1.153 2.055v.448l-.445.049C2.064 4.805 1 5.952 1 7.318 1 8.785 2.23 10 3.781 10H6a.5.5 0 0 1 0 1H3.781C1.708 11 0 9.366 0 7.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383" />
+                          <path
+                            d="M7.646 15.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 14.293V5.5a.5.5 0 0 0-1 0v8.793l-2.146-2.147a.5.5 0 0 0-.708.708z" />
+                        </svg>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                
+                <tr>
+                  <td class="text-center align-middle"><input class="form-check-input" type="checkbox" name="main"
+                      id="main" checked></td>
+                  <td class="text-center"></td>
+                  <td>
+                    <a href="#" class="text-decoration-none">
+                      Merlion_Elektrika
+                    </a>
+                  </td>
+                  <td>
+                    <a href="#" class="text-decoration-none">
+                      Merlion
+                    </a>
+                  </td>
+                  <td class="text-center">5</td>
+                  <td class="text-center">Файл</td>
+                  <td class="text-center">Рубль</td>
+                  <td class="text-center">6789</td>
+                  <td class="text-center">3488</td>
+                  <td class="text-center">2478</td>
+                  <td class="text-center">823</td>
+                  <td class="text-end">13:23 19.03.2026</td>
+                  <td class="text-end">27.09.2027</td>
+                  <td class="text-center"><span class="badge text-bg-warning">Предупреждение</span></td>
+                  <td class="text-center">
+                    <div class="btn-group" role="group" aria-label="Действия">
+                      <button class="btn btn-sm btn-outline-danger" type="button" data-action="delete"
+                        data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-item-name="Прайс 1"
+                        title="Удалить прайс-лист">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                          class="bi bi-trash" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                          <path
+                            d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z">
+                          </path>
+                          <path
+                            d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z">
+                          </path>
+                        </svg>
+                      </button>
+                      <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="modal"
+                        title="Скачать прайс-лист">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                          class="bi bi-cloud-download" viewBox="0 0 16 16">
+                          <path
+                            d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.569 14.502 11 12.687 11H10a.5.5 0 0 1 0-1h2.688C13.979 10 15 8.988 15 7.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 2.825 10.328 1 8 1a4.53 4.53 0 0 0-2.941 1.1c-.757.652-1.153 1.438-1.153 2.055v.448l-.445.049C2.064 4.805 1 5.952 1 7.318 1 8.785 2.23 10 3.781 10H6a.5.5 0 0 1 0 1H3.781C1.708 11 0 9.366 0 7.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383" />
+                          <path
+                            d="M7.646 15.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 14.293V5.5a.5.5 0 0 0-1 0v8.793l-2.146-2.147a.5.5 0 0 0-.708.708z" />
+                        </svg>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                
+                <tr>
+                  <td class="text-center align-middle"><input class="form-check-input" type="checkbox" name="main"
+                      id="main" checked></td>
+                  <td class="text-center"><span class="badge text-bg-success">РРЦ</span></td>
+                  <td>
+                    <a href="#" class="text-decoration-none">
+                      Lyambda_rrc
+                    </a>
+                  </td>
+                  <td>
+                    <a href="#" class="text-decoration-none">
+                      Lyambda
+                    </a>
+                  </td>
+                  <td class="text-center">7</td>
+                  <td class="text-center">API</td>
+                  <td class="text-center">Доллар</td>
+                  <td class="text-center">6789</td>
+                  <td class="text-center">3488</td>
+                  <td class="text-center">2478</td>
+                  <td class="text-center">823</td>
+                  <td class="text-end">13:23 19.03.2026</td>
+                  <td class="text-end"></td>
+                  <td class="text-center"><span class="badge text-bg-success">Активен</span></td>
+                  <td class="text-center">
+                    <div class="btn-group" role="group" aria-label="Действия">
+                      <button class="btn btn-sm btn-outline-danger" type="button" data-action="delete"
+                        data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-item-name="Прайс 1"
+                        title="Удалить прайс-лист">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                          class="bi bi-trash" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                          <path
+                            d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z">
+                          </path>
+                          <path
+                            d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z">
+                          </path>
+                        </svg>
+                      </button>
+                      <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="modal"
+                        title="Скачать прайс-лист">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                          class="bi bi-cloud-download" viewBox="0 0 16 16">
+                          <path
+                            d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.569 14.502 11 12.687 11H10a.5.5 0 0 1 0-1h2.688C13.979 10 15 8.988 15 7.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 2.825 10.328 1 8 1a4.53 4.53 0 0 0-2.941 1.1c-.757.652-1.153 1.438-1.153 2.055v.448l-.445.049C2.064 4.805 1 5.952 1 7.318 1 8.785 2.23 10 3.781 10H6a.5.5 0 0 1 0 1H3.781C1.708 11 0 9.366 0 7.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383" />
+                          <path
+                            d="M7.646 15.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 14.293V5.5a.5.5 0 0 0-1 0v8.793l-2.146-2.147a.5.5 0 0 0-.708.708z" />
+                        </svg>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                
+                <tr>
+                  <td class="text-center align-middle"><input class="form-check-input" type="checkbox" name="main"
+                      id="main" checked></td>
+                  <td class="text-center"></td>
+                  <td>
+                    <a href="#" class="text-decoration-none">
+                      Прайс 1
+                    </a>
+                  </td>
+                  <td>
+                    <a href="#" class="text-decoration-none">
+                      Lyambda
+                    </a>
+                  </td>
+                  <td class="text-center">7</td>
+                  <td class="text-center">API</td>
+                  <td class="text-center">Доллар</td>
+                  <td class="text-center">6789</td>
+                  <td class="text-center">3488</td>
+                  <td class="text-center">2478</td>
+                  <td class="text-center">823</td>
+                  <td class="text-end">13:23 19.03.2026</td>
+                  <td class="text-end"></td>
+                  <td class="text-center"><span class="badge text-bg-success">Активен</span></td>
+                  <td class="text-center">
+                    <div class="btn-group" role="group" aria-label="Действия">
+                      <button class="btn btn-sm btn-outline-danger" type="button" data-action="delete"
+                        data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-item-name="Прайс 1"
+                        title="Удалить прайс-лист">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                          class="bi bi-trash" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                          <path
+                            d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z">
+                          </path>
+                          <path
+                            d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z">
+                          </path>
+                        </svg>
+                      </button>
+                      <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="modal"
+                        title="Скачать прайс-лист">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                          class="bi bi-cloud-download" viewBox="0 0 16 16">
+                          <path
+                            d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.569 14.502 11 12.687 11H10a.5.5 0 0 1 0-1h2.688C13.979 10 15 8.988 15 7.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 2.825 10.328 1 8 1a4.53 4.53 0 0 0-2.941 1.1c-.757.652-1.153 1.438-1.153 2.055v.448l-.445.049C2.064 4.805 1 5.952 1 7.318 1 8.785 2.23 10 3.781 10H6a.5.5 0 0 1 0 1H3.781C1.708 11 0 9.366 0 7.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383" />
+                          <path
+                            d="M7.646 15.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 14.293V5.5a.5.5 0 0 0-1 0v8.793l-2.146-2.147a.5.5 0 0 0-.708.708z" />
+                        </svg>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pagination -->
+          <div class="d-flex align-items-center justify-content-between mt-1">
+            <div class="small text-muted-2">Показано 1–3 из 120</div>
+            <nav aria-label="Пагинация">
+              <ul class="pagination pagination-sm mb-0">
+                <li class="page-item disabled"><a class="page-link" href="#">Назад</a></li>
+                <li class="page-item active" aria-current="page"><a class="page-link" href="#">1</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">Далее</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Модалка подтверждения удаления -->
+  <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Подтверждение удаления</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
+        <div class="modal-body">
+          Вы уверены, что хотите удалить: <br><span class="fw-semibold" data-delete-name>элемент</span>?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Отмена</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" data-delete-action>Удалить</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Модалка подтверждения восстановления -->
+  <div class="modal fade" id="confirmRestoreModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Подтверждение восстановления</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
+        <div class="modal-body">
+          Вы уверены, что хотите вернуть: <br><span class="fw-semibold" data-delete-name>элемент</span>?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Отмена</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" data-delete-action>Вернуть</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS (локально) -->
+  <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- Скрипты проекта -->
+  <script src="../js/main.js"></script>
+</body>
+
+</html>
