@@ -101,7 +101,9 @@
               <button class="btn btn-outline-primary me-2" href="product-create.html">Фильтр</button>
               <button class="btn btn-outline-primary me-5" href="product-create.html">Сбросить
                 фильтр</button>
-              <a class="btn btn-primary" href="product-create.html">Добавить прайс-лист</a>
+              <!-- Заменённая кнопка: теперь открывает модальное окно -->
+              <button class="btn btn-primary" type="button" data-bs-toggle="modal"
+                data-bs-target="#addPriceModal">Добавить прайс-лист</button>
             </div>
           </div>
         </div>
@@ -168,8 +170,8 @@
                           </path>
                         </svg>
                       </button>
-                      <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#downloadDateModal"
-                        title="Скачать прайс-лист">
+                      <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="modal"
+                        data-bs-target="#downloadDateModal" title="Скачать прайс-лист">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                           class="bi bi-cloud-download" viewBox="0 0 16 16">
                           <path
@@ -221,8 +223,8 @@
                           </path>
                         </svg>
                       </button>
-                      <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#downloadDateModal"
-                        title="Скачать прайс-лист">
+                      <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="modal"
+                        data-bs-target="#downloadDateModal" title="Скачать прайс-лист">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                           class="bi bi-cloud-download" viewBox="0 0 16 16">
                           <path
@@ -274,8 +276,8 @@
                           </path>
                         </svg>
                       </button>
-                      <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#downloadDateModal"
-                        title="Скачать прайс-лист">
+                      <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="modal"
+                        data-bs-target="#downloadDateModal" title="Скачать прайс-лист">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                           class="bi bi-cloud-download" viewBox="0 0 16 16">
                           <path
@@ -327,8 +329,8 @@
                           </path>
                         </svg>
                       </button>
-                      <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#downloadDateModal"
-                        title="Скачать прайс-лист">
+                      <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="modal"
+                        data-bs-target="#downloadDateModal" title="Скачать прайс-лист">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                           class="bi bi-cloud-download" viewBox="0 0 16 16">
                           <path
@@ -380,8 +382,8 @@
                           </path>
                         </svg>
                       </button>
-                      <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#downloadDateModal"
-                        title="Скачать прайс-лист">
+                      <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="modal"
+                        data-bs-target="#downloadDateModal" title="Скачать прайс-лист">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                           class="bi bi-cloud-download" viewBox="0 0 16 16">
                           <path
@@ -433,8 +435,8 @@
                           </path>
                         </svg>
                       </button>
-                      <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#downloadDateModal"
-                        title="Скачать прайс-лист">
+                      <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="modal"
+                        data-bs-target="#downloadDateModal" title="Скачать прайс-лист">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                           class="bi bi-cloud-download" viewBox="0 0 16 16">
                           <path
@@ -509,6 +511,151 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Отмена</button>
           <button type="button" class="btn btn-primary" id="confirmDownloadBtn">Скачать</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- НОВОЕ МОДАЛЬНОЕ ОКНО: Добавление прайс-листа (шаг 1) -->
+  <div class="modal fade" id="addPriceModal" tabindex="-1" aria-labelledby="addPriceModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addPriceModalLabel">Добавление прайс-листа (шаг 1 из 2)</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Основные поля -->
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="priceNameInput" class="form-label">Название прайс-листа</label>
+              <input type="text" class="form-control" id="priceNameInput" placeholder="Введите наименование прайса">
+            </div>
+            <div class="col-md-6">
+              <label for="supplierSelect" class="form-label">Поставщик</label>
+              <select class="form-select" id="supplierSelect">
+                <option selected>Выберите поставщика</option>
+                <option value="1">3logic</option>
+                <option value="2">Digis</option>
+                <option value="3">Merlion</option>
+                <option value="4">Lyambda</option>
+              </select>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="activeUntilDate" class="form-label">Активен до</label>
+              <input type="date" class="form-control" id="activeUntilDate">
+            </div>
+            <div class="col-md-6">
+              <div class="form-check mt-4">
+                <input class="form-check-input" type="checkbox" id="participateInCalculation">
+                <label class="form-check-label" for="participateInCalculation">Участвует в расчёте</label>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-4">
+            <div class="col-md-6">
+              <label for="reliabilityRange" class="form-label">Надёжность (0-10)</label>
+              <input type="range" class="form-range" min="0" max="10" step="1" id="reliabilityRange" value="5">
+              <div class="d-flex justify-content-between">
+                <span>0</span><span>5</span><span>10</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Две колонки: Статус и Цена -->
+          <div class="row">
+            <!-- Колонка Статус -->
+            <div class="col-md-6 border-end">
+              <h6 class="mb-2">Статус</h6>
+              <div class="mb-3">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="statusNotChange">
+                  <label class="form-check-label" for="statusNotChange">Не менять статус</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="statusUnderOrder">
+                  <label class="form-check-label" for="statusUnderOrder">Установить статус "Под заказ"</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="statusTransit">
+                  <label class="form-check-label" for="statusTransit">Установить статус "Транзит"</label>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="statusNotTakeSelect" class="form-label">Не брать и задавать товарам статус</label>
+                <select class="form-select" id="statusNotTakeSelect">
+                  <option selected disabled></option>
+                  <option>Есть в магазине</option>
+                  <option>Есть на складе</option>
+                  <option>Транзит от 1 до 2 дней</option>
+                  <option>Транзит от 3 до 30 дней</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="replaceInStockSelect" class="form-label">Заменить "Есть на складе на"</label>
+                <select class="form-select" id="replaceInStockSelect">
+                  <option selected disabled></option>
+                  <option>Есть в магазине</option>
+                  <option>Есть на складе</option>
+                  <option>Транзит от 1 до 2 дней</option>
+                  <option>Транзит от 3 до 30 дней</option>
+                </select>
+              </div>
+            </div>
+            <!-- Колонка Цена -->
+            <div class="col-md-6">
+              <h6 class="mb-2">Цена</h6>
+              <div class="mb-3">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="priceNotMarkup">
+                  <label class="form-check-label" for="priceNotMarkup">Не наценивать прайсы</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="priceNotLower">
+                  <label class="form-check-label" for="priceNotLower">Формировать цены не ниже цен этого
+                    поставщика</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="priceNotHigher">
+                  <label class="form-check-label" for="priceNotHigher">Формировать цены не выше цен этого
+                    поставщика</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="priceSupersede">
+                  <label class="form-check-label" for="priceSupersede">Вытеснять все остальные цены</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="priceUseThisSupplier">
+                  <label class="form-check-label" for="priceUseThisSupplier">Использовать цены этого поставщика</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="priceRrc">
+                  <label class="form-check-label" for="priceRrc">РРЦ цены</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="priceInCurrency">
+                  <label class="form-check-label" for="priceInCurrency">Цена в валюте прайса</label>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="priceActiveWithSelect" class="form-label">Цена активна вместе с прайсом</label>
+                <select class="form-select" id="priceActiveWithSelect">
+                  <option selected disabled></option>
+                  <option>Прайс 1</option>
+                  <option>Прайс 2</option>
+                  <option>Merlion_Elektrika</option>
+                  <option>Lyambda_rrc</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Отмена</button>
+          <button type="button" class="btn btn-primary" id="nextStepBtn">Далее</button>
+          <!-- Кнопка "Далее" пока без функционала, второй этап будет добавлен позже -->
         </div>
       </div>
     </div>
