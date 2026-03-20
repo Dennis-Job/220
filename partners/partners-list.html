@@ -69,225 +69,147 @@
 					</a>
 				</li>
 				<li class="nav-item" role="presentation">
-					<a href="../pricelists/comparison.html" class="nav-link">
+					<a href="../pricelists/price-comparison.html" class="nav-link">
 						Сопоставление товаров
 					</a>
 				</li>
 			</ul>
 
 			<div class="admin-content-inner">
-				<div class="row g-3">
-					<div class="col-12 col-md-4">
-						<div class="card card-soft">
-							<div class="card-body">
-								<p class="text-primary">Поставщики</p>
-								<div class="row g-2 align-items-end mb-3">
-									<div class="col-12 col-md-6">
-										<input type="search" class="form-control form-control-sm" aria-label="Поиск поставщика"
-											placeholder="Поиск поставщика" />
-									</div>
-									<div class="col-12 col-md-auto ms-md-auto">
-										<button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal"
-											data-bs-target="#addSalesPointModal">
-											Добавить поставщика
-										</button>
-									</div>
-								</div>
-								<table class="table table-hover table-borderless table-sm mb-0" data-categories-table>
-									<thead>
-										<tr>
-											<th>Наименование</th>
-											<th class="text-center">Товаров</th>
-											<th class="text-center">Действия</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>#10</td>
-											<td><a href="#" class="fw-semibold text-decoration-none" data-category-id="10">Смартфоны</a></td>
-											<td class="text-center">120</td>
-											<td class="text-center">
-												<div class="btn-group">
-													<button class="btn btn-sm btn-outline-primary" type="button" data-action="edit"
-														data-bs-toggle="modal" data-bs-target="#editCategoryModal"
-														data-item-name="Категорию «Смартфоны»" title="Редактировать категорию">
-														<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-															class="bi bi-pencil" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-															<path
-																d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
-														</svg>
-													</button>
-													<button class="btn btn-sm btn-outline-danger" type="button" data-action="delete"
-														data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
-														data-item-name="Категорию «Смартфоны»" title="Удалить категорию">
-														<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-															class="bi bi-trash" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-															<path
-																d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z">
-															</path>
-															<path
-																d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z">
-															</path>
-														</svg>
-													</button>
-												</div>
-											</td>
-										</tr>
-										<tr>
-											<td>#11</td>
-											<td><a href="#" class="fw-semibold text-decoration-none" data-category-id="11">Ноутбуки</a></td>
-											<td class="text-center">48</td>
-											<td class="text-center">
-												<div class="btn-group">
-													<button class="btn btn-sm btn-outline-primary" type="button" data-action="edit"
-														data-bs-toggle="modal" data-bs-target="#editCategoryModal"
-														data-item-name="Категорию «Ноутбуки»" title="Редактировать категорию">
-														<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-															class="bi bi-pencil" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-															<path
-																d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
-														</svg>
-													</button>
-													<button class="btn btn-sm btn-outline-danger" type="button" data-action="delete"
-														data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
-														data-item-name="Категорию «Ноутбуки»" title="Удалить категорию">
-														<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-															class="bi bi-trash" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-															<path
-																d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z">
-															</path>
-															<path
-																d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z">
-															</path>
-														</svg>
-													</button>
-												</div>
-											</td>
-										</tr>
-										<tr>
-											<td>#12</td>
-											<td><a href="#" class="fw-semibold text-decoration-none" data-category-id="12">Кабели, шлейфы,
-													переходники</a></td>
-											<td class="text-center">210</td>
-											<td class="text-center">
-												<div class="btn-group">
-													<button class="btn btn-sm btn-outline-primary" type="button" data-action="edit"
-														data-bs-toggle="modal" data-bs-target="#editCategoryModal"
-														data-item-name="Категорию «Кабели, шлейфы, переходники»" title="Редактировать категорию">
-														<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-															class="bi bi-pencil" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-															<path
-																d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
-														</svg>
-													</button>
-													<button class="btn btn-sm btn-outline-danger" type="button" data-action="delete"
-														data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
-														data-item-name="Категорию «Кабели, шлейфы, переходники»" title="Удалить категорию">
-														<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-															class="bi bi-trash" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-															<path
-																d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z">
-															</path>
-															<path
-																d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z">
-															</path>
-														</svg>
-													</button>
-												</div>
-											</td>
-										</tr>
-									</tbody>
-								</table>
+				<div class="card card-soft">
+					<div class="card-body">
+						<p class="text-primary">Поставщики</p>
+						<div class="row g-2 align-items-end mb-3">
+							<div class="col-12 col-md-3">
+								<input type="search" class="form-control form-control-sm" aria-label="Поиск поставщика"
+									placeholder="Поиск поставщика" />
+							</div>
+							<div class="col-12 col-md-auto ms-md-auto">
+								<button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal"
+									data-bs-target="#addSalesPointModal">
+									Добавить поставщика
+								</button>
 							</div>
 						</div>
-					</div>
-
-					<div class="col-12 col-md-8">
-						<div class="card card-soft">
-							<div class="card-body">
-								<!-- Вкладки Характеристики категории/Линейки и серии -->
-								<ul class="nav nav-tabs nav-tabs-soft mb-3" id="mediaTabs" role="tablist">
-									<li class="nav-item" role="presentation">
-										<button class="nav-link active" id="attributes-tab" data-bs-toggle="tab"
-											data-bs-target="#attributes" type="button" role="tab" aria-controls="attributes"
-											aria-selected="true">
-											Характеристики категории
-										</button>
-									</li>
-									<li class="nav-item" role="presentation">
-										<button class="nav-link" id="linesAndSeries-tab" data-bs-toggle="tab"
-											data-bs-target="#linesAndSeries" type="button" role="tab" aria-controls="linesAndSeries"
-											aria-selected="false">
-											Линейки и серии
-										</button>
-									</li>
-								</ul>
-
-								<!-- Контент вкладок -->
-								<div class="tab-content" id="mediaTabsContent">
-									<!-- Вкладка Характеристики категории -->
-									<div class="tab-pane fade show active" id="attributes" role="tabpanel"
-										aria-labelledby="attributes-tab">
-										<div class="row g-2 align-items-end mb-3">
-											<div class="col-12 col-md-6">
-												<input type="search" class="form-control form-control-sm" aria-label="Поиск характеристики"
-													placeholder="Поиск характеристики" />
-											</div>
-											<div class="col-12 col-md-auto ms-md-auto">
-												<button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal"
-													data-bs-target="#addAttributeGroupModal" data-add-attribute-group-btn disabled>
-													Добавить группу характеристик
-												</button>
-											</div>
+						<table class="table table-hover table-borderless table-sm mb-0" data-categories-table>
+							<thead>
+								<tr>
+									<th class="text-center">Активность</th>
+									<th>Наименование</th>
+									<th class="text-center">Признак РРЦ</th>
+									<th class="text-center">Тип</th>
+									<th class="text-center">Кол-во прайс-листов</th>
+									<th class="text-center">Кол-во товаров</th>
+									<th class="text-center">Действия</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="text-center align-middle">
+										<input class="form-check-input" type="checkbox" name="main" id="main" checked>
+									</td>
+									<td><a href="../partners/partner-edit.html" class="fw-semibold text-decoration-none">3logic</a></td>
+									<td class="text-center"><span class="badge text-bg-info">РРЦ</span></td>
+									<td class="text-center">API</td>
+									<td class="text-center">4</td>
+									<td class="text-center">6789</td>
+									<td class="text-center">
+										<div class="btn-group">
+											<button class="btn btn-sm btn-outline-danger" type="button" data-action="delete"
+												data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" title="Удалить поставщика">
+												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+													class="bi bi-trash" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+													<path
+														d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z">
+													</path>
+													<path
+														d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z">
+													</path>
+												</svg>
+											</button>
 										</div>
-										<div class="small text-muted-2 mb-2">
-											Выбрана категория: <span class="text-primary fw-semibold" id="selectedCategoryName">—</span>
+									</td>
+								</tr>
+								<tr>
+									<td class="text-center align-middle">
+										<input class="form-check-input" type="checkbox" name="main" id="main" checked>
+									</td>
+									<td><a href="../partners/partner-edit.html" class="fw-semibold text-decoration-none">Digis</a></td>
+									<td class="text-center"></td>
+									<td class="text-center">Файл</td>
+									<td class="text-center">2</td>
+									<td class="text-center">745</td>
+									<td class="text-center">
+										<div class="btn-group">
+											<button class="btn btn-sm btn-outline-danger" type="button" data-action="delete"
+												data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" title="Удалить поставщика">
+												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+													class="bi bi-trash" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+													<path
+														d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z">
+													</path>
+													<path
+														d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z">
+													</path>
+												</svg>
+											</button>
 										</div>
-										<!-- Группы характеристик (карточки) -->
-										<div id="categoryAttributesBody">
-											<div class="text-muted alert alert-warning text-center small m-0">
-												Выберите категорию слева, чтобы увидеть связанные с ней характеристики.
-											</div>
+									</td>
+								</tr>
+								<tr>
+									<td class="text-center align-middle">
+										<input class="form-check-input" type="checkbox" name="main" id="main" checked>
+									</td>
+									<td><a href="../partners/partner-edit.html" class="fw-semibold text-decoration-none">Merlion</a></td>
+									<td class="text-center"></td>
+									<td class="text-center">Файл</td>
+									<td class="text-center">5</td>
+									<td class="text-center">1666</td>
+									<td class="text-center">
+										<div class="btn-group">
+											<button class="btn btn-sm btn-outline-danger" type="button" data-action="delete"
+												data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" title="Удалить поставщика">
+												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+													class="bi bi-trash" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+													<path
+														d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z">
+													</path>
+													<path
+														d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z">
+													</path>
+												</svg>
+											</button>
 										</div>
-									</div>
-
-									<!-- Вкладка Линейки и серии -->
-									<div class="tab-pane fade" id="linesAndSeries" role="tabpanel" aria-labelledby="linesAndSeries-tab">
-										<div class="row g-3">
-											<!-- Левая колонка: линейки -->
-											<div class="col-md-6">
-												<div class="d-flex justify-content-between align-items-center mb-2">
-													<p class="text-primary mb-0">Линейки</p>
-													<button class="btn btn-primary btn-sm" id="addLineBtn" disabled>Добавить линейку</button>
-												</div>
-												<div class="mb-3">
-													<select class="form-select form-select-sm" id="brandSelector" disabled>
-														<option value="">Выберите бренд</option>
-													</select>
-												</div>
-												<div id="linesContainer" style="max-height: 400px; overflow-y: auto;">
-													<div class="text-muted alert alert-warning text-center small m-0">
-														Выберите категорию и бренд, чтобы увидеть линейки.
-													</div>
-												</div>
-											</div>
-											<!-- Правая колонка: серии -->
-											<div class="col-md-6">
-												<div class="d-flex justify-content-between align-items-center mb-5">
-													<p class="text-primary mb-0">Серии</p>
-													<button class="btn btn-primary btn-sm" id="addSeriesBtn" disabled>Добавить серию</button>
-												</div>
-												<div id="seriesContainer" style="max-height: 400px; overflow-y: auto;">
-													<div class="text-muted alert alert-warning text-center small m-0">
-														Выберите линейку слева, чтобы увидеть серии.
-													</div>
-												</div>
-											</div>
+									</td>
+								</tr>
+								<tr>
+									<td class="text-center align-middle">
+										<input class="form-check-input" type="checkbox" name="main" id="main" checked>
+									</td>
+									<td><a href="../partners/partner-edit.html" class="fw-semibold text-decoration-none">Lyambda</a></td>
+									<td class="text-center"></td>
+									<td class="text-center">Файл</td>
+									<td class="text-center">2</td>
+									<td class="text-center">7436</td>
+									<td class="text-center">
+										<div class="btn-group">
+											<button class="btn btn-sm btn-outline-danger" type="button" data-action="delete"
+												data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" title="Удалить поставщика">
+												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+													class="bi bi-trash" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+													<path
+														d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z">
+													</path>
+													<path
+														d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z">
+													</path>
+												</svg>
+											</button>
 										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
 					</div>
 				</div>
 			</div>
