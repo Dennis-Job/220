@@ -219,9 +219,15 @@
               <!-- Прайс-лист -->
               <div class="card card-soft">
                 <div class="card-body">
-                  <p class="text-primary">Прайс-листы постащика</p>
-
-
+                  <div class="d-flex justify-content-between">
+                    <p class="text-primary">Прайс-листы постащика</p>
+                    <div>
+                      <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal"
+                        data-bs-target="#addPriceModal">
+                        Добавить прайс-лист
+                      </button>
+                    </div>
+                  </div>
 
                   <!-- Product table -->
                   <div class="table-responsive">
@@ -235,9 +241,9 @@
                           <th class="text-center align-middle">Надёжность</th>
                           <th class="text-center align-middle">Валюта</th>
                           <th class="text-center align-middle">Кол-во товаров</th>
-                          <th class="text-center align-middle">Сопоставлено товаров</th>
-                          <th class="text-center align-middle">Исключённых из сопоставления</th>
-                          <th class="text-center align-middle">Несопоставлено товаров</th>
+                          <th class="text-center align-middle">Сопоставлено</th>
+                          <th class="text-center align-middle">Исключено</th>
+                          <th class="text-center align-middle">Несопоставлено</th>
                           <th class="text-end align-middle">Обновлён</th>
                           <th class="text-end align-middle">Активен до</th>
                           <th class="text-center align-middle" style="width: 70px;">Статус обработки</th>
@@ -559,6 +565,278 @@
       </div>
     </div>
   </main>
+
+  <!-- Модалка подтверждения удаления -->
+  <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Подтверждение удаления</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
+        <div class="modal-body">
+          Вы уверены, что хотите удалить: <br><span class="fw-semibold" data-delete-name>элемент</span>?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Отмена</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" data-delete-action>Удалить</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Модалка выбора даты для скачивания архива -->
+  <div class="modal fade" id="downloadDateModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Скачать прайс-лист из архива</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
+        <div class="modal-body">
+          <form id="downloadForm">
+            <div class="mb-3">
+              <label for="archiveDate" class="form-label">Выберите дату:</label>
+              <input type="date" class="form-control" id="archiveDate" required>
+            </div>
+            <!-- Скрытое поле для хранения имени прайс-листа -->
+            <input type="hidden" id="priceName" value="">
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Отмена</button>
+          <button type="button" class="btn btn-primary" id="confirmDownloadBtn">Скачать</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Модальное окно: шаг 1 (было, кнопка Далее теперь открывает шаг 2) -->
+  <div class="modal fade" id="addPriceModal" tabindex="-1" aria-labelledby="addPriceModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addPriceModalLabel">Добавление прайс-листа (шаг 1 из 2)</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Содержимое шага 1 (без изменений) -->
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="priceNameInput" class="form-label">Наименование прайс-листа</label>
+              <input type="text" class="form-control" id="priceNameInput" placeholder="Введение наименование прайса">
+            </div>
+            <div class="col-md-6">
+              <label for="supplierSelect" class="form-label">Поставщик</label>
+              <select class="form-select" id="supplierSelect">
+                <option selected>Выберите поставщика</option>
+                <option value="1">3logic</option>
+                <option value="2">Digis</option>
+                <option value="3">Merlion</option>
+                <option value="4">Lyambda</option>
+              </select>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="activeUntilDate" class="form-label">Активен до</label>
+              <input type="date" class="form-control" id="activeUntilDate">
+            </div>
+            <div class="col-md-6">
+              <div class="form-check mt-4">
+                <input class="form-check-input" type="checkbox" id="participateInCalculation">
+                <label class="form-check-label" for="participateInCalculation">Участвует в расчёте</label>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-4">
+            <div class="col-md-6">
+              <label for="reliabilityRange" class="form-label">Надёжность (0-10)</label>
+              <input type="range" class="form-range" min="0" max="10" step="1" id="reliabilityRange" value="5">
+              <div class="d-flex justify-content-between">
+                <span>0</span><span>5</span><span>10</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <!-- Колонка Статус -->
+            <div class="col-md-6 border-end">
+              <h6 class="mb-2">Статус</h6>
+              <div class="mb-3">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="statusNotChange">
+                  <label class="form-check-label" for="statusNotChange">Не менять статус</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="statusUnderOrder">
+                  <label class="form-check-label" for="statusUnderOrder">Установить статус "Под заказ"</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="statusTransit">
+                  <label class="form-check-label" for="statusTransit">Установить статус "Транзит"</label>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="statusNotTakeSelect" class="form-label">Не брать и задавать товарам статус</label>
+                <select class="form-select" id="statusNotTakeSelect">
+                  <option selected disabled></option>
+                  <option>Есть в магазине</option>
+                  <option>Есть на складе</option>
+                  <option>Транзит от 1 до 2 дней</option>
+                  <option>Транзит от 3 до 30 дней</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="replaceInStockSelect" class="form-label">Заменить "Есть на складе" на</label>
+                <select class="form-select" id="replaceInStockSelect">
+                  <option selected disabled></option>
+                  <option>Есть в магазине</option>
+                  <option>Есть на складе</option>
+                  <option>Транзит от 1 до 2 дней</option>
+                  <option>Транзит от 3 до 30 дней</option>
+                </select>
+              </div>
+            </div>
+            <!-- Колонка Цена -->
+            <div class="col-md-6">
+              <h6 class="mb-2">Цена</h6>
+              <div class="mb-3">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="priceNotMarkup">
+                  <label class="form-check-label" for="priceNotMarkup">Не наценивать прайсы</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="priceNotLower">
+                  <label class="form-check-label" for="priceNotLower">Формировать цены не ниже цен этого
+                    поставщика</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="priceNotHigher">
+                  <label class="form-check-label" for="priceNotHigher">Формировать цены не выше цен этого
+                    поставщика</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="priceSupersede">
+                  <label class="form-check-label" for="priceSupersede">Вытеснять все остальные цены</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="priceUseThisSupplier">
+                  <label class="form-check-label" for="priceUseThisSupplier">Использовать цены ЭТОГО поставщика</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="priceRrc">
+                  <label class="form-check-label" for="priceRrc">РРЦ цены</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="priceInCurrency">
+                  <label class="form-check-label" for="priceInCurrency">Цена в валюте прайса</label>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="priceActiveWithSelect" class="form-label">Цена активна вместе с прайсом</label>
+                <select class="form-select" id="priceActiveWithSelect">
+                  <option selected disabled></option>
+                  <option>Прайс 1</option>
+                  <option>Прайс 2</option>
+                  <option>Merlion_Elektrika</option>
+                  <option>Lyambda_rrc</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Отмена</button>
+          <!-- Кнопка Далее: закрывает текущее окно и открывает шаг 2 -->
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" data-bs-toggle="modal"
+            data-bs-target="#addPriceModalStep2">Далее</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Модальное окно: шаг 2 (маппинг) -->
+  <div class="modal fade" id="addPriceModalStep2" tabindex="-1" aria-labelledby="addPriceModalStep2Label"
+    aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addPriceModalStep2Label">Добавление прайс-листа (шаг 2 из 2)</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Выбор валюты -->
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="currencySelect" class="form-label">Валюта прайс-листа</label>
+              <select class="form-select" id="currencySelect">
+                <option value="USD">Доллар (доллар США)</option>
+                <option value="EUR">Евро</option>
+                <option value="RUB">Российский рубль</option>
+              </select>
+            </div>
+
+            <div class="col-md-6">
+              <label for="headerRowNumber" class="form-label">Выберите строку с заголовком файла</label>
+              <input type="number" class="form-control" id="headerRowNumber" min="1" value="1">
+            </div>
+          </div>
+
+          <!-- Таблица маппинга -->
+          <h6 class="mb-2">Настройки маппинга</h6>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>A</th>
+                <th>B</th>
+                <th>C</th>
+                <th>D</th>
+                <th>F</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <!-- Кнопка Назад: закрывает текущее окно и открывает шаг 1 -->
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" data-bs-toggle="modal"
+            data-bs-target="#addPriceModal">Назад</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Сохранить</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Bootstrap JS (локально) -->
   <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>

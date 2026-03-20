@@ -164,7 +164,8 @@
                       </table>
 
                       <div class="mt-4">
-                        <button class="btn btn-primary btn-sm">Скачать файл</button>
+                        <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal"
+                          data-bs-target="#downloadDateModal" title="Скачать прайс-лист">Скачать файл</button>
                         <button class="btn btn-primary btn-sm">Загрузить новый</button>
                       </div>
                     </div>
@@ -766,6 +767,32 @@
       </div>
     </div>
   </main>
+
+  <!-- Модалка выбора даты для скачивания архива -->
+  <div class="modal fade" id="downloadDateModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Скачать прайс-лист из архива</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
+        <div class="modal-body">
+          <form id="downloadForm">
+            <div class="mb-3">
+              <label for="archiveDate" class="form-label">Выберите дату:</label>
+              <input type="date" class="form-control" id="archiveDate" required>
+            </div>
+            <!-- Скрытое поле для хранения имени прайс-листа -->
+            <input type="hidden" id="priceName" value="">
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Отмена</button>
+          <button type="button" class="btn btn-primary" id="confirmDownloadBtn">Скачать</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Bootstrap JS (локально) -->
   <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
