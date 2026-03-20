@@ -117,6 +117,7 @@
                   <th class="text-center align-middle" style="width: 70px;">Признак РРЦ</th>
                   <th class="align-middle">Наименование</th>
                   <th class="align-middle">Поставщик</th>
+                  <th class="align-middle">Статус прайс-листа</th>
                   <th class="text-center align-middle">Надёжность</th>
                   <th class="text-center align-middle">Тип</th>
                   <th class="text-center align-middle">Валюта</th>
@@ -126,7 +127,7 @@
                   <th class="text-center align-middle">Несопоставлено товаров</th>
                   <th class="text-end align-middle">Обновлён</th>
                   <th class="text-end align-middle">Активен до</th>
-                  <th class="text-center align-middle" style="width: 70px;">Статус</th>
+                  <th class="text-center align-middle" style="width: 70px;">Статус обработки</th>
                   <th class="text-center align-middle" style="width: 70px;">Действия</th>
                 </tr>
               </thead>
@@ -145,6 +146,7 @@
                       3logic
                     </a>
                   </td>
+                  <td>Есть на складе</td>
                   <td class="text-center">7</td>
                   <td class="text-center">API</td>
                   <td class="text-center">Доллар</td>
@@ -198,6 +200,7 @@
                       Digis
                     </a>
                   </td>
+                  <td>Транзит от 1 до 2 дней</td>
                   <td class="text-center">4</td>
                   <td class="text-center">Файл</td>
                   <td class="text-center">Евро</td>
@@ -251,6 +254,7 @@
                       Digis
                     </a>
                   </td>
+                  <td>Транзит от 14 до 21 дней (предоплата)</td>
                   <td class="text-center">4</td>
                   <td class="text-center">Файл</td>
                   <td class="text-center">Рубль</td>
@@ -304,6 +308,7 @@
                       Merlion
                     </a>
                   </td>
+                  <td>Нет в наличии более 12 месяцев</td>
                   <td class="text-center">5</td>
                   <td class="text-center">Файл</td>
                   <td class="text-center">Рубль</td>
@@ -357,6 +362,7 @@
                       Lyambda
                     </a>
                   </td>
+                  <td>Есть на складе</td>
                   <td class="text-center">7</td>
                   <td class="text-center">API</td>
                   <td class="text-center">Доллар</td>
@@ -410,6 +416,7 @@
                       Lyambda
                     </a>
                   </td>
+                  <td>Есть на складе</td>
                   <td class="text-center">7</td>
                   <td class="text-center">API</td>
                   <td class="text-center">Доллар</td>
@@ -528,7 +535,7 @@
           <!-- Содержимое шага 1 (без изменений) -->
           <div class="row mb-3">
             <div class="col-md-6">
-              <label for="priceNameInput" class="form-label">Название прайс-листа</label>
+              <label for="priceNameInput" class="form-label">Наименование прайс-листа</label>
               <input type="text" class="form-control" id="priceNameInput" placeholder="Введение наименование прайса">
             </div>
             <div class="col-md-6">
