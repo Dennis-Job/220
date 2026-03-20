@@ -175,6 +175,7 @@
                             <option selected>Активен</option>
                             <option>Удалён</option>
                             <option>Новинка</option>
+                            <option>Черновик</option>
                           </select>
                         </div>
                       </div>
@@ -241,7 +242,7 @@
                             <th>CMS</th>
                             <th>Категория CMS</th>
                             <th class="text-end">Цена на сайте</th>
-                            <th class="text-center">Статус</th>
+                            <th class="text-center">Статус товара</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -1130,7 +1131,7 @@
                     <thead>
                       <tr>
                         <th>Поставщик</th>
-                        <th>Статус прайса</th>
+                        <th>Статус прайс-листа</th>
                         <th class="text-end pe-4">Закупочная цена</th>
                         <th class="text-end pe-4 text-success">Расчётная цена</th>
                         <th class="text-center">Дата изменения</th>
@@ -1186,44 +1187,48 @@
                     <thead>
                       <tr>
                         <th>Поставщик</th>
-                        <th>Прайс</th>
+                        <th>Прайс-лист</th>
+                        <th class="text-center">Надёжность</th>
+                        <th>Статус прайс-листа</th>
                         <th>Наименование</th>
-                        <th>Количество</th>
-                        <th>Цена прайса</th>
-                        <th>Статус прайса</th>
                         <th>Гарантия</th>
-                        <th class="text-center">Дата окончания прайса</th>
+                        <th class="text-center">Количество</th>
+                        <th class="text-end">Цена прайс-листа</th>
+                        <th class="text-center">Дата окончания прайс-листа</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
                         <td>Lanit</td>
                         <td>Lanit_USD_msk</td>
-                        <td>Lenovo Legion Pro 5 16IAX10</td>
-                        <td class="text-end pe-5">30 ед.</td>
-                        <td class="text-end pe-5">120 $</td>
+                        <td class="text-center">7</td>
                         <td>Есть на складе</td>
+                        <td>Lenovo Legion Pro 5 16IAX10</td>
                         <td>6 месяцев</td>
+                        <td class="text-center">30</td>
+                        <td class="text-end">120 $</td>
                         <td class="text-center">18.06.2027</td>
                       </tr>
                       <tr>
                         <td>Merlion</td>
                         <td>Merlion-Technika_USD</td>
-                        <td>Lenovo Legion Pro 5</td>
-                        <td class="text-end pe-5">20 ед.</td>
-                        <td class="text-end pe-5">110 $</td>
+                        <td class="text-center">4</td>
                         <td>Транзит от 1 до 2 дней</td>
+                        <td>Lenovo Legion Pro 5</td>
                         <td>1 год</td>
+                        <td class="text-center">20</td>
+                        <td class="text-end">110 $</td>
                         <td class="text-center"></td>
                       </tr>
                       <tr>
                         <td>diHouse</td>
                         <td>diHouse</td>
-                        <td>Lenovo Legion Pro 5 16IAX10</td>
-                        <td class="text-end pe-5">5 ед.</td>
-                        <td class="text-end pe-5">120 $</td>
+                        <td class="text-center">4</td>
                         <td>Транзит от 3 до 30 дней</td>
+                        <td>Lenovo Legion Pro 5 16IAX10</td>
                         <td>6 месяцев</td>
+                        <td class="text-center">5</td>
+                        <td class="text-end">120 $</td>
                         <td class="text-center">28.09.2026</td>
                       </tr>
                     </tbody>
@@ -1284,7 +1289,7 @@
               </select>
             </div>
             <div class="col-12">
-              <label class="form-label"><small>Статус</small></label>
+              <label class="form-label"><small>Статус товара</small></label>
               <select class="form-select">
                 <option selected>Опубликован</option>
                 <option>Черновик</option>

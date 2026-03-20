@@ -175,6 +175,7 @@
                             <option selected>Активен</option>
                             <option>Удалён</option>
                             <option>Новинка</option>
+                            <option>Черновик</option>
                           </select>
                         </div>
                       </div>
@@ -232,7 +233,7 @@
                             <th>CMS</th>
                             <th>Категория CMS</th>
                             <th class="text-end">Цена на сайте</th>
-                            <th class="text-center">Статус</th>
+                            <th class="text-center">Статус товара</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -984,7 +985,7 @@
                     <thead>
                       <tr>
                         <th>Поставщик</th>
-                        <th>Статус прайса</th>
+                        <th>Статус прайс-листа</th>
                         <th class="text-end pe-4">Закупочная цена</th>
                         <th class="text-end pe-4 text-success">Расчётная цена</th>
                         <th class="text-center">Дата изменения</th>
@@ -1020,13 +1021,14 @@
                     <thead>
                       <tr>
                         <th>Поставщик</th>
-                        <th>Прайс</th>
+                        <th>Прайс-лист</th>
+                        <th class="text-center">Надёжность</th>
+                        <th>Статус прайс-листа</th>
                         <th>Наименование</th>
-                        <th>Количество</th>
-                        <th>Цена прайса</th>
-                        <th>Статус прайса</th>
                         <th>Гарантия</th>
-                        <th class="text-center">Дата окончания прайса</th>
+                        <th class="text-center">Количество</th>
+                        <th class="text-end">Цена прайс-листа</th>
+                        <th class="text-center">Дата окончания прайс-листа</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -1089,7 +1091,7 @@
               </select>
             </div>
             <div class="col-12">
-              <label class="form-label"><small>Статус</small></label>
+              <label class="form-label"><small>Статус товара</small></label>
               <select class="form-select">
                 <option selected>Опубликован</option>
                 <option>Черновик</option>
