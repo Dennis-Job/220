@@ -124,7 +124,7 @@
     if (!btn) return;
 
     btn.addEventListener('click', function () {
-      var storeName = prompt('Название магазина для CMS (пример: Магазин на Ленина)');
+      var storeName = prompt('Наименование магазина для CMS (пример: Магазин на Ленина)');
       if (!storeName) return;
 
       var stores = loadCmsStores();
@@ -711,7 +711,7 @@
         var nameInput = modalEl.querySelector('[data-attribute-group-name]');
         var groupName = nameInput ? String(nameInput.value || '').trim() : '';
         if (!groupName) {
-          showAttributeGroupError('Укажите название группы (например: «Процессор»).');
+          showAttributeGroupError('Укажите наименование группы (например: «Процессор»).');
           return;
         }
 
@@ -1077,7 +1077,7 @@
         var type = document.getElementById('attributeType').value;
 
         if (!name) {
-          alert('Укажите название характеристики');
+          alert('Укажите наименование характеристики');
           return;
         }
 
@@ -1339,7 +1339,7 @@
         var article = document.getElementById('brandArticle').value.trim();
 
         if (!name) {
-          alert('Укажите название бренда');
+          alert('Укажите наименование бренда');
           return;
         }
 
@@ -1599,7 +1599,7 @@ document.getElementById('seriesContainer').style.display = 'block';
     document.getElementById('saveLineBtn').addEventListener('click', function () {
       var lineName = document.getElementById('lineName').value.trim();
       if (!lineName) {
-        alert('Введите название линейки');
+        alert('Введите наименование линейки');
         return;
       }
 
@@ -1688,7 +1688,7 @@ document.getElementById('seriesContainer').style.display = 'block';
     document.getElementById('saveSeriesBtn').addEventListener('click', function () {
       var seriesName = document.getElementById('seriesName').value.trim();
       if (!seriesName) {
-        alert('Введите название серии');
+        alert('Введите наименование серии');
         return;
       }
 
