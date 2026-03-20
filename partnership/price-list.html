@@ -92,11 +92,9 @@
             </li>
             <li class="nav-item" role="presentation">
               <button class="nav-link" id="attributes-tab" data-bs-toggle="tab" data-bs-target="#attributes"
-                type="button" role="tab" aria-controls="attributes" aria-selected="false">Статусы</button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button class="nav-link" id="price-history-tab" data-bs-toggle="tab" data-bs-target="#price-history"
-                type="button" role="tab" aria-controls="price-history" aria-selected="false">Маппинг</button>
+                type="button" role="tab" aria-controls="attributes" aria-selected="false">
+                Настройки прайс-листа и маппинг файла
+              </button>
             </li>
           </ul>
 
@@ -121,9 +119,13 @@
                           <option value="4">Lyambda</option>
                         </select>
                       </div>
-                      <div class="">
+                      <div class="mb-3">
                         <label for="activeUntilDate" class="form-label">Активен до</label>
                         <input type="date" class="form-control" id="activeUntilDate" value="2027-08-16">
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="participateInCalculation" checked>
+                        <label class="form-check-label" for="participateInCalculation">Участвует в расчёте</label>
                       </div>
                     </div>
 
@@ -160,6 +162,11 @@
                           </tr>
                         </tbody>
                       </table>
+
+                      <div class="mt-4">
+                        <button class="btn btn-primary btn-sm">Скачать файл</button>
+                        <button class="btn btn-primary btn-sm">Загрузить новый</button>
+                      </div>
                     </div>
 
                     <div class="col-12 col-md-3">
@@ -184,746 +191,321 @@
                         </tbody>
                       </table>
                     </div>
+
+                    <div class="col-12 col-md-4">
+                      <div class="text-muted alert alert-warning">
+                        <ul>
+                          <li>Сюда выводит предупреждающую информацию при обработке прайса</li>
+                          <li>Например цена прайса выросла или уменьшилась на 30%</li>
+                        </ul>
+                      </div>
+
+                      <div class="text-muted alert alert-danger">
+                        <ul>
+                          <li>Сюда выводит информацию об ошибках при обработке прайса</li>
+                          <li>Например ошибка маппинга и описать её</li>
+                        </ul>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              <!-- Точки продаж -->
+              <!-- Прайс-лист -->
               <div class="card card-soft">
                 <div class="card-body">
-                  <p class="text-primary">Точки продаж</p>
                   <div class="row g-2 align-items-end mb-3">
-                    <div class="col-12 col-md-6">
-                      <input type="search" class="form-control form-control-sm" aria-label="Поиск точки продаж (CMS)"
-                        placeholder="Поиск точки продаж (CMS)" />
+                    <div class="col-12 col-md-7">
+                      <p class="text-primary">Прайс-лист постащика</p>
                     </div>
-                    <div class="col-12 col-md-auto ms-md-auto">
-                      <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal"
-                        data-bs-target="#addSalesPointModal">
-                        Добавить в CMS
-                      </button>
+                    <div class="col-12 col-md-5">
+                      <input type="search" class="form-control form-control-sm" aria-label="Поиск товара"
+                        placeholder="Поиск товара" />
                     </div>
                   </div>
                   <table class="table table-hover table-borderless table-sm mb-0">
                     <thead>
                       <tr>
-                        <th>CMS</th>
-                        <th>Категория CMS</th>
-                        <th class="text-end">Цена на сайте</th>
-                        <th class="text-center">Статус</th>
+                        <th class="text-center" style="width: 70px;">Участвует в расчёте</th>
+                        <th class="text-center" style="width: 70px;">РРЦ</th>
+                        <th>Наименование товара</th>
+                        <th>Артикул поставщика</th>
+                        <th class="text-center">Валюта</th>
+                        <th class="text-end">Цена товара</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
-                        <td>KNS Москва</td>
-                        <td>Ноутбуки</td>
-                        <td class="text-end">120 000 ₽</td>
-                        <td class="text-center">
-                          <div class="dropdown" data-status-dropdown>
-                            <button class="badge text-bg-success border-0" type="button" data-bs-toggle="dropdown"
-                              aria-expanded="false">
-                              Опубликован
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                              <li><button class="dropdown-item" type="button" data-status-option
-                                  data-status-label="Опубликован"
-                                  data-status-class="text-bg-success">Опубликован</button></li>
-                              <li><button class="dropdown-item" type="button" data-status-option
-                                  data-status-label="Черновик" data-status-class="text-bg-secondary">Черновик</button>
-                              </li>
-                              <li><button class="dropdown-item" type="button" data-status-option
-                                  data-status-label="Скрыт" data-status-class="text-bg-danger">Скрыт</button></li>
-                              <li><button class="dropdown-item" type="button" data-status-option
-                                  data-status-label="Новинка" data-status-class="text-bg-warning">Новинка</button>
-                              </li>
-                            </ul>
-                          </div>
+                        <td class="text-center align-middle">
+                          <input class="form-check-input" type="checkbox" name="main" id="main" checked>
                         </td>
-                      </tr>
-                      <tr>
-                        <td>KNS Санкт-Петербург</td>
-                        <td>Ноутбуки</td>
-                        <td class="text-end">115 000 ₽</td>
-                        <td class="text-center">
-                          <div class="dropdown" data-status-dropdown>
-                            <button class="badge text-bg-warning border-0" type="button" data-bs-toggle="dropdown"
-                              aria-expanded="false">
-                              Новинка
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                              <li><button class="dropdown-item" type="button" data-status-option
-                                  data-status-label="Опубликован"
-                                  data-status-class="text-bg-success">Опубликован</button></li>
-                              <li><button class="dropdown-item" type="button" data-status-option
-                                  data-status-label="Черновик" data-status-class="text-bg-secondary">Черновик</button>
-                              </li>
-                              <li><button class="dropdown-item" type="button" data-status-option
-                                  data-status-label="Скрыт" data-status-class="text-bg-danger">Скрыт</button></li>
-                              <li><button class="dropdown-item" type="button" data-status-option
-                                  data-status-label="Новинка" data-status-class="text-bg-warning">Новинка</button>
-                              </li>
-                            </ul>
-                          </div>
+                        <td class="text-center align-middle">
+                          <input class="form-check-input" type="checkbox" name="main" id="main">
                         </td>
+                        <td>МФУ Kyocera FS-1125MFP Принтер/копир/сканер/факс, а4, 25 ppm, 1200dpi, 64mb, дуплекс, adf,
+                          fast et...</td>
+                        <td>1102M73RU2</td>
+                        <td class="text-center">USD</td>
+                        <td class="text-end">129</td>
                       </tr>
                       <tr>
-                        <td>KNS Екатеринбург</td>
-                        <td>Ноутбуки</td>
-                        <td class="text-end">118 000 ₽</td>
-                        <td class="text-center">
-                          <div class="dropdown" data-status-dropdown>
-                            <button class="badge text-bg-danger border-0" type="button" data-bs-toggle="dropdown"
-                              aria-expanded="false">
-                              Скрыт
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                              <li><button class="dropdown-item" type="button" data-status-option
-                                  data-status-label="Опубликован"
-                                  data-status-class="text-bg-success">Опубликован</button></li>
-                              <li><button class="dropdown-item" type="button" data-status-option
-                                  data-status-label="Черновик" data-status-class="text-bg-secondary">Черновик</button>
-                              </li>
-                              <li><button class="dropdown-item" type="button" data-status-option
-                                  data-status-label="Скрыт" data-status-class="text-bg-danger">Скрыт</button></li>
-                              <li><button class="dropdown-item" type="button" data-status-option
-                                  data-status-label="Новинка" data-status-class="text-bg-warning">Новинка</button>
-                              </li>
-                            </ul>
-                          </div>
+                        <td class="text-center align-middle">
+                          <input class="form-check-input" type="checkbox" name="main" id="main" checked>
                         </td>
-                      </tr>
-
-                      <tr>
-                        <td>KNS Красноярск</td>
-                        <td>Ноутбуки</td>
-                        <td class="text-end"></td>
-                        <td class="text-center">
-                          <div class="dropdown" data-status-dropdown>
-                            <button class="badge text-bg-secondary border-0" type="button" data-bs-toggle="dropdown"
-                              aria-expanded="false">
-                              Черновик
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                              <li><button class="dropdown-item" type="button" data-status-option
-                                  data-status-label="Опубликован"
-                                  data-status-class="text-bg-success">Опубликован</button></li>
-                              <li><button class="dropdown-item" type="button" data-status-option
-                                  data-status-label="Черновик" data-status-class="text-bg-secondary">Черновик</button>
-                              </li>
-                              <li><button class="dropdown-item" type="button" data-status-option
-                                  data-status-label="Скрыт" data-status-class="text-bg-danger">Скрыт</button></li>
-                              <li><button class="dropdown-item" type="button" data-status-option
-                                  data-status-label="Новинка" data-status-class="text-bg-warning">Новинка</button>
-                              </li>
-                            </ul>
-                          </div>
+                        <td class="text-center align-middle">
+                          <input class="form-check-input" type="checkbox" name="main" id="main">
                         </td>
+                        <td>МФУ Kyocera FS-1125MFP Принтер/копир/сканер/факс, а4, 25 ppm, 1200dpi, 64mb, дуплекс, adf,
+                          fast et...</td>
+                        <td>1102M73RU2</td>
+                        <td class="text-center">USD</td>
+                        <td class="text-end">129</td>
                       </tr>
                       <tr>
-                        <td>Яндекс.Маркет</td>
-                        <td>Ноутбуки</td>
-                        <td class="text-end">118 000 ₽</td>
-                        <td class="text-center">
-                          <div class="dropdown" data-status-dropdown>
-                            <button class="badge text-bg-success border-0" type="button" data-bs-toggle="dropdown"
-                              aria-expanded="false">
-                              Опубликован
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                              <li><button class="dropdown-item" type="button" data-status-option
-                                  data-status-label="Опубликован"
-                                  data-status-class="text-bg-success">Опубликован</button></li>
-                              <li><button class="dropdown-item" type="button" data-status-option
-                                  data-status-label="Черновик" data-status-class="text-bg-secondary">Черновик</button>
-                              </li>
-                              <li><button class="dropdown-item" type="button" data-status-option
-                                  data-status-label="Скрыт" data-status-class="text-bg-danger">Скрыт</button></li>
-                              <li><button class="dropdown-item" type="button" data-status-option
-                                  data-status-label="Новинка" data-status-class="text-bg-warning">Новинка</button>
-                              </li>
-                            </ul>
-                          </div>
+                        <td class="text-center align-middle">
+                          <input class="form-check-input" type="checkbox" name="main" id="main" checked>
                         </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-
-            <!-- Характеристики -->
-            <div class="tab-pane fade" id="attributes" role="tabpanel" aria-labelledby="attributes-tab">
-              <div class="row g-3 ">
-                <div class="col-12 col-md-6">
-                  <div class="card card-soft card-soft h-100">
-                    <div class="card-body">
-                      <p class="text-primary">Процессор</p>
-                      <div class="row g-3">
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Производитель</small></label>
-                          <select class="form-select">
-                            <option selected>Intel</option>
-                            <option>AMD</option>
-                          </select>
-                        </div>
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Модель</small></label>
-                          <select class="form-select">
-                            <option selected>Core Ultra 7 255HX</option>
-                          </select>
-                        </div>
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Ядро</small></label>
-                          <select class="form-select">
-                            <option selected>Arrow Lake-HX</option>
-                          </select>
-                        </div>
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Количество ядер</small></label>
-                          <input class="form-control" type="number" min="0" step="1" value="20" />
-                        </div>
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Максимальная частота (ГГц)</small></label>
-                          <input class="form-control" type="number" min="0" step="0.1" value="5.2" />
-                        </div>
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Тактовая частота (ГГц)</small></label>
-                          <input class="form-control" type="number" min="0" step="0.1" value="2.4" />
-                        </div>
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>L2 Кэш (Мб)</small></label>
-                          <input class="form-control" type="number" min="0" step="1" value="30" />
-                        </div>
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>L3 Кэш (Мб)</small></label>
-                          <input class="form-control" type="number" min="0" step="1" value="36" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-md-6">
-                  <div class="card card-soft card-soft h-100">
-                    <div class="card-body">
-                      <p class="text-primary">Оперативная память</p>
-                      <div class="row g-3">
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Тип памяти</small></label>
-                          <select class="form-select">
-                            <option selected>DDR5</option>
-                            <option>DDR4</option>
-                            <option>DDR3</option>
-                            <option>DDR2</option>
-                          </select>
-                        </div>
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Максимальный объём</small></label>
-                          <select class="form-select">
-                            <option>512 Мб</option>
-                            <option>8 Гб</option>
-                            <option>16 Гб</option>
-                            <option selected>32 Гб</option>
-                            <option>64 Гб</option>
-                            <option>512 Гб</option>
-                          </select>
-                        </div>
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Объём памяти (Гб)</small></label>
-                          <select class="form-select">
-                            <option>8</option>
-                            <option selected>16</option>
-                            <option>32</option>
-                            <option>64</option>
-                          </select>
-                        </div>
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Частота шины (МГц)</small></label>
-                          <input class="form-control" type="number" min="0" step="1" value="5600" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-md-6">
-                  <div class="card card-soft card-soft h-100">
-                    <div class="card-body">
-                      <p class="text-primary">Накопитель SSD</p>
-                      <div class="row g-3">
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Интерфейс</small></label>
-                          <select class="form-select">
-                            <option selected>M.2 PCIe NVMe</option>
-                          </select>
-                        </div>
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Объем диска SSD (Гб)</small></label>
-                          <select class="form-select">
-                            <option>256</option>
-                            <option>512</option>
-                            <option selected>1000</option>
-                            <option>1024</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-md-6">
-                  <div class="card card-soft card-soft h-100">
-                    <div class="card-body">
-                      <p class="text-primary">Аккумулятор</p>
-                      <div class="row g-3">
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Ёмкость (Вт-ч)</small></label>
-                          <select class="form-select">
-                            <option selected>80</option>
-                          </select>
-                        </div>
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Тип аккумулятора</small></label>
-                          <select class="form-select">
-                            <option selected>Li-Ion</option>
-                          </select>
-                        </div>
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Работа без подзарядки (ч)</small></label>
-                          <input class="form-control" type="number" min="0" step="0.1" value="4.7" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-md-6">
-                  <div class="card card-soft card-soft h-100">
-                    <div class="card-body">
-                      <p class="text-primary">Видеокарта</p>
-                      <div class="row g-3">
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Объём видеопамяти (Мб)</small></label>
-                          <input class="form-control" type="number" min="0" step="1" value="8192" />
-                        </div>
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Графический чипсет</small></label>
-                          <select class="form-select">
-                            <option selected>GeForce RTX 5070</option>
-                          </select>
-                        </div>
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Тип видеопамяти</small></label>
-                          <select class="form-select">
-                            <option selected>GDDR7</option>
-                          </select>
-                        </div>
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Производитель видеоадаптера</small></label>
-                          <select class="form-select">
-                            <option selected>nVidia</option>
-                          </select>
-                        </div>
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>TGP (Вт)</small></label>
-                          <input class="form-control" type="number" min="0" step="1" value="115" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-md-6">
-                  <div class="card card-soft card-soft h-100">
-                    <div class="card-body">
-                      <p class="text-primary">Аудио/Звук</p>
-                      <div class="row g-3">
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Микрофон</small></label>
-                          <select class="form-select">
-                            <option selected>есть</option>
-                            <option>нет</option>
-                          </select>
-                        </div>
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Стереодинамики</small></label>
-                          <select class="form-select">
-                            <option selected>есть</option>
-                            <option>нет</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-md-6">
-                  <div class="card card-soft card-soft h-100">
-                    <div class="card-body">
-                      <p class="text-primary">Безопасность</p>
-                      <div class="row g-3">
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Защитная шторка</small></label>
-                          <select class="form-select">
-                            <option selected>есть</option>
-                            <option>нет</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-md-6">
-                  <div class="card card-soft card-soft h-100">
-                    <div class="card-body">
-                      <p class="text-primary">Вес</p>
-                      <div class="row g-3">
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Брутто (кг)</small></label>
-                          <input class="form-control" type="number" min="0" step="0.1" value="4.2" />
-                        </div>
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Нетто (кг)</small></label>
-                          <input class="form-control" type="number" min="0" step="0.1" value="2.43" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-md-6">
-                  <div class="card card-soft card-soft h-100">
-                    <div class="card-body">
-                      <p class="text-primary">Габариты брутто</p>
-                      <div class="row g-3">
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Длина (мм)</small></label>
-                          <input class="form-control" type="number" min="0" step="1" value="540" />
-                        </div>
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Ширина (мм)</small></label>
-                          <input class="form-control" type="number" min="0" step="1" value="340" />
-                        </div>
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Высота (мм)</small></label>
-                          <input class="form-control" type="number" min="0" step="1" value="90" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-md-6">
-                  <div class="card card-soft card-soft h-100">
-                    <div class="card-body">
-                      <p class="text-primary">Габариты нетто</p>
-                      <div class="row g-3">
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Длина (мм)</small></label>
-                          <input class="form-control" type="number" min="0" step="1" value="364" />
-                        </div>
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Ширина (мм)</small></label>
-                          <input class="form-control" type="number" min="0" step="1" value="268" />
-                        </div>
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Высота (мм)</small></label>
-                          <input class="form-control" type="number" min="0" step="1" value="26" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-md-6">
-                  <div class="card card-soft card-soft h-100">
-                    <div class="card-body">
-                      <p class="text-primary">Дисплей</p>
-                      <div class="row g-3">
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Диагональ (дюймы)</small></label>
-                          <input class="form-control" type="number" min="0" step="1" value="16" />
-                        </div>
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Разрешение</small></label>
-                          <select class="form-select">
-                            <option selected>2560x1600</option>
-                          </select>
-                        </div>
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Матрица</small></label>
-                          <select class="form-select">
-                            <option selected>WQXGA</option>
-                          </select>
-                        </div>
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Покрытие</small></label>
-                          <select class="form-select">
-                            <option selected>Глянцевое</option>
-                            <option>Матовое</option>
-                          </select>
-                        </div>
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Особенности экрана</small></label>
-                          <select class="form-select">
-                            <option selected>LED</option>
-                          </select>
-                        </div>
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Экран</small></label>
-                          <select class="form-select">
-                            <option selected>OLED</option>
-                          </select>
-                        </div>
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Веб камера</small></label>
-                          <select class="form-select">
-                            <option selected>есть</option>
-                            <option>нет</option>
-                          </select>
-                        </div>
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Частота обновления (Гц)</small></label>
-                          <input class="form-control" type="number" min="0" step="1" value="165" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-md-6">
-                  <div class="card card-soft card-soft h-100">
-                    <div class="card-body">
-                      <p class="text-primary">Интерфейсы</p>
-                      <div class="row g-3">
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>HDMI</small></label>
-                          <select class="form-select">
-                            <option selected>есть</option>
-                            <option>нет</option>
-                          </select>
-                        </div>
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Mic in (микрофон)</small></label>
-                          <select class="form-select">
-                            <option selected>есть</option>
-                            <option>нет</option>
-                          </select>
-                        </div>
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Output (наушники)</small></label>
-                          <select class="form-select">
-                            <option selected>есть</option>
-                            <option>нет</option>
-                          </select>
-                        </div>
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>RJ45 (LAN)</small></label>
-                          <select class="form-select">
-                            <option selected>есть</option>
-                            <option>нет</option>
-                          </select>
-                        </div>
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Thunderbolt 4</small></label>
-                          <select class="form-select">
-                            <option selected>1 шт</option>
-                            <option>2 шт</option>
-                            <option>3 шт</option>
-                            <option>4 шт</option>
-                          </select>
-                        </div>
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Type-C</small></label>
-                          <select class="form-select">
-                            <option>1 шт</option>
-                            <option selected>2 шт</option>
-                            <option>3 шт</option>
-                            <option>4 шт</option>
-                          </select>
-                        </div>
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>USB 3.1</small></label>
-                          <select class="form-select">
-                            <option>1 шт</option>
-                            <option selected>2 шт</option>
-                            <option>3 шт</option>
-                            <option>4 шт</option>
-                          </select>
-                        </div>
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>USB 3.2</small></label>
-                          <select class="form-select">
-                            <option selected>1 шт</option>
-                            <option>2 шт</option>
-                            <option>3 шт</option>
-                            <option>4 шт</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-md-6">
-                  <div class="card card-soft card-soft h-100">
-                    <div class="card-body">
-                      <p class="text-primary">Корпус</p>
-                      <div class="row g-3">
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Материал корпуса</small></label>
-                          <input class="form-control" type="text" value="Пластик" />
-                        </div>
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Материал крышки</small></label>
-                          <input class="form-control" type="text" value="Алюминий" />
-                        </div>
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Цвет</small></label>
-                          <select class="form-select">
-                            <option selected>Чёрный</option>
-                            <option>Белый</option>
-                            <option>Синий</option>
-                            <option>Красный</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-md-6">
-                  <div class="card card-soft card-soft h-100">
-                    <div class="card-body">
-                      <p class="text-primary">Коммуникации</p>
-                      <div class="row g-3">
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Bluetooth</small></label>
-                          <select class="form-select">
-                            <option selected>есть</option>
-                            <option>нет</option>
-                          </select>
-                        </div>
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>LAN (сеть)</small></label>
-                          <select class="form-select">
-                            <option selected>есть</option>
-                            <option>нет</option>
-                          </select>
-                        </div>
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>WiFi</small></label>
-                          <select class="form-select">
-                            <option selected>есть</option>
-                            <option>нет</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-md-6">
-                  <div class="card card-soft card-soft h-100">
-                    <div class="card-body">
-                      <p class="text-primary">Общая информация</p>
-                      <div class="row g-3">
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Год начала продаж</small></label>
-                          <input class="form-control" type="number" min="0" step="1" value="2025" />
-                        </div>
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Модель</small></label>
-                          <input class="form-control" type="text" value="16IAX10" />
-                        </div>
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Гарантия</small></label>
-                          <select class="form-select">
-                            <option selected>6 месяцев</option>
-                            <option>1 год</option>
-                            <option>2 года</option>
-                            <option>3 года</option>
-                          </select>
-                        </div>
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Операционная система</small></label>
-                          <select class="form-select">
-                            <option selected>Windows 11 Home</option>
-                            <option>Windows 11 Professional</option>
-                            <option>Без ОС</option>
-                            <option>Lunix</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-md-6">
-                  <div class="card card-soft card-soft h-100">
-                    <div class="card-body">
-                      <p class="text-primary">Дополнительные характеристики</p>
-                      <div class="row g-3">
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Подсветка клавиатуры</small></label>
-                          <select class="form-select">
-                            <option selected>есть</option>
-                            <option>нет</option>
-                          </select>
-                        </div>
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Power Delivery</small></label>
-                          <select class="form-select">
-                            <option selected>есть</option>
-                            <option>нет</option>
-                          </select>
-                        </div>
-                        <div class="col-12 col-md-4">
-                          <label class="form-label"><small>Оптический привод</small></label>
-                          <select class="form-select">
-                            <option selected>есть</option>
-                            <option>нет</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- История цен -->
-            <div class="tab-pane fade" id="price-history" role="tabpanel" aria-labelledby="price-history-tab">
-              <div class="card card-soft">
-                <div class="card-body">
-                  <table class="table table-hover table-borderless">
-                    <thead>
-                      <tr>
-                        <th>Поставщик</th>
-                        <th>Статус прайса</th>
-                        <th class="text-end pe-4">Закупочная цена</th>
-                        <th class="text-end pe-4 text-success">Расчётная цена</th>
-                        <th class="text-center">Дата изменения</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Ситилинк</td>
-                        <td>Нет в наличии более 30 дней</td>
-                        <td class="text-end pe-4">110 000 ₽</td>
-                        <td class="text-end pe-4 text-success fw-semibold">120 000 ₽</td>
-                        <td class="text-center">11:04:47 18.06.2025</td>
+                        <td class="text-center align-middle">
+                          <input class="form-check-input" type="checkbox" name="main" id="main">
+                        </td>
+                        <td>МФУ Kyocera FS-1125MFP Принтер/копир/сканер/факс, а4, 25 ppm, 1200dpi, 64mb, дуплекс, adf,
+                          fast et...</td>
+                        <td>1102M73RU2</td>
+                        <td class="text-center">USD</td>
+                        <td class="text-end">129</td>
                       </tr>
                       <tr>
-                        <td>Ситилинк</td>
-                        <td>Нет в наличии более 30 дней</td>
-                        <td class="text-end pe-4">110 000 ₽</td>
-                        <td class="text-end pe-4 text-success fw-semibold">120 000 ₽</td>
-                        <td class="text-center">09:34:47 18.06.2025</td>
+                        <td class="text-center align-middle">
+                          <input class="form-check-input" type="checkbox" name="main" id="main" checked>
+                        </td>
+                        <td class="text-center align-middle">
+                          <input class="form-check-input" type="checkbox" name="main" id="main">
+                        </td>
+                        <td>МФУ Kyocera FS-1125MFP Принтер/копир/сканер/факс, а4, 25 ppm, 1200dpi, 64mb, дуплекс, adf,
+                          fast et...</td>
+                        <td>1102M73RU2</td>
+                        <td class="text-center">USD</td>
+                        <td class="text-end">129</td>
                       </tr>
                       <tr>
-                        <td>Ситилинк</td>
-                        <td>Нет в наличии более 30 дней</td>
-                        <td class="text-end pe-4">110 000 ₽</td>
-                        <td class="text-end pe-4 text-success fw-semibold">120 000 ₽</td>
-                        <td class="text-center">01:04:47 18.06.2025</td>
+                        <td class="text-center align-middle">
+                          <input class="form-check-input" type="checkbox" name="main" id="main" checked>
+                        </td>
+                        <td class="text-center align-middle">
+                          <input class="form-check-input" type="checkbox" name="main" id="main">
+                        </td>
+                        <td>МФУ Kyocera FS-1125MFP Принтер/копир/сканер/факс, а4, 25 ppm, 1200dpi, 64mb, дуплекс, adf,
+                          fast et...</td>
+                        <td>1102M73RU2</td>
+                        <td class="text-center">USD</td>
+                        <td class="text-end">129</td>
+                      </tr>
+                      <tr>
+                        <td class="text-center align-middle">
+                          <input class="form-check-input" type="checkbox" name="main" id="main" checked>
+                        </td>
+                        <td class="text-center align-middle">
+                          <input class="form-check-input" type="checkbox" name="main" id="main">
+                        </td>
+                        <td>МФУ Kyocera FS-1125MFP Принтер/копир/сканер/факс, а4, 25 ppm, 1200dpi, 64mb, дуплекс, adf,
+                          fast et...</td>
+                        <td>1102M73RU2</td>
+                        <td class="text-center">USD</td>
+                        <td class="text-end">129</td>
+                      </tr>
+                      <tr>
+                        <td class="text-center align-middle">
+                          <input class="form-check-input" type="checkbox" name="main" id="main">
+                        </td>
+                        <td class="text-center align-middle">
+                          <input class="form-check-input" type="checkbox" name="main" id="main">
+                        </td>
+                        <td>МФУ Kyocera FS-1125MFP Принтер/копир/сканер/факс, а4, 25 ppm, 1200dpi, 64mb, дуплекс, adf,
+                          fast et...</td>
+                        <td>1102M73RU2</td>
+                        <td class="text-center">USD</td>
+                        <td class="text-end">129</td>
+                      </tr>
+                      <tr>
+                        <td class="text-center align-middle">
+                          <input class="form-check-input" type="checkbox" name="main" id="main" checked>
+                        </td>
+                        <td class="text-center align-middle">
+                          <input class="form-check-input" type="checkbox" name="main" id="main">
+                        </td>
+                        <td>МФУ Kyocera FS-1125MFP Принтер/копир/сканер/факс, а4, 25 ppm, 1200dpi, 64mb, дуплекс, adf,
+                          fast et...</td>
+                        <td>1102M73RU2</td>
+                        <td class="text-center">USD</td>
+                        <td class="text-end">129</td>
+                      </tr>
+                      <tr>
+                        <td class="text-center align-middle">
+                          <input class="form-check-input" type="checkbox" name="main" id="main" checked>
+                        </td>
+                        <td class="text-center align-middle">
+                          <input class="form-check-input" type="checkbox" name="main" id="main">
+                        </td>
+                        <td>МФУ Kyocera FS-1125MFP Принтер/копир/сканер/факс, а4, 25 ppm, 1200dpi, 64mb, дуплекс, adf,
+                          fast et...</td>
+                        <td>1102M73RU2</td>
+                        <td class="text-center">USD</td>
+                        <td class="text-end">129</td>
+                      </tr>
+                      <tr>
+                        <td class="text-center align-middle">
+                          <input class="form-check-input" type="checkbox" name="main" id="main">
+                        </td>
+                        <td class="text-center align-middle">
+                          <input class="form-check-input" type="checkbox" name="main" id="main">
+                        </td>
+                        <td>МФУ Kyocera FS-1125MFP Принтер/копир/сканер/факс, а4, 25 ppm, 1200dpi, 64mb, дуплекс, adf,
+                          fast et...</td>
+                        <td>1102M73RU2</td>
+                        <td class="text-center">USD</td>
+                        <td class="text-end">129</td>
+                      </tr>
+                      <tr>
+                        <td class="text-center align-middle">
+                          <input class="form-check-input" type="checkbox" name="main" id="main" checked>
+                        </td>
+                        <td class="text-center align-middle">
+                          <input class="form-check-input" type="checkbox" name="main" id="main">
+                        </td>
+                        <td>МФУ Kyocera FS-1125MFP Принтер/копир/сканер/факс, а4, 25 ppm, 1200dpi, 64mb, дуплекс, adf,
+                          fast et...</td>
+                        <td>1102M73RU2</td>
+                        <td class="text-center">USD</td>
+                        <td class="text-end">129</td>
+                      </tr>
+                      <tr>
+                        <td class="text-center align-middle">
+                          <input class="form-check-input" type="checkbox" name="main" id="main" checked>
+                        </td>
+                        <td class="text-center align-middle">
+                          <input class="form-check-input" type="checkbox" name="main" id="main">
+                        </td>
+                        <td>МФУ Kyocera FS-1125MFP Принтер/копир/сканер/факс, а4, 25 ppm, 1200dpi, 64mb, дуплекс, adf,
+                          fast et...</td>
+                        <td>1102M73RU2</td>
+                        <td class="text-center">USD</td>
+                        <td class="text-end">129</td>
+                      </tr>
+                      <tr>
+                        <td class="text-center align-middle">
+                          <input class="form-check-input" type="checkbox" name="main" id="main" checked>
+                        </td>
+                        <td class="text-center align-middle">
+                          <input class="form-check-input" type="checkbox" name="main" id="main">
+                        </td>
+                        <td>МФУ Kyocera FS-1125MFP Принтер/копир/сканер/факс, а4, 25 ppm, 1200dpi, 64mb, дуплекс, adf,
+                          fast et...</td>
+                        <td>1102M73RU2</td>
+                        <td class="text-center">USD</td>
+                        <td class="text-end">129</td>
+                      </tr>
+                      <tr>
+                        <td class="text-center align-middle">
+                          <input class="form-check-input" type="checkbox" name="main" id="main" checked>
+                        </td>
+                        <td class="text-center align-middle">
+                          <input class="form-check-input" type="checkbox" name="main" id="main">
+                        </td>
+                        <td>МФУ Kyocera FS-1125MFP Принтер/копир/сканер/факс, а4, 25 ppm, 1200dpi, 64mb, дуплекс, adf,
+                          fast et...</td>
+                        <td>1102M73RU2</td>
+                        <td class="text-center">USD</td>
+                        <td class="text-end">129</td>
+                      </tr>
+                      <tr>
+                        <td class="text-center align-middle">
+                          <input class="form-check-input" type="checkbox" name="main" id="main" checked>
+                        </td>
+                        <td class="text-center align-middle">
+                          <input class="form-check-input" type="checkbox" name="main" id="main">
+                        </td>
+                        <td>МФУ Kyocera FS-1125MFP Принтер/копир/сканер/факс, а4, 25 ppm, 1200dpi, 64mb, дуплекс, adf,
+                          fast et...</td>
+                        <td>1102M73RU2</td>
+                        <td class="text-center">USD</td>
+                        <td class="text-end">129</td>
+                      </tr>
+                      <tr>
+                        <td class="text-center align-middle">
+                          <input class="form-check-input" type="checkbox" name="main" id="main" checked>
+                        </td>
+                        <td class="text-center align-middle">
+                          <input class="form-check-input" type="checkbox" name="main" id="main">
+                        </td>
+                        <td>МФУ Kyocera FS-1125MFP Принтер/копир/сканер/факс, а4, 25 ppm, 1200dpi, 64mb, дуплекс, adf,
+                          fast et...</td>
+                        <td>1102M73RU2</td>
+                        <td class="text-center">USD</td>
+                        <td class="text-end">129</td>
+                      </tr>
+                      <tr>
+                        <td class="text-center align-middle">
+                          <input class="form-check-input" type="checkbox" name="main" id="main">
+                        </td>
+                        <td class="text-center align-middle">
+                          <input class="form-check-input" type="checkbox" name="main" id="main">
+                        </td>
+                        <td>МФУ Kyocera FS-1125MFP Принтер/копир/сканер/факс, а4, 25 ppm, 1200dpi, 64mb, дуплекс, adf,
+                          fast et...</td>
+                        <td>1102M73RU2</td>
+                        <td class="text-center">USD</td>
+                        <td class="text-end">129</td>
+                      </tr>
+                      <tr>
+                        <td class="text-center align-middle">
+                          <input class="form-check-input" type="checkbox" name="main" id="main" checked>
+                        </td>
+                        <td class="text-center align-middle">
+                          <input class="form-check-input" type="checkbox" name="main" id="main">
+                        </td>
+                        <td>МФУ Kyocera FS-1125MFP Принтер/копир/сканер/факс, а4, 25 ppm, 1200dpi, 64mb, дуплекс, adf,
+                          fast et...</td>
+                        <td>1102M73RU2</td>
+                        <td class="text-center">USD</td>
+                        <td class="text-end">129</td>
+                      </tr>
+                      <tr>
+                        <td class="text-center align-middle">
+                          <input class="form-check-input" type="checkbox" name="main" id="main" checked>
+                        </td>
+                        <td class="text-center align-middle">
+                          <input class="form-check-input" type="checkbox" name="main" id="main">
+                        </td>
+                        <td>МФУ Kyocera FS-1125MFP Принтер/копир/сканер/факс, а4, 25 ppm, 1200dpi, 64mb, дуплекс, adf,
+                          fast et...</td>
+                        <td>1102M73RU2</td>
+                        <td class="text-center">USD</td>
+                        <td class="text-end">129</td>
+                      </tr>
+                      <tr>
+                        <td class="text-center align-middle">
+                          <input class="form-check-input" type="checkbox" name="main" id="main">
+                        </td>
+                        <td class="text-center align-middle">
+                          <input class="form-check-input" type="checkbox" name="main" id="main">
+                        </td>
+                        <td>МФУ Kyocera FS-1125MFP Принтер/копир/сканер/факс, а4, 25 ppm, 1200dpi, 64mb, дуплекс, adf,
+                          fast et...</td>
+                        <td>1102M73RU2</td>
+                        <td class="text-center">USD</td>
+                        <td class="text-end">129</td>
                       </tr>
                     </tbody>
                   </table>
 
                   <!-- Pagination -->
-                  <div class="d-flex align-items-center justify-content-between">
+                  <div class="d-flex align-items-center justify-content-between mt-1">
                     <div class="small text-muted-2">Показано 1–3 из 120</div>
                     <nav aria-label="Пагинация">
                       <ul class="pagination pagination-sm mb-0">
                         <li class="page-item disabled"><a class="page-link" href="#">Назад</a></li>
-                        <li class="page-item active" aria-current="page"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item active" aria-current="page"><a class="page-link" href="#">1</a>
+                        </li>
                         <li class="page-item"><a class="page-link" href="#">2</a></li>
                         <li class="page-item"><a class="page-link" href="#">3</a></li>
                         <li class="page-item"><a class="page-link" href="#">Далее</a></li>
@@ -933,57 +515,249 @@
                 </div>
               </div>
             </div>
+            <!-- Настройки прайс-листа и маппинг файла -->
+            <div class="tab-pane fade" id="attributes" role="tabpanel" aria-labelledby="attributes-tab">
+              <div class="row g-3 ">
+                <div class="col-12 col-md-6">
+                  <div class="card card-soft card-soft h-100">
+                    <div class="card-body">
+                      <div class="row mb-4">
+                        <div class="col-md-6">
+                          <label for="reliabilityRange" class="form-label">Надёжность (0-10)</label>
+                          <input type="range" class="form-range" min="0" max="10" step="1" id="reliabilityRange"
+                            value="5">
+                          <div class="d-flex justify-content-between">
+                            <span>0</span><span>5</span><span>10</span>
+                          </div>
+                        </div>
+                      </div>
 
-            <!-- Привязка к поставщикам -->
-            <div class="tab-pane fade" id="suppliers" role="tabpanel" aria-labelledby="suppliers-tab">
-              <div class="card card-soft">
-                <div class="card-body">
-                  <table class="table table-hover table-borderless table-sm mb-0">
-                    <thead>
-                      <tr>
-                        <th>Поставщик</th>
-                        <th>Прайс</th>
-                        <th>Наименование</th>
-                        <th>Количество</th>
-                        <th>Цена прайса</th>
-                        <th>Статус прайса</th>
-                        <th>Гарантия</th>
-                        <th class="text-center">Дата окончания прайса</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Lanit</td>
-                        <td>Lanit_USD_msk</td>
-                        <td>Lenovo Legion Pro 5 16IAX10</td>
-                        <td class="text-end pe-5">30 ед.</td>
-                        <td class="text-end pe-5">120 $</td>
-                        <td>Есть на складе</td>
-                        <td>6 месяцев</td>
-                        <td class="text-center">18.06.2027</td>
-                      </tr>
-                      <tr>
-                        <td>Merlion</td>
-                        <td>Merlion-Technika_USD</td>
-                        <td>Lenovo Legion Pro 5</td>
-                        <td class="text-end pe-5">20 ед.</td>
-                        <td class="text-end pe-5">110 $</td>
-                        <td>Транзит от 1 до 2 дней</td>
-                        <td>1 год</td>
-                        <td class="text-center"></td>
-                      </tr>
-                      <tr>
-                        <td>diHouse</td>
-                        <td>diHouse</td>
-                        <td>Lenovo Legion Pro 5 16IAX10</td>
-                        <td class="text-end pe-5">5 ед.</td>
-                        <td class="text-end pe-5">120 $</td>
-                        <td>Транзит от 3 до 30 дней</td>
-                        <td>6 месяцев</td>
-                        <td class="text-center">28.09.2026</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                      <div class="row">
+                        <!-- Колонка Статус -->
+                        <div class="col-md-6 border-end">
+                          <h6 class="mb-2">Статус</h6>
+                          <div class="mb-3">
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" id="statusNotChange">
+                              <label class="form-check-label" for="statusNotChange">Не менять статус</label>
+                            </div>
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" id="statusUnderOrder">
+                              <label class="form-check-label" for="statusUnderOrder">Установить статус "Под
+                                заказ"</label>
+                            </div>
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" id="statusTransit">
+                              <label class="form-check-label" for="statusTransit">Установить статус "Транзит"</label>
+                            </div>
+                          </div>
+                          <div class="mb-3">
+                            <label for="statusNotTakeSelect" class="form-label">Не брать и задавать товарам
+                              статус</label>
+                            <select class="form-select" id="statusNotTakeSelect">
+                              <option selected disabled></option>
+                              <option>Есть в магазине</option>
+                              <option>Есть на складе</option>
+                              <option>Транзит от 1 до 2 дней</option>
+                              <option>Транзит от 3 до 30 дней</option>
+                            </select>
+                          </div>
+                          <div class="mb-3">
+                            <label for="replaceInStockSelect" class="form-label">Заменить "Есть на складе" на</label>
+                            <select class="form-select" id="replaceInStockSelect">
+                              <option selected disabled></option>
+                              <option>Есть в магазине</option>
+                              <option>Есть на складе</option>
+                              <option>Транзит от 1 до 2 дней</option>
+                              <option>Транзит от 3 до 30 дней</option>
+                            </select>
+                          </div>
+                        </div>
+                        <!-- Колонка Цена -->
+                        <div class="col-md-6">
+                          <h6 class="mb-2">Цена</h6>
+                          <div class="mb-3">
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" id="priceNotMarkup">
+                              <label class="form-check-label" for="priceNotMarkup">Не наценивать прайсы</label>
+                            </div>
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" id="priceNotLower">
+                              <label class="form-check-label" for="priceNotLower">Формировать цены не ниже цен этого
+                                поставщика</label>
+                            </div>
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" id="priceNotHigher">
+                              <label class="form-check-label" for="priceNotHigher">Формировать цены не выше цен этого
+                                поставщика</label>
+                            </div>
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" id="priceSupersede">
+                              <label class="form-check-label" for="priceSupersede">Вытеснять все остальные цены</label>
+                            </div>
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" id="priceUseThisSupplier">
+                              <label class="form-check-label" for="priceUseThisSupplier">Использовать цены ЭТОГО
+                                поставщика</label>
+                            </div>
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" id="priceRrc">
+                              <label class="form-check-label" for="priceRrc">РРЦ цены</label>
+                            </div>
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" id="priceInCurrency">
+                              <label class="form-check-label" for="priceInCurrency">Цена в валюте прайса</label>
+                            </div>
+                          </div>
+                          <div class="mb-3">
+                            <label for="priceActiveWithSelect" class="form-label">Цена активна вместе с прайсом</label>
+                            <select class="form-select" id="priceActiveWithSelect">
+                              <option selected disabled></option>
+                              <option>Прайс 1</option>
+                              <option>Прайс 2</option>
+                              <option>Merlion_Elektrika</option>
+                              <option>Lyambda_rrc</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-12 col-md-6">
+                  <div class="card card-soft card-soft h-100">
+                    <div class="card-body">
+                      <!-- Выбор валюты -->
+                      <div class="row mb-3">
+                        <div class="col-md-6">
+                          <label for="currencySelect" class="form-label">Валюта прайс-листа</label>
+                          <select class="form-select" id="currencySelect">
+                            <option value="USD">Доллар (доллар США)</option>
+                            <option value="EUR">Евро</option>
+                            <option value="RUB">Российский рубль</option>
+                          </select>
+                        </div>
+
+                        <div class="col-md-6">
+                          <label for="headerRowNumber" class="form-label">Выберите строку с заголовком файла</label>
+                          <input type="number" class="form-control" id="headerRowNumber" min="1" value="1">
+                        </div>
+                      </div>
+
+                      <!-- Таблица маппинга -->
+                      <h6 class="mb-2">Настройки маппинга</h6>
+                      <table class="table table-bordered">
+                        <thead>
+                          <tr>
+                            <th>A</th>
+                            <th>B</th>
+                            <th>C</th>
+                            <th>D</th>
+                            <th>F</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <hr>
+                      <p class="text-primary">
+                        Сюда вывести настроки фильтров, например:
+                      </p>
+                      <ul>
+                        <li>Колонка "B" включает/не включает значение фильтра</li>
+                        <li>Колонка "D" равно/не равно/больше/меньше итд значение фильтра</li>
+                      </ul>
+                      <div class="row justify-content-between">
+                        <p class="text-primary col-md-7">
+                          или вынести фильтрацию сюда (*так нагляднее и быстро редактировать):
+                        </p>
+                        <div class="col-md-5">
+                          <button class="btn btn-primary mb-3 btn-sm float-end">Добавить фильтр</button>
+                        </div>
+                      </div>
+                      <div class="row g-2">
+                        <div class="col-md-1">
+                          <label for="currencySelect" class="form-label">Колонка</label>
+                          <select class="form-select" id="currencySelect">
+                            <option>A</option>
+                            <option>B</option>
+                            <option>C</option>
+                            <option>D</option>
+                            <option>F</option>
+                          </select>
+                        </div>
+                        <div class="col-md-2">
+                          <label for="currencySelect" class="form-label">Фильтр</label>
+                          <select class="form-select" id="currencySelect">
+                            <option>Содержит</option>
+                            <option>Не содержит</option>
+                            <option>Равно</option>
+                            <option>Не равно</option>
+                            <option>Больше</option>
+                            <option>Меньше</option>
+                            <option>Заполнено</option>
+                            <option>Пусто</option>
+                          </select>
+                        </div>
+                        <div class="col-md-5">
+                          <label for="currencySelect" class="form-label">Значение фильтра</label>
+                          <input type="text" class="form-control" id="headerRowNumber">
+                        </div>
+                        <div class="col-md-4">
+                          <label for="currencySelect" class="form-label">Заменить на</label>
+                          <input type="text" class="form-control" id="headerRowNumber">
+                        </div>
+                      </div>
+                      <p class="mt-5">
+                        Это позволит обращаться к одному файлу поставщика и размаппить его на несколько прайсов.
+                        Например нам в присылаемом файле необходимо:
+                      </p>
+                      <ul>
+                        <li>взять товары только с ценой РРЦ для прайса РРЦ, то выставляем колнку с РРЦ фильтр
+                          "Заполнено"</li>
+                        <li>взять товары с долларовой (или иной) ценой для прайса в этой валюте, то выставляем колнку с
+                          валютой фильтр "Содержит" и вводим значение (например USD)</li>
+                      </ul>
+                      <p>
+                        Так же фильтр позволит:
+                      </p>
+                      <ul>
+                        <li>брать товары остаток которых больше двух (или больше иного числа)</li>
+                        <li>брать непонятные остатки (например звёздочки) и заменять их на желаемый остаток</li>
+                        <li>брать товары в тексте которых Не содержит: распродажа, уценка, акция и тд</li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -991,676 +765,7 @@
         </form>
       </div>
     </div>
-
-    <div class="content-body">
-
-      <div class="card card-soft">
-        <div class="card-header p-1 bg-white">
-          <!-- Search and filters -->
-          <div class="d-flex justify-content-between mb-0">
-            <div class="input-group w-25">
-              <input class="form-control" type="text" placeholder="Поиск" />
-              <button class="btn btn-light" type="button">Найти</button>
-            </div>
-            <div class="d-flex">
-              <div class="me-3 d-inline-flex align-items-center">
-                <span class="badge text-bg-primary d-inline-flex align-items-center ms-2">
-                  API
-                  <span class="ms-2" style="cursor: pointer;" onclick="this.parentElement.remove()">&times;</span>
-                </span>
-                <span class="badge text-bg-primary d-inline-flex align-items-center ms-2">
-                  Активен
-                  <span class="ms-2" style="cursor: pointer;" onclick="this.parentElement.remove()">&times;</span>
-                </span>
-                <span class="badge text-bg-primary d-inline-flex align-items-center ms-2">
-                  Надёжность 7
-                  <span class="ms-2" style="cursor: pointer;" onclick="this.parentElement.remove()">&times;</span>
-                </span>
-              </div>
-              <button class="btn btn-outline-primary me-2" href="product-create.html">Фильтр</button>
-              <button class="btn btn-outline-primary me-5" href="product-create.html">Сбросить
-                фильтр</button>
-              <!-- Заменённая кнопка: теперь открывает модальное окно -->
-              <button class="btn btn-primary" type="button" data-bs-toggle="modal"
-                data-bs-target="#addPriceModal">Добавить прайс-лист</button>
-            </div>
-          </div>
-        </div>
-        <div class="card-body p-1 pt-0">
-          <!-- Product table -->
-          <div class="table-responsive">
-            <table class="table table-hover table-bordered align-middle mb-0 table-goods">
-              <thead>
-                <tr>
-                  <th class="text-center align-middle" style="width: 70px;">Активность</th>
-                  <th class="text-center align-middle" style="width: 70px;">Признак РРЦ</th>
-                  <th class="align-middle">Наименование</th>
-                  <th class="align-middle">Поставщик</th>
-                  <th class="text-center align-middle">Надёжность</th>
-                  <th class="text-center align-middle">Тип</th>
-                  <th class="text-center align-middle">Валюта</th>
-                  <th class="text-center align-middle">Кол-во товаров</th>
-                  <th class="text-center align-middle">Сопоставлено товаров</th>
-                  <th class="text-center align-middle">Исключённых из сопоставления</th>
-                  <th class="text-center align-middle">Несопоставлено товаров</th>
-                  <th class="text-end align-middle">Обновлён</th>
-                  <th class="text-end align-middle">Активен до</th>
-                  <th class="text-center align-middle" style="width: 70px;">Статус</th>
-                  <th class="text-center align-middle" style="width: 70px;">Действия</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td class="text-center align-middle"><input class="form-check-input" type="checkbox" name="main"
-                      id="main" checked></td>
-                  <td class="text-center"><span class="badge text-bg-info">РРЦ</span></td>
-                  <td>
-                    <a href="#" class="text-decoration-none">
-                      Прайс 1
-                    </a>
-                  </td>
-                  <td>
-                    <a href="#" class="text-decoration-none">
-                      3logic
-                    </a>
-                  </td>
-                  <td class="text-center">7</td>
-                  <td class="text-center">API</td>
-                  <td class="text-center">Доллар</td>
-                  <td class="text-center">6789</td>
-                  <td class="text-center">3488</td>
-                  <td class="text-center">2478</td>
-                  <td class="text-center">823</td>
-                  <td class="text-end">13:23 19.03.2026</td>
-                  <td class="text-end"></td>
-                  <td class="text-center"><span class="badge text-bg-success">Активен</span></td>
-                  <td class="text-center">
-                    <div class="btn-group" role="group" aria-label="Действия">
-                      <button class="btn btn-sm btn-outline-danger" type="button" data-action="delete"
-                        data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-item-name="Прайс 1"
-                        title="Удалить прайс-лист">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                          class="bi bi-trash" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-                          <path
-                            d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z">
-                          </path>
-                          <path
-                            d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z">
-                          </path>
-                        </svg>
-                      </button>
-                      <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="modal"
-                        data-bs-target="#downloadDateModal" title="Скачать прайс-лист">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                          class="bi bi-cloud-download" viewBox="0 0 16 16">
-                          <path
-                            d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.569 14.502 11 12.687 11H10a.5.5 0 0 1 0-1h2.688C13.979 10 15 8.988 15 7.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 2.825 10.328 1 8 1a4.53 4.53 0 0 0-2.941 1.1c-.757.652-1.153 1.438-1.153 2.055v.448l-.445.049C2.064 4.805 1 5.952 1 7.318 1 8.785 2.23 10 3.781 10H6a.5.5 0 0 1 0 1H3.781C1.708 11 0 9.366 0 7.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383" />
-                          <path
-                            d="M7.646 15.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 14.293V5.5a.5.5 0 0 0-1 0v8.793l-2.146-2.147a.5.5 0 0 0-.708.708z" />
-                        </svg>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td class="text-center align-middle"><input class="form-check-input" type="checkbox" name="main"
-                      id="main"></td>
-                  <td class="text-center"></td>
-                  <td>
-                    <a href="#" class="text-decoration-none">
-                      Прайс 2
-                    </a>
-                  </td>
-                  <td>
-                    <a href="#" class="text-decoration-none">
-                      Digis
-                    </a>
-                  </td>
-                  <td class="text-center">4</td>
-                  <td class="text-center">Файл</td>
-                  <td class="text-center">Евро</td>
-                  <td class="text-center">6789</td>
-                  <td class="text-center">3488</td>
-                  <td class="text-center">2478</td>
-                  <td class="text-center">823</td>
-                  <td class="text-end">13:23 19.03.2026</td>
-                  <td class="text-end">20.03.2026</td>
-                  <td class="text-center"><span class="badge text-bg-secondary">Не активен</span></td>
-                  <td class="text-center">
-                    <div class="btn-group" role="group" aria-label="Действия">
-                      <button class="btn btn-sm btn-outline-danger" type="button" data-action="delete"
-                        data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-item-name="Прайс 2"
-                        title="Удалить прайс-лист">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                          class="bi bi-trash" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-                          <path
-                            d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z">
-                          </path>
-                          <path
-                            d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z">
-                          </path>
-                        </svg>
-                      </button>
-                      <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="modal"
-                        data-bs-target="#downloadDateModal" title="Скачать прайс-лист">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                          class="bi bi-cloud-download" viewBox="0 0 16 16">
-                          <path
-                            d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.569 14.502 11 12.687 11H10a.5.5 0 0 1 0-1h2.688C13.979 10 15 8.988 15 7.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 2.825 10.328 1 8 1a4.53 4.53 0 0 0-2.941 1.1c-.757.652-1.153 1.438-1.153 2.055v.448l-.445.049C2.064 4.805 1 5.952 1 7.318 1 8.785 2.23 10 3.781 10H6a.5.5 0 0 1 0 1H3.781C1.708 11 0 9.366 0 7.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383" />
-                          <path
-                            d="M7.646 15.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 14.293V5.5a.5.5 0 0 0-1 0v8.793l-2.146-2.147a.5.5 0 0 0-.708.708z" />
-                        </svg>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td class="text-center align-middle"><input class="form-check-input" type="checkbox" name="main"
-                      id="main" checked></td>
-                  <td class="text-center"></td>
-                  <td>
-                    <a href="#" class="text-decoration-none">
-                      Прайс 1
-                    </a>
-                  </td>
-                  <td>
-                    <a href="#" class="text-decoration-none">
-                      Digis
-                    </a>
-                  </td>
-                  <td class="text-center">4</td>
-                  <td class="text-center">Файл</td>
-                  <td class="text-center">Рубль</td>
-                  <td class="text-center">6789</td>
-                  <td class="text-center">3488</td>
-                  <td class="text-center">2478</td>
-                  <td class="text-center">823</td>
-                  <td class="text-end">13:23 19.03.2026</td>
-                  <td class="text-end"></td>
-                  <td class="text-center"><span class="badge text-bg-danger">С ошибками</span></td>
-                  <td class="text-center">
-                    <div class="btn-group" role="group" aria-label="Действия">
-                      <button class="btn btn-sm btn-outline-danger" type="button" data-action="delete"
-                        data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-item-name="Прайс 1"
-                        title="Удалить прайс-лист">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                          class="bi bi-trash" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-                          <path
-                            d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z">
-                          </path>
-                          <path
-                            d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z">
-                          </path>
-                        </svg>
-                      </button>
-                      <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="modal"
-                        data-bs-target="#downloadDateModal" title="Скачать прайс-лист">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                          class="bi bi-cloud-download" viewBox="0 0 16 16">
-                          <path
-                            d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.569 14.502 11 12.687 11H10a.5.5 0 0 1 0-1h2.688C13.979 10 15 8.988 15 7.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 2.825 10.328 1 8 1a4.53 4.53 0 0 0-2.941 1.1c-.757.652-1.153 1.438-1.153 2.055v.448l-.445.049C2.064 4.805 1 5.952 1 7.318 1 8.785 2.23 10 3.781 10H6a.5.5 0 0 1 0 1H3.781C1.708 11 0 9.366 0 7.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383" />
-                          <path
-                            d="M7.646 15.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 14.293V5.5a.5.5 0 0 0-1 0v8.793l-2.146-2.147a.5.5 0 0 0-.708.708z" />
-                        </svg>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td class="text-center align-middle"><input class="form-check-input" type="checkbox" name="main"
-                      id="main" checked></td>
-                  <td class="text-center"></td>
-                  <td>
-                    <a href="#" class="text-decoration-none">
-                      Merlion_Elektrika
-                    </a>
-                  </td>
-                  <td>
-                    <a href="#" class="text-decoration-none">
-                      Merlion
-                    </a>
-                  </td>
-                  <td class="text-center">5</td>
-                  <td class="text-center">Файл</td>
-                  <td class="text-center">Рубль</td>
-                  <td class="text-center">6789</td>
-                  <td class="text-center">3488</td>
-                  <td class="text-center">2478</td>
-                  <td class="text-center">823</td>
-                  <td class="text-end">13:23 19.03.2026</td>
-                  <td class="text-end">27.09.2027</td>
-                  <td class="text-center"><span class="badge text-bg-warning">Предупреждение</span></td>
-                  <td class="text-center">
-                    <div class="btn-group" role="group" aria-label="Действия">
-                      <button class="btn btn-sm btn-outline-danger" type="button" data-action="delete"
-                        data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-item-name="Прайс 1"
-                        title="Удалить прайс-лист">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                          class="bi bi-trash" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-                          <path
-                            d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z">
-                          </path>
-                          <path
-                            d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z">
-                          </path>
-                        </svg>
-                      </button>
-                      <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="modal"
-                        data-bs-target="#downloadDateModal" title="Скачать прайс-лист">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                          class="bi bi-cloud-download" viewBox="0 0 16 16">
-                          <path
-                            d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.569 14.502 11 12.687 11H10a.5.5 0 0 1 0-1h2.688C13.979 10 15 8.988 15 7.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 2.825 10.328 1 8 1a4.53 4.53 0 0 0-2.941 1.1c-.757.652-1.153 1.438-1.153 2.055v.448l-.445.049C2.064 4.805 1 5.952 1 7.318 1 8.785 2.23 10 3.781 10H6a.5.5 0 0 1 0 1H3.781C1.708 11 0 9.366 0 7.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383" />
-                          <path
-                            d="M7.646 15.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 14.293V5.5a.5.5 0 0 0-1 0v8.793l-2.146-2.147a.5.5 0 0 0-.708.708z" />
-                        </svg>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td class="text-center align-middle"><input class="form-check-input" type="checkbox" name="main"
-                      id="main" checked></td>
-                  <td class="text-center"><span class="badge text-bg-info">РРЦ</span></td>
-                  <td>
-                    <a href="#" class="text-decoration-none">
-                      Lyambda_rrc
-                    </a>
-                  </td>
-                  <td>
-                    <a href="#" class="text-decoration-none">
-                      Lyambda
-                    </a>
-                  </td>
-                  <td class="text-center">7</td>
-                  <td class="text-center">API</td>
-                  <td class="text-center">Доллар</td>
-                  <td class="text-center">6789</td>
-                  <td class="text-center">3488</td>
-                  <td class="text-center">2478</td>
-                  <td class="text-center">823</td>
-                  <td class="text-end">13:23 19.03.2026</td>
-                  <td class="text-end"></td>
-                  <td class="text-center"><span class="badge text-bg-success">Активен</span></td>
-                  <td class="text-center">
-                    <div class="btn-group" role="group" aria-label="Действия">
-                      <button class="btn btn-sm btn-outline-danger" type="button" data-action="delete"
-                        data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-item-name="Прайс 1"
-                        title="Удалить прайс-лист">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                          class="bi bi-trash" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-                          <path
-                            d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z">
-                          </path>
-                          <path
-                            d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z">
-                          </path>
-                        </svg>
-                      </button>
-                      <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="modal"
-                        data-bs-target="#downloadDateModal" title="Скачать прайс-лист">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                          class="bi bi-cloud-download" viewBox="0 0 16 16">
-                          <path
-                            d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.569 14.502 11 12.687 11H10a.5.5 0 0 1 0-1h2.688C13.979 10 15 8.988 15 7.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 2.825 10.328 1 8 1a4.53 4.53 0 0 0-2.941 1.1c-.757.652-1.153 1.438-1.153 2.055v.448l-.445.049C2.064 4.805 1 5.952 1 7.318 1 8.785 2.23 10 3.781 10H6a.5.5 0 0 1 0 1H3.781C1.708 11 0 9.366 0 7.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383" />
-                          <path
-                            d="M7.646 15.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 14.293V5.5a.5.5 0 0 0-1 0v8.793l-2.146-2.147a.5.5 0 0 0-.708.708z" />
-                        </svg>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td class="text-center align-middle"><input class="form-check-input" type="checkbox" name="main"
-                      id="main" checked></td>
-                  <td class="text-center"></td>
-                  <td>
-                    <a href="#" class="text-decoration-none">
-                      Прайс 1
-                    </a>
-                  </td>
-                  <td>
-                    <a href="#" class="text-decoration-none">
-                      Lyambda
-                    </a>
-                  </td>
-                  <td class="text-center">7</td>
-                  <td class="text-center">API</td>
-                  <td class="text-center">Доллар</td>
-                  <td class="text-center">6789</td>
-                  <td class="text-center">3488</td>
-                  <td class="text-center">2478</td>
-                  <td class="text-center">823</td>
-                  <td class="text-end">13:23 19.03.2026</td>
-                  <td class="text-end"></td>
-                  <td class="text-center"><span class="badge text-bg-success">Активен</span></td>
-                  <td class="text-center">
-                    <div class="btn-group" role="group" aria-label="Действия">
-                      <button class="btn btn-sm btn-outline-danger" type="button" data-action="delete"
-                        data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-item-name="Прайс 1"
-                        title="Удалить прайс-лист">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                          class="bi bi-trash" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-                          <path
-                            d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z">
-                          </path>
-                          <path
-                            d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z">
-                          </path>
-                        </svg>
-                      </button>
-                      <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="modal"
-                        data-bs-target="#downloadDateModal" title="Скачать прайс-лист">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                          class="bi bi-cloud-download" viewBox="0 0 16 16">
-                          <path
-                            d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.569 14.502 11 12.687 11H10a.5.5 0 0 1 0-1h2.688C13.979 10 15 8.988 15 7.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 2.825 10.328 1 8 1a4.53 4.53 0 0 0-2.941 1.1c-.757.652-1.153 1.438-1.153 2.055v.448l-.445.049C2.064 4.805 1 5.952 1 7.318 1 8.785 2.23 10 3.781 10H6a.5.5 0 0 1 0 1H3.781C1.708 11 0 9.366 0 7.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383" />
-                          <path
-                            d="M7.646 15.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 14.293V5.5a.5.5 0 0 0-1 0v8.793l-2.146-2.147a.5.5 0 0 0-.708.708z" />
-                        </svg>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <!-- Pagination -->
-          <div class="d-flex align-items-center justify-content-between mt-1">
-            <div class="small text-muted-2">Показано 1–3 из 120</div>
-            <nav aria-label="Пагинация">
-              <ul class="pagination pagination-sm mb-0">
-                <li class="page-item disabled"><a class="page-link" href="#">Назад</a></li>
-                <li class="page-item active" aria-current="page"><a class="page-link" href="#">1</a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">Далее</a></li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </div>
-    </div>
   </main>
-
-  <!-- Модалка подтверждения удаления -->
-  <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Подтверждение удаления</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
-        </div>
-        <div class="modal-body">
-          Вы уверены, что хотите удалить: <br><span class="fw-semibold" data-delete-name>элемент</span>?
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Отмена</button>
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" data-delete-action>Удалить</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Модалка выбора даты для скачивания архива -->
-  <div class="modal fade" id="downloadDateModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Скачать прайс-лист из архива</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
-        </div>
-        <div class="modal-body">
-          <form id="downloadForm">
-            <div class="mb-3">
-              <label for="archiveDate" class="form-label">Выберите дату:</label>
-              <input type="date" class="form-control" id="archiveDate" required>
-            </div>
-            <!-- Скрытое поле для хранения имени прайс-листа -->
-            <input type="hidden" id="priceName" value="">
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Отмена</button>
-          <button type="button" class="btn btn-primary" id="confirmDownloadBtn">Скачать</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Модальное окно: шаг 1 (было, кнопка Далее теперь открывает шаг 2) -->
-  <div class="modal fade" id="addPriceModal" tabindex="-1" aria-labelledby="addPriceModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="addPriceModalLabel">Добавление прайс-листа (шаг 1 из 2)</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
-        </div>
-        <div class="modal-body">
-          <!-- Содержимое шага 1 (без изменений) -->
-          <div class="row mb-3">
-            <div class="col-md-6">
-              <label for="priceNameInput" class="form-label">Название прайс-листа</label>
-              <input type="text" class="form-control" id="priceNameInput" placeholder="Введение наименование прайса">
-            </div>
-            <div class="col-md-6">
-              <label for="supplierSelect" class="form-label">Поставщик</label>
-              <select class="form-select" id="supplierSelect">
-                <option selected>Выберите поставщика</option>
-                <option value="1">3logic</option>
-                <option value="2">Digis</option>
-                <option value="3">Merlion</option>
-                <option value="4">Lyambda</option>
-              </select>
-            </div>
-          </div>
-          <div class="row mb-3">
-            <div class="col-md-6">
-              <label for="activeUntilDate" class="form-label">Активен до</label>
-              <input type="date" class="form-control" id="activeUntilDate">
-            </div>
-            <div class="col-md-6">
-              <div class="form-check mt-4">
-                <input class="form-check-input" type="checkbox" id="participateInCalculation">
-                <label class="form-check-label" for="participateInCalculation">Участвует в расчёте</label>
-              </div>
-            </div>
-          </div>
-          <div class="row mb-4">
-            <div class="col-md-6">
-              <label for="reliabilityRange" class="form-label">Надёжность (0-10)</label>
-              <input type="range" class="form-range" min="0" max="10" step="1" id="reliabilityRange" value="5">
-              <div class="d-flex justify-content-between">
-                <span>0</span><span>5</span><span>10</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <!-- Колонка Статус -->
-            <div class="col-md-6 border-end">
-              <h6 class="mb-2">Статус</h6>
-              <div class="mb-3">
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="statusNotChange">
-                  <label class="form-check-label" for="statusNotChange">Не менять статус</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="statusUnderOrder">
-                  <label class="form-check-label" for="statusUnderOrder">Установить статус "Под заказ"</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="statusTransit">
-                  <label class="form-check-label" for="statusTransit">Установить статус "Транзит"</label>
-                </div>
-              </div>
-              <div class="mb-3">
-                <label for="statusNotTakeSelect" class="form-label">Не брать и задавать товарам статус</label>
-                <select class="form-select" id="statusNotTakeSelect">
-                  <option selected disabled></option>
-                  <option>Есть в магазине</option>
-                  <option>Есть на складе</option>
-                  <option>Транзит от 1 до 2 дней</option>
-                  <option>Транзит от 3 до 30 дней</option>
-                </select>
-              </div>
-              <div class="mb-3">
-                <label for="replaceInStockSelect" class="form-label">Заменить "Есть на складе" на</label>
-                <select class="form-select" id="replaceInStockSelect">
-                  <option selected disabled></option>
-                  <option>Есть в магазине</option>
-                  <option>Есть на складе</option>
-                  <option>Транзит от 1 до 2 дней</option>
-                  <option>Транзит от 3 до 30 дней</option>
-                </select>
-              </div>
-            </div>
-            <!-- Колонка Цена -->
-            <div class="col-md-6">
-              <h6 class="mb-2">Цена</h6>
-              <div class="mb-3">
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="priceNotMarkup">
-                  <label class="form-check-label" for="priceNotMarkup">Не наценивать прайсы</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="priceNotLower">
-                  <label class="form-check-label" for="priceNotLower">Формировать цены не ниже цен этого
-                    поставщика</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="priceNotHigher">
-                  <label class="form-check-label" for="priceNotHigher">Формировать цены не выше цен этого
-                    поставщика</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="priceSupersede">
-                  <label class="form-check-label" for="priceSupersede">Вытеснять все остальные цены</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="priceUseThisSupplier">
-                  <label class="form-check-label" for="priceUseThisSupplier">Использовать цены ЭТОГО поставщика</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="priceRrc">
-                  <label class="form-check-label" for="priceRrc">РРЦ цены</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="priceInCurrency">
-                  <label class="form-check-label" for="priceInCurrency">Цена в валюте прайса</label>
-                </div>
-              </div>
-              <div class="mb-3">
-                <label for="priceActiveWithSelect" class="form-label">Цена активна вместе с прайсом</label>
-                <select class="form-select" id="priceActiveWithSelect">
-                  <option selected disabled></option>
-                  <option>Прайс 1</option>
-                  <option>Прайс 2</option>
-                  <option>Merlion_Elektrika</option>
-                  <option>Lyambda_rrc</option>
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Отмена</button>
-          <!-- Кнопка Далее: закрывает текущее окно и открывает шаг 2 -->
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" data-bs-toggle="modal"
-            data-bs-target="#addPriceModalStep2">Далее</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Модальное окно: шаг 2 (маппинг) -->
-  <div class="modal fade" id="addPriceModalStep2" tabindex="-1" aria-labelledby="addPriceModalStep2Label"
-    aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="addPriceModalStep2Label">Добавление прайс-листа (шаг 2 из 2)</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
-        </div>
-        <div class="modal-body">
-          <!-- Выбор валюты -->
-          <div class="row mb-3">
-            <div class="col-md-6">
-              <label for="currencySelect" class="form-label">Валюта прайс-листа</label>
-              <select class="form-select" id="currencySelect">
-                <option value="USD">Доллар (доллар США)</option>
-                <option value="EUR">Евро</option>
-                <option value="RUB">Российский рубль</option>
-              </select>
-            </div>
-
-            <div class="col-md-6">
-              <label for="headerRowNumber" class="form-label">Выберите строку с заголовком файла</label>
-              <input type="number" class="form-control" id="headerRowNumber" min="1" value="1">
-            </div>
-          </div>
-
-          <!-- Таблица маппинга -->
-          <h6 class="mb-2">Настройки маппинга</h6>
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th>A</th>
-                <th>B</th>
-                <th>C</th>
-                <th>D</th>
-                <th>F</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                </td>
-              </tr>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="modal-footer">
-          <!-- Кнопка Назад: закрывает текущее окно и открывает шаг 1 -->
-          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" data-bs-toggle="modal"
-            data-bs-target="#addPriceModal">Назад</button>
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Сохранить</button>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <!-- Bootstrap JS (локально) -->
   <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
