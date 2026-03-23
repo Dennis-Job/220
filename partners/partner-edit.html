@@ -105,13 +105,13 @@
             <div class="tab-pane fade show active" id="main" role="tabpanel" aria-labelledby="main-tab">
               <div class="card card-soft mb-3">
                 <div class="card-body">
-                  <div class="row g-3">
-                    <div class="col-12 col-md-2">
+                  <div class="row gx-5">
+                    <div class="col-12 col-md-2 border-end">
                       <div class="mb-3">
-                        <label class="form-label">
+                        <label class="form-label" for="namePartner">
                           <small>Наименование поставщика</small>
                         </label>
-                        <input class="form-control" type="text" value="3logic" />
+                        <input class="form-control" type="text" id="namePartner" value="Digis" />
                       </div>
                       <div class="mb-3">
                         <label for="supplierSelect" class="form-label">Тип получения</label>
@@ -137,85 +137,111 @@
                       </div>
                     </div>
 
-                    <div class="col-12 col-md-3">
-                      <!-- <table class="table table-hover table-borderless mb-0">
-                        <tbody>
-                          <tr>
-                            <td>Наименование файла</td>
-                            <td class="text-end"><strong>Acer.xlsx</strong></td>
-                          </tr>
-                          <tr>
-                            <td>Время загрузки</td>
-                            <td class="text-end"><strong>11:23 19.03.2026</strong></td>
-                          </tr>
-                          <tr>
-                            <td>Количество листов</td>
-                            <td class="text-end"><strong>1</strong></td>
-                          </tr>
-                          <tr>
-                            <td>Количество товаров в файле</td>
-                            <td class="text-end"><strong>6789</strong></td>
-                          </tr>
-                          <tr>
-                            <td>Сопоставлено товаров</td>
-                            <td class="text-end"><strong>3488</strong></td>
-                          </tr>
-                          <tr>
-                            <td>Исключённых из сопоставления</td>
-                            <td class="text-end"><strong>2478</strong></td>
-                          </tr>
-                          <tr>
-                            <td>Несопоставлено товаров</td>
-                            <td class="text-end"><strong>823</strong></td>
-                          </tr>
-                        </tbody>
-                      </table>
+                    <div class="col-12 col-md-6">
+                      <div class="row gx-2 gy-2 align-items-center mb-3">
+                        <div class="col-2">
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="autoSizingCheck2" checked>
+                            <label class="form-check-label" for="autoSizingCheck2">
+                              От кого
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-3">
+                          <label for="supplierSelect2" class="form-label d-none"></label>
+                          <select class="form-select" id="supplierSelect2">
+                            <option value="1" selected>Точное совпадение</option>
+                            <option value="2">Содержит</option>
+                          </select>
+                        </div>
+                        <div class="col-7">
+                          <label class="form-label d-none" for="name2"></label>
+                          <input class="form-control" type="text" id="name2" value="price@digis.ru" />
+                        </div>
+                      </div>
 
-                      <div class="mt-4">
-                        <button class="btn btn-primary btn-sm">Скачать файл</button>
-                        <button class="btn btn-primary btn-sm">Загрузить новый</button>
-                      </div> -->
-                    </div>
 
-                    <div class="col-12 col-md-3">
-                      <!-- <table class="table table-hover table-borderless mb-0">
-                        <tbody>
-                          <tr>
-                            <td>Валюта прайс-листа</td>
-                            <td class="text-end"><strong>Доллар (доллар США)</strong></td>
-                          </tr>
-                          <tr>
-                            <td>Статус прайс-листа</td>
-                            <td class="text-end"><strong>Есть на складе</strong></td>
-                          </tr>
-                          <tr>
-                            <td>Надёжность</td>
-                            <td class="text-end"><strong>7</strong></td>
-                          </tr>
-                          <tr>
-                            <td>Статус обработки</td>
-                            <td class="text-end"><span class="badge text-bg-danger">С
-                                ошибками</span></td>
-                          </tr>
-                        </tbody>
-                      </table> -->
+                      <div class="row gx-2 gy-2 align-items-center mb-3">
+                        <div class="col-2">
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="autoSizingCheck3" checked>
+                            <label class="form-check-label" for="autoSizingCheck3">
+                              Тема письма
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-3">
+                          <label for="supplierSelect3" class="form-label d-none"></label>
+                          <select class="form-select" id="supplierSelect3">
+                            <option value="1">Точное совпадение</option>
+                            <option value="2" selected>Содержит</option>
+                          </select>
+                        </div>
+                        <div class="col-7">
+                          <label class="form-label d-none" for="name3"></label>
+                          <input class="form-control" type="text" id="name3"
+                            value="Price;Прайс;Прайс-лист;Pricelist;Склад;Остатки;Цены" />
+                        </div>
+                      </div>
+
+
+                      <div class="row gx-2 gy-2 align-items-center mb-3">
+                        <div class="col-2">
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="autoSizingCheck4">
+                            <label class="form-check-label" for="autoSizingCheck4">
+                              Тело письма
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-3">
+                          <label for="supplierSelect4" class="form-label d-none"></label>
+                          <select class="form-select" id="supplierSelect4">
+                            <option value="1" selected>Точное совпадение</option>
+                            <option value="2">Содержит</option>
+                          </select>
+                        </div>
+                        <div class="col-7">
+                          <label class="form-label d-none" for="name4"></label>
+                          <input class="form-control" type="text" id="name4" value="" />
+                        </div>
+                      </div>
+
+
+                      <div class="row gx-2 gy-2 align-items-center">
+                        <div class="col-2">
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="autoSizingCheck5" checked>
+                            <label class="form-check-label" for="autoSizingCheck5">
+                              Название вложения
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-3">
+                          <label for="supplierSelect5" class="form-label d-none"></label>
+                          <select class="form-select" id="supplierSelect5">
+                            <option value="1">Точное совпадение</option>
+                            <option value="2" selected>Содержит</option>
+                          </select>
+                        </div>
+                        <div class="col-7">
+                          <label class="form-label d-none" for="name5"></label>
+                          <input class="form-control" type="text" id="name5"
+                            value="Прайс-лист.xls;Прайс-лист.xlsx;.xls;.xlsx;.xmlns" />
+                        </div>
+                      </div>
                     </div>
 
                     <div class="col-12 col-md-4">
-                      <!-- <div class="text-muted alert alert-warning">
-                        <ul>
-                          <li>Сюда выводит предупреждающую информацию при обработке прайса
-                          </li>
-                          <li>Например цена прайса выросла или уменьшилась на 30%</li>
-                        </ul>
-                      </div>
-
-                      <div class="text-muted alert alert-danger">
-                        <ul>
-                          <li>Сюда выводит информацию об ошибках при обработке прайса</li>
-                          <li>Например ошибка маппинга и описать её</li>
-                        </ul>
-                      </div> -->
+                      <p>
+                        В данном разделе происходит получение прайса от поставщика и настройки получения. Например, если
+                        это почта, то здесь в настройках указываем точный почтовый ящик или перечесление нескольких
+                        (даже просто доменных имён), чтобы система проверяя почту (куда прихолят прайсы) находила нужное
+                        письмо по настройкам: названия письма, тела письма и/или названия вложения/типа вложения (всё по
+                        аналогии как в настройках правил сортировки писем на Яндекс.Почте). Далее сиситема должна
+                        созхранять файл на портале (напрмер указанное название постащика + дата и время) и для архива и
+                        для обращения настроек прайс-листов для маппинга.
+                      </p>
                     </div>
                   </div>
                 </div>
